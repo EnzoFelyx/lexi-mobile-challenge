@@ -297,6 +297,13 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 
 ### ⏳ A decidir
 
+- **Tela de perfil / configurações (lembrete do autor, 2026-11-03; detalhes a discutir):** o botão de conta no header passaria a abrir uma tela de perfil/configurações em vez de ir direto ao login. Ideias até agora:
+  - **Tema:** escolha manual (claro, escuro ou seguir o sistema). Muda a decisão atual de só seguir o sistema; o `useThemeMode` passaria a ler a preferência salva.
+  - **Idioma:** a chave PT/EN da interface (ver seção 1).
+  - **Conta:** "Log in" para o visitante; dados da conta e "sair" para quem está logado (liga com o comportamento ao sair, ainda ⏳ na seção 6.7).
+  - Outras opções a combinar depois.
+  - Não há frame no Figma para essa tela: definir o layout com o autor (ou desenhar no Figma) antes de implementar. Entra na etapa 5 (parte de conta) e na etapa 6 (tema e idioma).
+
 Nada bloqueando no momento. Decisões novas: proponha e confirme com o autor antes de seguir.
 
 ---

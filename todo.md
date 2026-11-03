@@ -140,6 +140,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Client do Supabase em `src/core/supabase/` com sessão persistida
 - [ ] Telas de login (`3:16034`) e cadastro (`3:16074`) com validação dos campos e mostrar/ocultar senha
 - [ ] Botão de conta no header (entrar, sair); o app continua abrindo na lista, sem exigir login
+- [ ] 📝 **Lembrete do autor (a discutir):** tela de perfil/configurações aberta pelo botão de conta, em vez do login direto. Parte desta etapa: "Log in" para o visitante; dados da conta e "sair" para quem está logado. Antes: combinar o layout (não há frame no Figma) e as demais opções
 - [ ] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
 - [ ] Definir com o autor o que acontece ao sair (ex.: limpar os dados da conta do aparelho e voltar ao visitante)
 - [ ] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada (cadastro instantâneo para o avaliador)
@@ -160,6 +161,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
 - [ ] Polimento visual fiel ao Figma, em light e dark
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
+- [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
 - [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [ ] Teste completo em Android e iOS
