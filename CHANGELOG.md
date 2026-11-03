@@ -13,6 +13,7 @@ Etapa concluída: o app abre no Expo Go em Android e iOS, nos temas claro e escu
 
 ### Corrigido
 
+- `LICENSE` do template removida: atribuía o projeto à Expo (650 Industries). O desafio não pede licença (decisão do autor). (`dbe56e1`)
 - `textSecondary` do tema claro escurecido de `#67716B` (Figma) para `#636D67` (decisão do autor): o texto da aba inativa sobre o trilho (`surfaceMuted`) passa de 4,37:1 para 4,64:1 (AA). Teste novo confere o contraste AA de todos os pares de texto nos dois temas. (`8d48597`)
 
 ### Adicionado
@@ -22,6 +23,10 @@ Etapa concluída: o app abre no Expo Go em Android e iOS, nos temas claro e escu
 - `src/i18n/en.ts` com os textos da interface por área (header, abas, Word list, History, Favorites, detalhe, login), lidos do Figma, e `src/constants/` com a grade de 3 colunas, a página de 60 palavras e a altura da folha do detalhe. (`9f11953`)
 - Componentes compartilhados do Figma (Component showcase e Word list): `AppText` (tipografia por variante e tom), `Button` (primary/secondary, 52pt, ícone Lucide opcional) e `AppHeader` (logo com o ponto da marca e botão de conta de 44pt). Tokens novos lidos do Figma no `theme.ts`: tipografia `logo` (30, tracking -1,4), entrelinha 38 e tracking -0,7 do `display`, header 64, ponto da marca 6, ícones 18/19 com traço 1,7. Entram `lucide-react-native`, `react-native-svg` e `react-native-pager-view`. (`db18f1f`)
 - Rotas da seção 11 com telas provisórias: abas superiores com o `TopTabs` do expo-router 58 (o `material-top-tabs` embutido no router) e `tabBar` própria (`SegmentedTabBar` → `SegmentedTabs` do Figma, com papel `tab` e estado `selected`), carregamento preguiçoso e deslizar entre abas; header com logo e botão de conta abrindo o login; detalhe `word/[word]` como `formSheet` (92% da tela, puxador do sistema) com botão "X"; tema da navegação a partir dos tokens. Entra `react-native-tab-view`. (`7a0ee22`)
+
+### Documentação
+
+- README do template trocado pelo README do projeto, bilíngue (`README.md` em inglês e `README.pt-BR.md` em português): título, descrição, tecnologias, como rodar no Expo Go, scripts, arquitetura, processo e decisões, créditos e a frase da Coodesh. Ele cresce a cada etapa. (`76c8415`)
 
 ### Infraestrutura
 
