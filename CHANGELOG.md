@@ -14,6 +14,7 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 - Hook `useTheme`/`useThemeMode` (tema do sistema) e ponte dos tokens de cor do `theme.ts` para variáveis CSS (`--color-*`, em canais RGB), base do dark mode no NativeWind. (`d98c462`)
 - Fontes Fraunces SemiBold e Inter Regular/Medium/SemiBold (`@expo-google-fonts/*`, licença SIL OFL 1.1) carregadas com `useFonts` antes de esconder o splash, importando só os pesos usados. Se falharem, o app segue com a fonte do sistema. (`fab7f10`)
 - `src/i18n/en.ts` com os textos da interface por área (header, abas, Word list, History, Favorites, detalhe, login), lidos do Figma, e `src/constants/` com a grade de 3 colunas, a página de 60 palavras e a altura da folha do detalhe. (`9f11953`)
+- Componentes compartilhados do Figma (Component showcase e Word list): `AppText` (tipografia por variante e tom), `Button` (primary/secondary, 52pt, ícone Lucide opcional) e `AppHeader` (logo com o ponto da marca e botão de conta de 44pt). Tokens novos lidos do Figma no `theme.ts`: tipografia `logo` (30, tracking -1,4), entrelinha 38 e tracking -0,7 do `display`, header 64, ponto da marca 6, ícones 18/19 com traço 1,7. Entram `lucide-react-native`, `react-native-svg` e `react-native-pager-view`. (`db18f1f`)
 
 ### Infraestrutura
 

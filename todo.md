@@ -67,7 +67,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] tsyringe configurada (`reflect-metadata`, plugins de decorators no Babel, container e `TOKENS` em `src/core/di/`)
 - [x] Jest (`jest-expo`) + React Native Testing Library configurados, com um teste de exemplo passando
 - [x] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
-- [ ] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
+- [x] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
 - [ ] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`
 - [ ] Rodar no Expo Go em Android e iOS
 
