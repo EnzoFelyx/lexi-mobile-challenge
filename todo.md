@@ -61,7 +61,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`; Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`
 - [x] Scripts `lint`, `format`, `typecheck` e `test`
 - [x] Estrutura de pastas da seção 11 do `CLAUDE.md` (`features`, `core`, `shared`, `i18n`, `constants`)
-- [x] Tema em `src/core/theme/` a partir do `theme.ts` do Figma (light/dark), com hook para o tema ativo e contraste AA conferido (pendência: `textSecondary` sobre `surfaceMuted` no claro, ver `CLAUDE.md` seção 5)
+- [x] Tema em `src/core/theme/` a partir do `theme.ts` do Figma (light/dark), com hook para o tema ativo e contraste AA conferido, com teste de contraste (o `textSecondary` claro foi escurecido para passar no AA)
 - [x] Fontes Fraunces e Inter (`@expo-google-fonts/*`) e licença OFL registrada
 - [x] NativeWind configurado (versão compatível com o SDK 58 e o Expo Go): `tailwind.config.ts` lendo cores, fontes, tipografia, spacing e radius do `theme.ts`, paleta padrão removida, dark mode por variáveis CSS e regra de lint contra cor em `className`
 - [x] tsyringe configurada (`reflect-metadata`, plugins de decorators no Babel, container e `TOKENS` em `src/core/di/`)

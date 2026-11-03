@@ -106,14 +106,15 @@ O Figma **não tem variáveis**: os valores foram lidos das camadas (Component s
 | `surfaceMuted` | `#EEEFE9` | `#26322C` | Trilho das abas, botão de favorito (contorno) |
 | `border` | `#DFE3DC` | `#34423A` | Bordas, divisores, trilho do progresso |
 | `textPrimary` | `#202925` | `#F0F2EB` | Texto principal |
-| `textSecondary` | `#67716B` | `#ACB8AF` | Fonética, placeholders, legendas |
+| `textSecondary` | `#636D67` ¹ | `#ACB8AF` | Fonética, placeholders, legendas |
 | `accent` | `#14665C` | `#82D3BF` | Aba ativa, botão primário, progresso, chips |
 | `onAccent` | `#FFFFFF` | `#102B23` | Texto sobre o botão primário |
 | `accentSoft` | `#E5F0EA` | `#213E34` | Fundo do chip de classe gramatical |
 | `playerIdle` | `#E4E7E0` | `#304038` | Botão de play enquanto o áudio carrega |
 
-- **Contraste AA conferido (2026-11-03):** texto principal, secundário e acento passam com folga sobre `background`, `surface` e `accentSoft` nos dois temas (mínimo 4,72:1); `onAccent` sobre `accent` dá 6,81:1 (claro) e 8,64:1 (escuro).
-- ⏳ **Pendência de contraste (perguntar ao autor antes da etapa 2):** no tema claro, `textSecondary` sobre `surfaceMuted` dá **4,37:1** (mínimo 4,5). Afeta o texto da aba inativa se ela usar `textSecondary` sobre o trilho. Não alterar a cor do Figma sem decisão do autor.
+¹ No Figma é `#67716B`. Escurecido para `#636D67` (decisão do autor, 2026-11-03) porque dava 4,37:1 sobre `surfaceMuted` (texto da aba inativa); agora dá 4,64:1.
+
+- **Contraste AA conferido (2026-11-03):** todos os pares de texto (principal, secundário e acento sobre `background`, `surface`, `surfaceMuted` e `accentSoft`; `onAccent` sobre `accent`) passam de 4,5:1 nos dois temas. O teste `src/core/theme/__tests__/contrast.test.ts` garante isso a cada mudança de cor.
 - As cores viram variáveis CSS `--color-<token-em-kebab>` em canais RGB (`src/core/theme/colorVariables.ts`); o hook `useTheme()` (`src/core/theme/useTheme.ts`) entrega os tokens do tema ativo para o que não aceita `className`.
 - Tema segue o sistema (`userInterfaceStyle: automatic`).
 
@@ -251,7 +252,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - **React Native + TypeScript** (`strict`), **Expo SDK 58** com **Expo Router**. App na **raiz** do repositório (template já criado).
 - **Expo Go**: tudo precisa rodar sem código nativo próprio. Testar em **Android e iOS**.
 - **Abas superiores (decisão do autor, 2026-11-03):** `@react-navigation/material-top-tabs` via `withLayoutContext` do Expo Router, com **`tabBar` própria** que desenha o SegmentedTabs do Figma. Cada aba é uma rota, com deslizar entre abas e carregamento preguiçoso (`react-native-pager-view`, incluído no Expo Go).
-  - **Forma no SDK 58 (2026-11-03, etapa 1):** o expo-router 58 embute o próprio React Navigation, inclusive o `material-top-tabs`, já integrado como `TopTabs` em `expo-router/js-top-tabs`. Usamos esse (mesma biblioteca e mesmo comportamento) em vez de instalar `@react-navigation/material-top-tabs`, que seria uma segunda cópia do React Navigation fora do contexto do router. Ele pede `react-native-tab-view` (JS) + `react-native-pager-view`. A `tabBar` do SDK 58 recebe `emitter` e `navigateToTab(routeKey)` (não há mais `navigation`): ver `src/shared/components/SegmentedTabBar.tsx`.
+  - **Forma no SDK 58 (2026-11-03, etapa 1, confirmada pelo autor):** o expo-router 58 embute o próprio React Navigation, inclusive o `material-top-tabs`, já integrado como `TopTabs` em `expo-router/js-top-tabs`. Usamos esse (mesma biblioteca e mesmo comportamento) em vez de instalar `@react-navigation/material-top-tabs`, que seria uma segunda cópia do React Navigation fora do contexto do router. Ele pede `react-native-tab-view` (JS) + `react-native-pager-view`. A `tabBar` do SDK 58 recebe `emitter` e `navigateToTab(routeKey)` (não há mais `navigation`): ver `src/shared/components/SegmentedTabBar.tsx`.
 - **Detalhe em `formSheet`** (decisão do autor, 2026-11-03), ver seção 6.2.
 - **Estilização: NativeWind (decisão do autor, 2026-11-03)**, como no Pinny: `className` primeiro; `StyleSheet`/`style` só para Reanimated, valores calculados em runtime ou bibliotecas sem `className`. O `tailwind.config.ts` não tem valores próprios: lê do `theme.ts` cores, fontes, tipografia, spacing e radius, e substitui a paleta padrão (não existe `bg-white`). **Dark mode** com as cores como variáveis CSS (`vars()` do NativeWind) trocadas pelo tema ativo. Na etapa 1, conferir a versão do NativeWind compatível com o Expo SDK 58 e com o Expo Go.
 - **Banco local:** `expo-sqlite` + **Drizzle ORM** + **`drizzle-zod`** (decisão do autor, 2026-11-03; o README da Coodesh não indica ferramenta). O schema (`src/core/database/schema.ts`) é a fonte única: tipos e schemas Zod derivam dele. Migrations geradas (`npm run db:generate`) e embutidas como texto (`babel-plugin-inline-import` para `.sql`). O seed em massa pode usar SQL direto dentro da transação, se for mais rápido.

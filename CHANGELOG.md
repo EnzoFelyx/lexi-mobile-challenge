@@ -9,6 +9,10 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ## 2026-11-03 — Etapa 1 (fundação)
 
+### Corrigido
+
+- `textSecondary` do tema claro escurecido de `#67716B` (Figma) para `#636D67` (decisão do autor): o texto da aba inativa sobre o trilho (`surfaceMuted`) passa de 4,37:1 para 4,64:1 (AA). Teste novo confere o contraste AA de todos os pares de texto nos dois temas. (`8d48597`)
+
 ### Adicionado
 
 - Hook `useTheme`/`useThemeMode` (tema do sistema) e ponte dos tokens de cor do `theme.ts` para variáveis CSS (`--color-*`, em canais RGB), base do dark mode no NativeWind. (`d98c462`)
