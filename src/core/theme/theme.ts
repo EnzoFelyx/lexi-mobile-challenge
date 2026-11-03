@@ -13,7 +13,7 @@ export const palette = {
     surfaceMuted: '#EEEFE9', // trilho das abas, botão de favorito (outline)
     border: '#DFE3DC', // bordas, divisores, trilho do progresso
     textPrimary: '#202925',
-    textSecondary: '#67716B', // fonética, placeholders, legendas
+    textSecondary: '#636D67', // fonética, placeholders, legendas (Figma: #67716B, escurecido para AA sobre surfaceMuted)
     accent: '#14665C', // aba ativa, botão primário, progresso, chips
     onAccent: '#FFFFFF', // texto sobre o botão primário
     accentSoft: '#E5F0EA', // fundo do chip de classe gramatical
