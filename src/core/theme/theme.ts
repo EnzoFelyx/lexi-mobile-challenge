@@ -42,7 +42,13 @@ export const fonts = {
 
 export const typography = {
   // Fraunces
-  display: { fontFamily: fonts.serifSemiBold, fontSize: 32 }, // títulos de seção/telas
+  display: {
+    fontFamily: fonts.serifSemiBold,
+    fontSize: 32,
+    lineHeight: 38,
+    letterSpacing: -0.7,
+  }, // títulos de seção/telas
+  logo: { fontFamily: fonts.serifSemiBold, fontSize: 30, letterSpacing: -1.4 }, // "Lexi" no header
   headwordCard: {
     fontFamily: fonts.serifSemiBold,
     fontSize: 19,
@@ -85,6 +91,11 @@ export const radius = {
 
 export const sizes = {
   touchTarget: 44, // mínimo para qualquer ação
+  header: 64, // header com logo e botão de conta
+  brandPoint: 6, // ponto de acento ao lado do logo
+  icon: 18, // ícones de botão
+  accountIcon: 19,
+  iconStrokeWidth: 1.7, // traço dos ícones Lucide no Figma
   tabs: 52,
   tabItem: 44,
   button: 52,

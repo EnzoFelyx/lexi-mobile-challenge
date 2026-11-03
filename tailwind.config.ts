@@ -33,6 +33,8 @@ const fontSize = mapEntries(typography, (style) => {
 const componentSizes = mapEntries(
   {
     touchTarget: sizes.touchTarget,
+    header: sizes.header,
+    brandPoint: sizes.brandPoint,
     tabs: sizes.tabs,
     tabItem: sizes.tabItem,
     button: sizes.button,
