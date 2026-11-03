@@ -145,6 +145,8 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 ### 6.1 Lista de palavras
 
 - O JSON do dwyl (~370 mil palavras, formato `{ "a": 1, … }`) é **baixado na primeira execução** e gravado no **SQLite** em lotes de 1.000 a 5.000 dentro de transação, com tela de "preparando o dicionário" com progresso e erro com "tentar de novo".
+  - ⏳ **Layout da tela de "preparando o dicionário" (decisão do autor, 2026-11-03):** o autor vai desenhar no Figma depois (não há frame). Até lá, tela genérica com os componentes existentes (título, texto, progresso, "Try again"). Trocar quando o frame existir.
+- **Card sem fonética (decisão do autor, 2026-11-03):** o WordCard mostra só a palavra, diferente do Figma (que tem a fonética abaixo). A lista do dwyl não traz fonética, e buscar na API para cada card seria pesado. A fonética aparece só no detalhe, quando o usuário abre a palavra.
 - **Ordem aleatória e estável (decisão do autor, 2026-11-03):** o seed grava um `sort_key` aleatório por palavra, e a lista é ordenada por (`sort_key`, `word`). Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, muitas sem resultado na API. A ordem não muda entre sessões. Registrar a decisão no README.
 - Paginação por **keyset** (`WHERE (sort_key, word) > (?, ?) ORDER BY sort_key, word LIMIT 60`), nunca `OFFSET`. 60 = 20 linhas × 3 colunas.
 - Grade com **FlashList** (`numColumns={3}`).
