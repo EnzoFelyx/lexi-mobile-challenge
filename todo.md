@@ -80,8 +80,8 @@ Decididas em 2026-11-03 (decisões do autor):
 **Objetivo:** a aba Word list com as ~370 mil palavras e rolagem infinita fluida.
 
 - [x] Banco SQLite com Drizzle: schema, migrations geradas (`db:generate`, `.sql` embutido via `inline-import`) e validação Zod na leitura (tabelas `words`, `word_cache`, `favorites`, `history`)
-- [ ] Seed: baixar o `words_dictionary.json` do dwyl na primeira execução e gravar em lotes dentro de transação, com `sort_key` aleatório por palavra
-- [ ] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo" (genérica por enquanto)
+- [x] Seed: baixar o `words_dictionary.json` do dwyl na primeira execução e gravar em lotes dentro de transação, com `sort_key` aleatório por palavra
+- [x] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo" (genérica por enquanto)
 - [ ] 📝 **Lembrete do autor:** desenhar no Figma a tela de "preparando o dicionário" e depois trocar a tela genérica pelo frame
 - [ ] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página
 - [ ] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas

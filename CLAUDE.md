@@ -370,6 +370,12 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
   - A consulta keyset usa o índice de cobertura `words_sort_key_word_idx` (conferido com `EXPLAIN QUERY PLAN`).
   - Banco em WAL. `src/core/di/container.ts` só exporta o container; `registerDependencies.ts` é o único que importa o client (abrir o banco não pode acontecer nos testes).
   - As migrations rodam no layout raiz (`useDatabaseMigrations`); o splash só some quando as fontes e o banco estão prontos.
+- **Seed (2026-11-03, etapa 2):**
+  - `WordListSource` (domínio) → `DwylWordListSource` (baixa e valida com Zod; ~140 ms para validar as 370.100 chaves no Mac). `DictionarySeeder` → `SqliteDictionarySeeder`: `isSeeded` = existe linha em `words`; `seed` grava tudo numa **transação exclusiva** do `expo-sqlite`, em lotes de 5.000 (`INSERT OR IGNORE` de várias linhas), cedendo o JS thread entre lotes. Se o app fechar no meio, nada fica pela metade. Simulado com a lista real: 0,43 s no Mac.
+  - A transação exclusiva roda em outra conexão, então o seed usa SQL escrito à mão (o Drizzle fica na conexão principal). A conexão crua está no container como `TOKENS.SqliteConnection`.
+  - O fluxo passa pelo React Query (`useDictionarySetup`, chave em `hooks/queryKeys.ts`), com `retry: false`: o download é grande, então o erro aparece e o usuário escolhe "Try again". O `QueryClient` padrão tem `retry` de `QUERY_RETRY_COUNT` (2).
+  - `DictionaryGate` envolve as abas: fica em branco na checagem (milissegundos), mostra a tela de setup no primeiro uso e as abas quando está pronto. O header continua visível.
+  - Observação: mesmo em ordem aleatória, a lista do dwyl tem muitas palavras raras ("maucherite", "tholance"), que podem não existir na API. O 404 já tem tratamento planejado (seção 6.2).
 
 ### Supabase (remoto)
 

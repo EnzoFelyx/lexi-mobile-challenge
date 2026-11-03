@@ -9,9 +9,14 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ## 2026-11-03 — Etapa 2 (lista de palavras)
 
+### Documentação
+
+- Link público do Figma no README (seção "Design") e no `CLAUDE.md`. (`e7647d8`)
+
 ### Adicionado
 
 - Banco local com `expo-sqlite` + Drizzle ORM 0.45: schema das tabelas `words`, `word_cache`, `favorites` e `history` (fonte única dos tipos), migration gerada por `npm run db:generate` e embutida como texto (`babel-plugin-inline-import` + extensão `.sql` no Metro), aplicada ao abrir o app antes do splash sumir. Leituras validadas com schemas Zod derivados do schema (`drizzle-zod`). Banco em modo WAL, registrado no container (`TOKENS.Database`). Se as migrations falharem, o app mostra uma tela de erro (`MessageScreen`) em vez de travar. (`d5e877b`)
+- Download único da lista do dwyl (370.100 palavras, ~7 MB) validado com Zod e gravado no SQLite numa transação exclusiva, em lotes de 5.000 com `sort_key` aleatório; entre lotes o JS thread fica livre para a barra de progresso. O fluxo passa pelo React Query (entra o `@tanstack/react-query`, com `QueryClientProvider` no layout raiz). Tela genérica de "preparando o dicionário" (indicador ao baixar, barra com porcentagem ao gravar, erro com "Try again") antes das abas; nas aberturas seguintes, vai direto. `ProgressBar` compartilhada, acessível como `progressbar`. (`c0789fc`)
 
 ---
 
