@@ -66,7 +66,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] NativeWind configurado (versão compatível com o SDK 58 e o Expo Go): `tailwind.config.ts` lendo cores, fontes, tipografia, spacing e radius do `theme.ts`, paleta padrão removida, dark mode por variáveis CSS e regra de lint contra cor em `className`
 - [x] tsyringe configurada (`reflect-metadata`, plugins de decorators no Babel, container e `TOKENS` em `src/core/di/`)
 - [x] Jest (`jest-expo`) + React Native Testing Library configurados, com um teste de exemplo passando
-- [ ] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
+- [x] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
 - [ ] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
 - [ ] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`
 - [ ] Rodar no Expo Go em Android e iOS

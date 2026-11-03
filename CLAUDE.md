@@ -285,6 +285,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - **TypeScript 6:** `types: ["jest"]` no `tsconfig` (o TS 6 não inclui mais todos os `@types`), `experimentalDecorators` para os decorators da tsyringe e `noUncheckedIndexedAccess` ligado.
 - **Lint:** ESLint 9 (o `eslint-plugin-react-native` ainda não declara suporte ao 10), flat config em `eslint.config.js`, ignorando a `.claude/` local.
 - **Testes:** `__tests__/` ao lado do código; `container.reset()` depois de cada teste (`jest.setup.ts`).
+- **Textos e constantes:** `src/i18n/en.ts` exporta `en` (objeto `as const` por área; labels com parâmetro são funções). `src/constants/` separa por assunto (`words.ts`, `navigation.ts`), cada valor com comentário do porquê.
 
 ### ⏳ A decidir
 
