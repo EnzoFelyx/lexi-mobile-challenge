@@ -51,7 +51,8 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** projeto limpo, organizado e com qualidade automática desde o primeiro commit.
 
-- [ ] Renomear a branch `master` para `main`, criar o repositório público `EnzoFelyx/lexi-mobile-challenge` e fazer o primeiro push
+- [x] Renomear a branch `master` para `main`
+- [ ] Criar o repositório público `EnzoFelyx/lexi-mobile-challenge` e fazer o primeiro push
 - [ ] Instalar o ECC com o `./install.sh` do `ecc-rn-setup`, preservando o plugin `expo@claude-plugins-official` do `.claude/settings.json`
 - [ ] Criar a branch `chore/project-foundation`
 - [ ] Limpar o template do Expo: telas e componentes de demo, `reset-project`, suporte web (`react-native-web`, `react-dom`, config `web` do `app.json`) e assets sem uso
