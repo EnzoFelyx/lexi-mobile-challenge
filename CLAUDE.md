@@ -34,6 +34,8 @@ O avaliador olha **o resultado e o processo**: o README da Coodesh pede para doc
 
 - **Dicionário editorial moderno:** limpo, tipográfico, calmo. Cara de livro bem diagramado, fluido como app atual.
 - Interface em **inglês** (como no Figma). Documentação de processo em **português**.
+- **Idioma da interface (decisão do autor, 2026-11-03):** inglês. O wireframe da Coodesh mistura idiomas (abas, título e "Meanings" em inglês; "Voltar/Próximo" em português), mas o conteúdo da Free Dictionary API (significados, exemplos, classes gramaticais) só existe em inglês, então a interface fica em inglês por consistência e imersão. "Previous/Next" cumprem a função de "Voltar/Próximo" (o Obrigatório 3 cobra as funcionalidades, não os textos). Registrar no README.
+- **Extra planejado (etapa 6, opcional):** chave de idioma **PT/EN dentro do app**, escolhida pelo usuário e independente do idioma do aparelho. Os textos já ficam em `src/i18n/en.ts`; entra um `pt-BR.ts` com o mesmo formato e a escolha persistida. O conteúdo do dicionário continua em inglês.
 
 ---
 

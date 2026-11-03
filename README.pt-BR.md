@@ -72,6 +72,7 @@ Algumas decisões até aqui:
 - **Ordem aleatória e estável das palavras.** Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, muitas sem resultado na API. Cada palavra recebe uma chave aleatória ao ser gravada, então a ordem é variada, mas não muda entre as sessões.
 - **Local-first com login opcional.** O app abre direto na lista. Sem conta, favoritos e histórico ficam no aparelho; ao entrar, eles são mesclados na conta e associados ao ID do usuário.
 - **Roda no Expo Go.** Sem código nativo próprio, para o avaliador testar no iOS sem conta paga da Apple. Também haverá um APK para Android.
+- **Interface em inglês.** O wireframe do desafio mistura idiomas (abas e "Meanings" em inglês, "Voltar/Próximo" em português). Como todas as definições, exemplos e classes gramaticais da Free Dictionary API vêm em inglês, a interface inteira ficou em inglês por consistência; "Previous/Next" mantêm a função do wireframe. Uma chave de idioma português/inglês dentro do app está prevista como extra.
 - **Acessibilidade.** O contraste AA da WCAG é conferido por um teste em cada par de cores. O texto secundário do tema claro foi escurecido um pouco em relação ao Figma para passar no trilho das abas.
 
 ## Créditos

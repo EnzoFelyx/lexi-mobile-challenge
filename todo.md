@@ -160,6 +160,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
 - [ ] Polimento visual fiel ao Figma, em light e dark
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
+- [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [ ] Teste completo em Android e iOS
 - [ ] (Opcional) Maestro E2E: abrir a lista, rolar, abrir uma palavra, favoritar e conferir em Favorites; login e logout

@@ -72,6 +72,7 @@ Some decisions so far:
 - **Random but stable word order.** In alphabetical order the list would start with "a", "aa", "aaa"…, many of them missing from the API. Each word gets a random sort key when the list is stored, so the order varies but stays the same between sessions.
 - **Local-first with an optional login.** The app opens straight on the list. Without an account, favorites and history stay on the device; when the user logs in, they are merged into the account and linked to the user ID.
 - **Runs on Expo Go.** No custom native code, so the evaluator can test on iOS without a paid Apple account. An Android APK will also be published.
+- **English interface.** The challenge wireframe mixes languages (tabs and "Meanings" in English, "Voltar/Próximo" in Portuguese). Since every definition, example and part of speech from the Free Dictionary API is in English, the whole interface is in English for consistency; "Previous/Next" keep the wireframe's function. A Portuguese/English switch inside the app is planned as an extra.
 - **Accessibility.** WCAG AA contrast is checked by a test on every color pair. The light secondary text was slightly darkened from the Figma value to pass on the tab rail.
 
 ## Credits
