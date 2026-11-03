@@ -12,8 +12,6 @@ export const en = {
     words: 'Word list',
     history: 'History',
     favorites: 'Favorites',
-    tabLabel: (name: string, position: number, total: number) =>
-      `${name}, tab ${position} of ${total}`,
   },
   words: {
     title: 'Word list',
@@ -31,5 +29,9 @@ export const en = {
   },
   auth: {
     loginTitle: 'Log in',
+  },
+  placeholder: {
+    note: 'This screen is a placeholder for the next stages.',
+    openSampleWord: 'Open a sample word',
   },
 } as const;
