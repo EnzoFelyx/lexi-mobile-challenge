@@ -7,6 +7,15 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-03 — Etapa 1 (fundação)
+
+### Infraestrutura
+
+- Repositório público `EnzoFelyx/lexi-mobile-challenge` criado, com o primeiro push da `main`.
+- ECC instalado localmente com o `ecc-rn-setup` (perfil core, hooks `standard`, GateGuard desligado), preservando o plugin do Expo. A `.claude/` saiu do git. (`6a56b2a`)
+
+---
+
 ## 2026-11-03 — Etapa 0 (decisões pendentes)
 
 ### Documentação

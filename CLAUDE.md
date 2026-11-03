@@ -377,13 +377,15 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 
 ### ECC (via `EnzoFelyx/ecc-rn-setup`)
 
-- Instalar com o `./install.sh <projeto>` do repositório privado `ecc-rn-setup` (perfil core, hooks `standard`, remoções do enxugamento, GateGuard desligado, observer ligado, `CLAUDE_PLUGIN_ROOT` e `/.claude/` no `.gitignore`).
-- **Atenção:** o template do Expo já criou `.claude/settings.json` na raiz (plugin `expo@claude-plugins-official`). Preservar essa entrada ao instalar o ECC.
+- **Instalado em 2026-11-03** com o `./install.sh` do repositório privado `ecc-rn-setup`: ECC `2.2.3`, perfil core, hooks `standard`, 25 agents, 50 commands, 31 skills, regras `common`, `typescript`, `react-native`, `swift` e `kotlin`, GateGuard desligado (`env.ECC_DISABLED_HOOKS`), `includeCoAuthoredBy: false` e `env.CLAUDE_PLUGIN_ROOT` absoluto (`…/Coodesh/Lexi/.claude`; se a pasta mudar de lugar, atualize).
+- O plugin `expo@claude-plugins-official` do template foi preservado no `.claude/settings.json`.
+- **A `/.claude/` é local e fica fora do git** (`.gitignore`): o `settings.json` do template, que estava versionado, saiu do repositório porque passou a ter caminhos da máquina do autor.
 - O aprendizado (instincts) só separa por projeto dentro de um **repositório git com remote**.
 - **Prioridade:** as regras do ECC ficam abaixo deste arquivo e do `REGRAS.md`.
 
 ### Repositório git
 
-- Repositório único, app na raiz. Branch principal: `main` (o template criou `master`; renomear na etapa 1).
+- Repositório único, app na raiz, remote `https://github.com/EnzoFelyx/lexi-mobile-challenge.git` (público). Branch principal: `main` (o template criou `master`, renomeada em 2026-11-03).
+- Commits como `EnzoFelyx`, sem rodapé `Co-Authored-By`.
 - Uma branch por etapa (`chore/project-foundation`, `feat/word-list`…), merge por PR.
 - Conventional Commits em inglês.
