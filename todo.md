@@ -17,7 +17,7 @@
 |---|---|---|
 | 0 | Decisões pendentes | ✅ |
 | 1 | Fundação | ✅ |
-| 2 | Lista de palavras | ⬜ |
+| 2 | Lista de palavras | 🟨 |
 | 3 | Detalhe da palavra | ⬜ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
 | 5 | Supabase e login | ⬜ |
@@ -79,7 +79,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** a aba Word list com as ~370 mil palavras e rolagem infinita fluida.
 
-- [ ] Banco SQLite com Drizzle: schema, migrations geradas (`db:generate`, `.sql` embutido via `inline-import`) e validação Zod na leitura (tabelas `words`, `word_cache`, `favorites`, `history`)
+- [x] Banco SQLite com Drizzle: schema, migrations geradas (`db:generate`, `.sql` embutido via `inline-import`) e validação Zod na leitura (tabelas `words`, `word_cache`, `favorites`, `history`)
 - [ ] Seed: baixar o `words_dictionary.json` do dwyl na primeira execução e gravar em lotes dentro de transação, com `sort_key` aleatório por palavra
 - [ ] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo"
 - [ ] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página

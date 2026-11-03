@@ -7,6 +7,14 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-03 — Etapa 2 (lista de palavras)
+
+### Adicionado
+
+- Banco local com `expo-sqlite` + Drizzle ORM 0.45: schema das tabelas `words`, `word_cache`, `favorites` e `history` (fonte única dos tipos), migration gerada por `npm run db:generate` e embutida como texto (`babel-plugin-inline-import` + extensão `.sql` no Metro), aplicada ao abrir o app antes do splash sumir. Leituras validadas com schemas Zod derivados do schema (`drizzle-zod`). Banco em modo WAL, registrado no container (`TOKENS.Database`). Se as migrations falharem, o app mostra uma tela de erro (`MessageScreen`) em vez de travar. (`d5e877b`)
+
+---
+
 ## 2026-11-03 — Etapa 1 (fundação)
 
 Etapa concluída: o app abre no Expo Go em Android e iOS, nos temas claro e escuro (conferido pelo autor), com lint, typecheck e testes passando.

@@ -361,6 +361,13 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 - `favorites`: `user_id` (nulo = visitante), `word`, `created_at`.
 - `history`: `user_id` (nulo = visitante), `word`, `viewed_at` (único por usuário e palavra).
 - Toda leitura passa pelo Zod antes de chegar ao domínio.
+- **Implementação (2026-11-03, etapa 2):**
+  - Schema em `src/core/database/schema.ts`; migrations em `src/core/database/migrations/` (geradas, fora do lint e do Prettier); validação em `validation.ts` (`parseRows` com o nome da tabela no erro).
+  - Versões estáveis: `drizzle-orm` 0.45, `drizzle-kit` 0.31, `drizzle-zod` 0.8, `zod` 4 (a doc do Drizzle para Expo já aponta o 1.0 `rc`; não usamos RC).
+  - `sort_key` é inteiro. `favorites` e `history` têm `id` autoincremento e índice único por (usuário, palavra) com `CASE WHEN user_id IS NULL THEN '' ELSE user_id END`: no SQLite NULLs não colidem num índice único (o visitante repetiria a palavra), e o `drizzle-kit` 0.31 quebra `coalesce(...)` porque separa a expressão nas vírgulas. Conferido no `sqlite3`. Na etapa 4, o upsert precisa usar esse mesmo alvo (ou atualizar e depois inserir).
+  - A consulta keyset usa o índice de cobertura `words_sort_key_word_idx` (conferido com `EXPLAIN QUERY PLAN`).
+  - Banco em WAL. `src/core/di/container.ts` só exporta o container; `registerDependencies.ts` é o único que importa o client (abrir o banco não pode acontecer nos testes).
+  - As migrations rodam no layout raiz (`useDatabaseMigrations`); o splash só some quando as fontes e o banco estão prontos.
 
 ### Supabase (remoto)
 
