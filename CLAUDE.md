@@ -112,7 +112,9 @@ O Figma **não tem variáveis**: os valores foram lidos das camadas (Component s
 | `accentSoft` | `#E5F0EA` | `#213E34` | Fundo do chip de classe gramatical |
 | `playerIdle` | `#E4E7E0` | `#304038` | Botão de play enquanto o áudio carrega |
 
-- Conferir o **contraste AA** dos tokens de texto e ícone na etapa 1.
+- **Contraste AA conferido (2026-11-03):** texto principal, secundário e acento passam com folga sobre `background`, `surface` e `accentSoft` nos dois temas (mínimo 4,72:1); `onAccent` sobre `accent` dá 6,81:1 (claro) e 8,64:1 (escuro).
+- ⏳ **Pendência de contraste (perguntar ao autor antes da etapa 2):** no tema claro, `textSecondary` sobre `surfaceMuted` dá **4,37:1** (mínimo 4,5). Afeta o texto da aba inativa se ela usar `textSecondary` sobre o trilho. Não alterar a cor do Figma sem decisão do autor.
+- As cores viram variáveis CSS `--color-<token-em-kebab>` em canais RGB (`src/core/theme/colorVariables.ts`); o hook `useTheme()` (`src/core/theme/useTheme.ts`) entrega os tokens do tema ativo para o que não aceita `className`.
 - Tema segue o sistema (`userInterfaceStyle: automatic`).
 
 ### Tipografia ✅

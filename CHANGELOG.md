@@ -9,7 +9,18 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ## 2026-11-03 — Etapa 1 (fundação)
 
+### Adicionado
+
+- Hook `useTheme`/`useThemeMode` (tema do sistema) e ponte dos tokens de cor do `theme.ts` para variáveis CSS (`--color-*`, em canais RGB), base do dark mode no NativeWind. (`d98c462`)
+
 ### Infraestrutura
+
+- Branch `chore/project-foundation` criada a partir da `main`.
+- Template do Expo limpo: telas e componentes de demo, `reset-project`, suporte web (`react-native-web`, `react-dom`, config `web`), dependências só da demo (`@expo/ui`, `expo-device`, `expo-glass-effect`, `expo-symbols`, `expo-web-browser`, `expo-image`) e assets sem uso. (`f9caa53`)
+- `.gitignore` com `.env` e `coverage/`; `.env.example` com as variáveis do Supabase. (`db970c3`)
+- TypeScript `strict` com `noUncheckedIndexedAccess` e um único alias `@/` → `./src/`. (`f3dcc6f`)
+- ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`, inclusive `no-restricted-syntax` contra cor crua em `className` e valor arbitrário de cor (`bg-[#fff]`). Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`. Scripts `lint`, `format` e `typecheck`. (`2d8bd8c`)
+- Pastas das features (`words`, `favorites`, `history`, `auth`). (`6443b7d`)
 
 - Repositório público `EnzoFelyx/lexi-mobile-challenge` criado, com o primeiro push da `main`.
 - ECC instalado localmente com o `ecc-rn-setup` (perfil core, hooks `standard`, GateGuard desligado), preservando o plugin do Expo. A `.claude/` saiu do git. (`6a56b2a`)
