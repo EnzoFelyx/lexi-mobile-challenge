@@ -8,7 +8,7 @@
     "scheme": "lexi",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
@@ -18,10 +18,6 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "output": "server",
-      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",
