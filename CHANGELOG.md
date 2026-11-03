@@ -15,6 +15,7 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 - Fontes Fraunces SemiBold e Inter Regular/Medium/SemiBold (`@expo-google-fonts/*`, licença SIL OFL 1.1) carregadas com `useFonts` antes de esconder o splash, importando só os pesos usados. Se falharem, o app segue com a fonte do sistema. (`fab7f10`)
 - `src/i18n/en.ts` com os textos da interface por área (header, abas, Word list, History, Favorites, detalhe, login), lidos do Figma, e `src/constants/` com a grade de 3 colunas, a página de 60 palavras e a altura da folha do detalhe. (`9f11953`)
 - Componentes compartilhados do Figma (Component showcase e Word list): `AppText` (tipografia por variante e tom), `Button` (primary/secondary, 52pt, ícone Lucide opcional) e `AppHeader` (logo com o ponto da marca e botão de conta de 44pt). Tokens novos lidos do Figma no `theme.ts`: tipografia `logo` (30, tracking -1,4), entrelinha 38 e tracking -0,7 do `display`, header 64, ponto da marca 6, ícones 18/19 com traço 1,7. Entram `lucide-react-native`, `react-native-svg` e `react-native-pager-view`. (`db18f1f`)
+- Rotas da seção 11 com telas provisórias: abas superiores com o `TopTabs` do expo-router 58 (o `material-top-tabs` embutido no router) e `tabBar` própria (`SegmentedTabBar` → `SegmentedTabs` do Figma, com papel `tab` e estado `selected`), carregamento preguiçoso e deslizar entre abas; header com logo e botão de conta abrindo o login; detalhe `word/[word]` como `formSheet` (92% da tela, puxador do sistema) com botão "X"; tema da navegação a partir dos tokens. Entra `react-native-tab-view`. (`7a0ee22`)
 
 ### Infraestrutura
 
@@ -24,6 +25,7 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 - TypeScript `strict` com `noUncheckedIndexedAccess` e um único alias `@/` → `./src/`. (`f3dcc6f`)
 - ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`, inclusive `no-restricted-syntax` contra cor crua em `className` e valor arbitrário de cor (`bg-[#fff]`). Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`. Scripts `lint`, `format` e `typecheck`. (`2d8bd8c`)
 - Pastas das features (`words`, `favorites`, `history`, `auth`). (`6443b7d`)
+- Splash com o fundo do tema no claro (`#F8F7F3`) e no escuro (`#111715`), no lugar do azul do template. (`51ddf4e`)
 - NativeWind 4.2.7 (Tailwind 3) com `tailwind.config.ts` lendo cores (variáveis CSS), fontes, tipografia, spacing, radius e tamanhos do `theme.ts`, sem a escala padrão do Tailwind, e `ThemeProvider` trocando as variáveis entre claro e escuro. (`4864823`)
 - tsyringe com `reflect-metadata`, `babel-plugin-transform-typescript-metadata` (os decorators legacy já vêm do `babel-preset-expo`) e container + `TOKENS` em `src/core/di/`. (`0abd099`)
 - Jest 30 (`jest-expo`) + React Native Testing Library, com alias `@/`, container limpo entre testes e os primeiros testes (variáveis de cor e injeção pelo container). (`f5d66e9`)

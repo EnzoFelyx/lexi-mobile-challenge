@@ -60,7 +60,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] TypeScript `strict` e alias `@/` → `./src/`
 - [x] ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`; Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`
 - [x] Scripts `lint`, `format`, `typecheck` e `test`
-- [ ] Estrutura de pastas da seção 11 do `CLAUDE.md` (`features`, `core`, `shared`, `i18n`, `constants`)
+- [x] Estrutura de pastas da seção 11 do `CLAUDE.md` (`features`, `core`, `shared`, `i18n`, `constants`)
 - [x] Tema em `src/core/theme/` a partir do `theme.ts` do Figma (light/dark), com hook para o tema ativo e contraste AA conferido (pendência: `textSecondary` sobre `surfaceMuted` no claro, ver `CLAUDE.md` seção 5)
 - [x] Fontes Fraunces e Inter (`@expo-google-fonts/*`) e licença OFL registrada
 - [x] NativeWind configurado (versão compatível com o SDK 58 e o Expo Go): `tailwind.config.ts` lendo cores, fontes, tipografia, spacing e radius do `theme.ts`, paleta padrão removida, dark mode por variáveis CSS e regra de lint contra cor em `className`
@@ -68,8 +68,8 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Jest (`jest-expo`) + React Native Testing Library configurados, com um teste de exemplo passando
 - [x] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
 - [x] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
-- [ ] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`
-- [ ] Rodar no Expo Go em Android e iOS
+- [x] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`
+- [ ] Rodar no Expo Go em Android e iOS (conferência do autor: ver o checklist do resumo da etapa 1)
 
 **Pronto quando:** o app abre no Expo Go nos dois sistemas com o tema claro e escuro, e lint, typecheck e testes passam.
 
@@ -84,7 +84,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo"
 - [ ] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página
 - [ ] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
-- [ ] Componentes do Figma: SegmentedTabs e WordCard
+- [ ] Componentes do Figma: SegmentedTabs (✅ antecipado na etapa 1, como `tabBar` das abas) e WordCard
 - [ ] Grade de 3 colunas com **FlashList**, título de seção, texto de apoio e "carregando mais" no fim
 - [ ] Testes: paginação keyset (próxima página, fim da lista) e seed em lotes
 - [ ] Conferir no Expo Go (Android e iOS), com rolagem fluida
@@ -172,7 +172,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** tudo pronto para o avaliador testar com o mínimo de esforço.
 
-- [ ] README bilíngue (`README.md` em inglês e `README.pt-BR.md` em português, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
+- [ ] README bilíngue (`README.md` em inglês e `README.pt-BR.md` em português, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas, créditos das fontes (Fraunces e Inter, SIL OFL 1.1) e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
