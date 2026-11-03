@@ -15,7 +15,14 @@ module.exports = defineConfig([
   expoConfig,
   prettierRecommended,
   {
-    ignores: ['dist/*', '.expo/*', '.claude/*', 'coverage/*', 'nativewind-env.d.ts'],
+    ignores: [
+      'dist/*',
+      '.expo/*',
+      '.claude/*',
+      'coverage/*',
+      'nativewind-env.d.ts',
+      'expo-env.d.ts',
+    ],
   },
   {
     files: ['**/*.ts', '**/*.tsx'],
