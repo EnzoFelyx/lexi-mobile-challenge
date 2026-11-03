@@ -16,7 +16,7 @@
 | # | Etapa | Status |
 |---|---|---|
 | 0 | Decisões pendentes | ✅ |
-| 1 | Fundação | 🟨 |
+| 1 | Fundação | ✅ |
 | 2 | Lista de palavras | ⬜ |
 | 3 | Detalhe da palavra | ⬜ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
@@ -54,22 +54,22 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Renomear a branch `master` para `main`
 - [x] Criar o repositório público `EnzoFelyx/lexi-mobile-challenge` e fazer o primeiro push
 - [x] Instalar o ECC com o `./install.sh` do `ecc-rn-setup`, preservando o plugin `expo@claude-plugins-official` do `.claude/settings.json` (a `.claude/` saiu do git)
-- [ ] Criar a branch `chore/project-foundation`
-- [ ] Limpar o template do Expo: telas e componentes de demo, `reset-project`, suporte web (`react-native-web`, `react-dom`, config `web` do `app.json`) e assets sem uso
-- [ ] `.gitignore` com `.env` e `.env*.local`; `.env.example` com as variáveis do Supabase
-- [ ] TypeScript `strict` e alias `@/` → `./src/`
-- [ ] ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`; Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`
-- [ ] Scripts `lint`, `format`, `typecheck` e `test`
-- [ ] Estrutura de pastas da seção 11 do `CLAUDE.md` (`features`, `core`, `shared`, `i18n`, `constants`)
-- [ ] Tema em `src/core/theme/` a partir do `theme.ts` do Figma (light/dark), com hook para o tema ativo e contraste AA conferido
-- [ ] Fontes Fraunces e Inter (`@expo-google-fonts/*`) e licença OFL registrada
-- [ ] NativeWind configurado (versão compatível com o SDK 58 e o Expo Go): `tailwind.config.ts` lendo cores, fontes, tipografia, spacing e radius do `theme.ts`, paleta padrão removida, dark mode por variáveis CSS e regra de lint contra cor em `className`
-- [ ] tsyringe configurada (`reflect-metadata`, plugins de decorators no Babel, container e `TOKENS` em `src/core/di/`)
-- [ ] Jest (`jest-expo`) + React Native Testing Library configurados, com um teste de exemplo passando
-- [ ] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
-- [ ] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
-- [ ] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`
-- [ ] Rodar no Expo Go em Android e iOS
+- [x] Criar a branch `chore/project-foundation`
+- [x] Limpar o template do Expo: telas e componentes de demo, `reset-project`, suporte web (`react-native-web`, `react-dom`, config `web` do `app.json`) e assets sem uso
+- [x] `.gitignore` com `.env` e `.env*.local`; `.env.example` com as variáveis do Supabase
+- [x] TypeScript `strict` e alias `@/` → `./src/`
+- [x] ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`; Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`
+- [x] Scripts `lint`, `format`, `typecheck` e `test`
+- [x] Estrutura de pastas da seção 11 do `CLAUDE.md` (`features`, `core`, `shared`, `i18n`, `constants`)
+- [x] Tema em `src/core/theme/` a partir do `theme.ts` do Figma (light/dark), com hook para o tema ativo e contraste AA conferido, com teste de contraste (o `textSecondary` claro foi escurecido para passar no AA)
+- [x] Fontes Fraunces e Inter (`@expo-google-fonts/*`) e licença OFL registrada
+- [x] NativeWind configurado (versão compatível com o SDK 58 e o Expo Go): `tailwind.config.ts` lendo cores, fontes, tipografia, spacing e radius do `theme.ts`, paleta padrão removida, dark mode por variáveis CSS e regra de lint contra cor em `className`
+- [x] tsyringe configurada (`reflect-metadata`, plugins de decorators no Babel, container e `TOKENS` em `src/core/di/`)
+- [x] Jest (`jest-expo`) + React Native Testing Library configurados, com um teste de exemplo passando
+- [x] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
+- [x] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
+- [x] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`
+- [x] Rodar no Expo Go em Android e iOS (conferido pelo autor em 2026-11-03: tema claro/escuro, fontes, abas, `formSheet`, login e leitor de tela)
 
 **Pronto quando:** o app abre no Expo Go nos dois sistemas com o tema claro e escuro, e lint, typecheck e testes passam.
 
@@ -84,7 +84,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo"
 - [ ] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página
 - [ ] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
-- [ ] Componentes do Figma: SegmentedTabs e WordCard
+- [ ] Componentes do Figma: SegmentedTabs (✅ antecipado na etapa 1, como `tabBar` das abas) e WordCard
 - [ ] Grade de 3 colunas com **FlashList**, título de seção, texto de apoio e "carregando mais" no fim
 - [ ] Testes: paginação keyset (próxima página, fim da lista) e seed em lotes
 - [ ] Conferir no Expo Go (Android e iOS), com rolagem fluida
@@ -140,6 +140,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Client do Supabase em `src/core/supabase/` com sessão persistida
 - [ ] Telas de login (`3:16034`) e cadastro (`3:16074`) com validação dos campos e mostrar/ocultar senha
 - [ ] Botão de conta no header (entrar, sair); o app continua abrindo na lista, sem exigir login
+- [ ] 📝 **Lembrete do autor (a discutir):** tela de perfil/configurações aberta pelo botão de conta, em vez do login direto. Parte desta etapa: "Log in" para o visitante; dados da conta e "sair" para quem está logado. Antes: combinar o layout (não há frame no Figma) e as demais opções
 - [ ] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
 - [ ] Definir com o autor o que acontece ao sair (ex.: limpar os dados da conta do aparelho e voltar ao visitante)
 - [ ] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada (cadastro instantâneo para o avaliador)
@@ -160,6 +161,8 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
 - [ ] Polimento visual fiel ao Figma, em light e dark
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
+- [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
+- [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [ ] Teste completo em Android e iOS
 - [ ] (Opcional) Maestro E2E: abrir a lista, rolar, abrir uma palavra, favoritar e conferir em Favorites; login e logout
@@ -172,7 +175,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** tudo pronto para o avaliador testar com o mínimo de esforço.
 
-- [ ] README bilíngue (`README.md` em inglês e `README.pt-BR.md` em português, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
+- [ ] README bilíngue completo (a versão inicial já existe desde a etapa 1) (`README.md` em inglês e `README.pt-BR.md` em português, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas, créditos das fontes (Fraunces e Inter, SIL OFL 1.1) e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada

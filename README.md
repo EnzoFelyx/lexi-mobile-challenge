@@ -1,56 +1,83 @@
-# Welcome to your Expo app 👋
+# Lexi
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**English** · [Português](README.pt-BR.md)
 
-## Get started
+An English dictionary for Android and iOS: browse words with infinite scroll, see meanings and phonetics, listen to the pronunciation, and keep favorites and a viewing history.
 
-1. Install dependencies
+> This is a challenge by [Coodesh](https://coodesh.com/)
 
-   ```bash
-   npm install
-   ```
+🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stage 1 (foundation) is done: the app runs on Expo Go with light and dark themes, the navigation and the base components. The word list, word detail, favorites, history and login come in the next stages.
 
-2. Start the app
+## Technologies
 
-   ```bash
-   npx expo start
-   ```
+| Area | Choice |
+| --- | --- |
+| App | React Native 0.88 + TypeScript (`strict`), Expo SDK 58, Expo Router |
+| Styling | NativeWind 4 (Tailwind 3) with tokens taken from the Figma design, light and dark themes |
+| Navigation | Expo Router: top tabs (`TopTabs`) with a custom tab bar, word detail as a native form sheet |
+| Dependency injection | tsyringe |
+| Tests | Jest (`jest-expo`) + React Native Testing Library |
+| Quality | ESLint + Prettier, with rules against hardcoded colors and `any` |
+| Fonts and icons | Fraunces and Inter (Google Fonts), Lucide |
+| Planned | SQLite + Drizzle ORM (word list and cache), TanStack Query, Zustand, Supabase (auth and sync), `expo-audio` + `expo-speech` |
 
-In the output, you'll find options to open the app in a
+## How to run
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Requirements: [Node.js](https://nodejs.org/) 22.13 or newer and the **Expo Go** app (SDK 58) on an Android or iOS device.
 
 ```bash
-npm run reset-project
+git clone https://github.com/EnzoFelyx/lexi-mobile-challenge.git
+cd lexi-mobile-challenge
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Scan the QR code with the camera (iOS) or with Expo Go (Android). The phone and the computer must be on the same network; otherwise use `npx expo start --tunnel`.
 
-### Other setup steps
+### Scripts
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+| Command | What it does |
+| --- | --- |
+| `npm start` | Starts the dev server (Expo Go) |
+| `npm run lint` | ESLint + Prettier |
+| `npm run typecheck` | TypeScript type checking |
+| `npm test` | Unit and component tests |
+| `npm run format` | Formats the code with Prettier |
 
-## Learn more
+## Architecture
 
-To learn more about developing your project with Expo, look at the following resources:
+Folders by feature, with layers inside each one. The UI only knows the `domain` interfaces; the DI container picks the implementation.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```text
+src/
+  app/        # Expo Router routes (thin: they only compose screens)
+  features/   # words, favorites, history, auth → domain / data / hooks / components
+  core/       # theme (Figma tokens), DI container, database and Supabase clients
+  shared/     # reusable components, hooks and utils
+  i18n/       # all UI strings
+  constants/  # named values (page size, sheet height…)
+```
 
-## Join the community
+## Process and decisions
 
-Join our community of developers creating universal apps.
+The challenge asks for the investigation process and the decisions to be documented. They live in versioned files (in Portuguese):
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [`CLAUDE.md`](CLAUDE.md): project context, challenge requirements, every decision with its date and reason, design tokens, stack and architecture.
+- [`REGRAS.md`](REGRAS.md): code rules (layers, DI, centralized theme, safe async calls, no duplication).
+- [`todo.md`](todo.md): roadmap split into stages, each with its "done when" criteria.
+- [`CHANGELOG.md`](CHANGELOG.md): what changed in each stage, with the commit hashes.
+
+Some decisions so far:
+
+- **Random but stable word order.** In alphabetical order the list would start with "a", "aa", "aaa"…, many of them missing from the API. Each word gets a random sort key when the list is stored, so the order varies but stays the same between sessions.
+- **Local-first with an optional login.** The app opens straight on the list. Without an account, favorites and history stay on the device; when the user logs in, they are merged into the account and linked to the user ID.
+- **Runs on Expo Go.** No custom native code, so the evaluator can test on iOS without a paid Apple account. An Android APK will also be published.
+- **English interface.** The challenge wireframe mixes languages (tabs and "Meanings" in English, "Voltar/Próximo" in Portuguese). Since every definition, example and part of speech from the Free Dictionary API is in English, the whole interface is in English for consistency; "Previous/Next" keep the wireframe's function. A Portuguese/English switch inside the app is planned as an extra.
+- **Accessibility.** WCAG AA contrast is checked by a test on every color pair. The light secondary text was slightly darkened from the Figma value to pass on the tab rail.
+
+## Credits
+
+- Word list: [dwyl/english-words](https://github.com/dwyl/english-words) (`words_dictionary.json`).
+- Definitions, phonetics and audio: [Free Dictionary API](https://dictionaryapi.dev/).
+- Fonts: [Fraunces](https://fonts.google.com/specimen/Fraunces) and [Inter](https://fonts.google.com/specimen/Inter), under the SIL Open Font License 1.1.
+- Icons: [Lucide](https://lucide.dev/).

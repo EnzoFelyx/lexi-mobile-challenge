@@ -34,6 +34,8 @@ O avaliador olha **o resultado e o processo**: o README da Coodesh pede para doc
 
 - **Dicionário editorial moderno:** limpo, tipográfico, calmo. Cara de livro bem diagramado, fluido como app atual.
 - Interface em **inglês** (como no Figma). Documentação de processo em **português**.
+- **Idioma da interface (decisão do autor, 2026-11-03):** inglês. O wireframe da Coodesh mistura idiomas (abas, título e "Meanings" em inglês; "Voltar/Próximo" em português), mas o conteúdo da Free Dictionary API (significados, exemplos, classes gramaticais) só existe em inglês, então a interface fica em inglês por consistência e imersão. "Previous/Next" cumprem a função de "Voltar/Próximo" (o Obrigatório 3 cobra as funcionalidades, não os textos). Registrar no README.
+- **Extra planejado (etapa 6, opcional):** chave de idioma **PT/EN dentro do app**, escolhida pelo usuário e independente do idioma do aparelho. Os textos já ficam em `src/i18n/en.ts`; entra um `pt-BR.ts` com o mesmo formato e a escolha persistida. O conteúdo do dicionário continua em inglês.
 
 ---
 
@@ -106,13 +108,16 @@ O Figma **não tem variáveis**: os valores foram lidos das camadas (Component s
 | `surfaceMuted` | `#EEEFE9` | `#26322C` | Trilho das abas, botão de favorito (contorno) |
 | `border` | `#DFE3DC` | `#34423A` | Bordas, divisores, trilho do progresso |
 | `textPrimary` | `#202925` | `#F0F2EB` | Texto principal |
-| `textSecondary` | `#67716B` | `#ACB8AF` | Fonética, placeholders, legendas |
+| `textSecondary` | `#636D67` ¹ | `#ACB8AF` | Fonética, placeholders, legendas |
 | `accent` | `#14665C` | `#82D3BF` | Aba ativa, botão primário, progresso, chips |
 | `onAccent` | `#FFFFFF` | `#102B23` | Texto sobre o botão primário |
 | `accentSoft` | `#E5F0EA` | `#213E34` | Fundo do chip de classe gramatical |
 | `playerIdle` | `#E4E7E0` | `#304038` | Botão de play enquanto o áudio carrega |
 
-- Conferir o **contraste AA** dos tokens de texto e ícone na etapa 1.
+¹ No Figma é `#67716B`. Escurecido para `#636D67` (decisão do autor, 2026-11-03) porque dava 4,37:1 sobre `surfaceMuted` (texto da aba inativa); agora dá 4,64:1.
+
+- **Contraste AA conferido (2026-11-03):** todos os pares de texto (principal, secundário e acento sobre `background`, `surface`, `surfaceMuted` e `accentSoft`; `onAccent` sobre `accent`) passam de 4,5:1 nos dois temas. O teste `src/core/theme/__tests__/contrast.test.ts` garante isso a cada mudança de cor.
+- As cores viram variáveis CSS `--color-<token-em-kebab>` em canais RGB (`src/core/theme/colorVariables.ts`); o hook `useTheme()` (`src/core/theme/useTheme.ts`) entrega os tokens do tema ativo para o que não aceita `className`.
 - Tema segue o sistema (`userInterfaceStyle: automatic`).
 
 ### Tipografia ✅
@@ -121,7 +126,7 @@ O Figma **não tem variáveis**: os valores foram lidos das camadas (Component s
 - **Inter** Regular/Medium/SemiBold: interface.
 - Escala lida do Figma: display 32 · headword do card 19/26 (tracking -0.3) · body 14 · button 14 · label 13 · description 12/19 · chip 11 · caption 10/14 · eyebrow 10 (tracking 1.5, maiúsculas).
 - ⏳ Tamanho do headword grande do detalhe: conferir no frame "Word detail" (caixa de 54pt).
-- Fontes pelo `@expo-google-fonts/fraunces` e `@expo-google-fonts/inter` (licença SIL OFL).
+- Fontes pelo `@expo-google-fonts/fraunces` e `@expo-google-fonts/inter` (licença **SIL Open Font License 1.1**, que permite uso e redistribuição no app; citar nos créditos do README na etapa 7). Carregadas com `useFonts` (`src/core/theme/useThemeFonts.ts`), que funciona no Expo Go; o config plugin do `expo-font` não funciona no Expo Go. Só os pesos do `theme.ts` são importados, por subcaminho (`@expo-google-fonts/inter/500Medium`).
 
 ### Medidas do Figma ✅
 
@@ -249,6 +254,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - **React Native + TypeScript** (`strict`), **Expo SDK 58** com **Expo Router**. App na **raiz** do repositório (template já criado).
 - **Expo Go**: tudo precisa rodar sem código nativo próprio. Testar em **Android e iOS**.
 - **Abas superiores (decisão do autor, 2026-11-03):** `@react-navigation/material-top-tabs` via `withLayoutContext` do Expo Router, com **`tabBar` própria** que desenha o SegmentedTabs do Figma. Cada aba é uma rota, com deslizar entre abas e carregamento preguiçoso (`react-native-pager-view`, incluído no Expo Go).
+  - **Forma no SDK 58 (2026-11-03, etapa 1, confirmada pelo autor):** o expo-router 58 embute o próprio React Navigation, inclusive o `material-top-tabs`, já integrado como `TopTabs` em `expo-router/js-top-tabs`. Usamos esse (mesma biblioteca e mesmo comportamento) em vez de instalar `@react-navigation/material-top-tabs`, que seria uma segunda cópia do React Navigation fora do contexto do router. Ele pede `react-native-tab-view` (JS) + `react-native-pager-view`. A `tabBar` do SDK 58 recebe `emitter` e `navigateToTab(routeKey)` (não há mais `navigation`): ver `src/shared/components/SegmentedTabBar.tsx`.
 - **Detalhe em `formSheet`** (decisão do autor, 2026-11-03), ver seção 6.2.
 - **Estilização: NativeWind (decisão do autor, 2026-11-03)**, como no Pinny: `className` primeiro; `StyleSheet`/`style` só para Reanimated, valores calculados em runtime ou bibliotecas sem `className`. O `tailwind.config.ts` não tem valores próprios: lê do `theme.ts` cores, fontes, tipografia, spacing e radius, e substitui a paleta padrão (não existe `bg-white`). **Dark mode** com as cores como variáveis CSS (`vars()` do NativeWind) trocadas pelo tema ativo. Na etapa 1, conferir a versão do NativeWind compatível com o Expo SDK 58 e com o Expo Go.
 - **Banco local:** `expo-sqlite` + **Drizzle ORM** + **`drizzle-zod`** (decisão do autor, 2026-11-03; o README da Coodesh não indica ferramenta). O schema (`src/core/database/schema.ts`) é a fonte única: tipos e schemas Zod derivam dele. Migrations geradas (`npm run db:generate`) e embutidas como texto (`babel-plugin-inline-import` para `.sql`). O seed em massa pode usar SQL direto dentro da transação, se for mais rápido.
@@ -269,7 +275,34 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - GitHub: **`EnzoFelyx/lexi-mobile-challenge`**, **público**.
 - **README bilíngue:** `README.md` em inglês e `README.pt-BR.md` em português, com link de um para o outro. Os docs de processo (`CLAUDE.md`, `REGRAS.md`, `todo.md`, `CHANGELOG.md`) ficam em português.
 
+### Compatibilidade conferida (2026-11-03, etapa 1)
+
+- **NativeWind 4.2.7 + Tailwind 3.4** (o v5 ainda é RC): peer `react-native-reanimated >=3.6.2`, ok com o Reanimated 4.7.1 + Worklets 0.13 do SDK 58. JSX passa pelo `react-native-css-interop`.
+- **tsyringe com React Compiler ligado:** o `babel-preset-expo` 58 já ativa decorators em modo `legacy`; o `babel-plugin-transform-typescript-metadata` emite o `design:paramtypes`. O compilador só mexe em componentes e hooks, não nas classes. Provado com bundle e com teste no Jest.
+- **FlashList 2.3.2 e `expo-sqlite`** estão entre os módulos nativos do Expo Go do SDK 58; **Drizzle** é só JS. Os quatro foram empacotados juntos (`expo export` para Android e iOS) sem erro. Drizzle, `expo-sqlite` e FlashList foram desinstalados de novo e voltam na etapa 2 (regra de instalar na etapa em que se usa).
+- Execução no Expo Go em aparelho real (Android e iOS) conferida pelo autor em 2026-11-03.
+
+### Convenções da fundação (2026-11-03)
+
+- **Classes do tema:** os nomes vêm dos tokens em kebab-case. Cores: `bg-surface`, `text-text-primary`, `bg-accent-soft`, `border-border` (aceitam opacidade, `bg-accent/50`). Fontes: `font-serif-semi-bold`, `font-sans-regular`, `font-sans-medium`, `font-sans-semi-bold`. Tipografia (tamanho, entrelinha e tracking): `text-display`, `text-headword-card`, `text-body`, `text-eyebrow`… Spacing `p-xl`, `gap-md`; raios `rounded-sm|md|pill`; tamanhos de componente `h-button`, `min-h-touch-target`, `h-input`, `h-chip`.
+- A tipografia do Tailwind não carrega a fonte: o componente de texto combina `font-*` + `text-*` (mapa tipado por variante).
+- **TypeScript 6:** `types: ["jest"]` no `tsconfig` (o TS 6 não inclui mais todos os `@types`), `experimentalDecorators` para os decorators da tsyringe e `noUncheckedIndexedAccess` ligado.
+- **Lint:** ESLint 9 (o `eslint-plugin-react-native` ainda não declara suporte ao 10), flat config em `eslint.config.js`, ignorando a `.claude/` local.
+- **Testes:** `__tests__/` ao lado do código; `container.reset()` depois de cada teste (`jest.setup.ts`).
+- **Componentes compartilhados (`src/shared/components/`):** `AppText` com `variant` (token de tipografia) e `tone` (`primary`, `secondary`, `accent`, `onAccent`), nunca cor solta; `Button` com `variant` e `icon` (componente Lucide); `AppHeader`. O ponto da marca é uma `View` `bg-accent` (o SVG do Figma tinha a cor fixa e não trocaria de tema). Ícones Lucide recebem cor, tamanho e traço do `useTheme()`.
+- **Jest e Lucide:** o `moduleNameMapper` aponta `lucide-react-native` para o build CommonJS (a condição `react-native` resolve um `.mjs` que o jest-expo não transforma). A Testing Library 14 tem `render` e `fireEvent` assíncronos: use `await`.
+- **Navegação:** `src/shared/utils/navigation.ts` concentra as idas para o detalhe (`openWordDetail`) e o login (`openLogin`). As rotas da etapa 1 usam `PlaceholderScreen`/`WordDetailPlaceholder`, que saem quando cada tela real chegar. O tema da navegação (`createNavigationTheme`) usa os tokens, para a folha e o header nativo seguirem claro/escuro.
+- **Exceção de cor (COR-HARDCODED):** o `expo-splash-screen` no `app.json` usa `#F8F7F3` (claro) e `#111715` (escuro), iguais a `palette.*.background`. O JSON não lê o tema nem aceita comentário; se o fundo mudar no `theme.ts`, mude aqui também. O fundo do ícone adaptativo do Android (`#E6F4FE`) ainda é o do template e muda junto com o ícone do app.
+- **Textos e constantes:** `src/i18n/en.ts` exporta `en` (objeto `as const` por área; labels com parâmetro são funções). `src/constants/` separa por assunto (`words.ts`, `navigation.ts`), cada valor com comentário do porquê.
+
 ### ⏳ A decidir
+
+- **Tela de perfil / configurações (lembrete do autor, 2026-11-03; detalhes a discutir):** o botão de conta no header passaria a abrir uma tela de perfil/configurações em vez de ir direto ao login. Ideias até agora:
+  - **Tema:** escolha manual (claro, escuro ou seguir o sistema). Muda a decisão atual de só seguir o sistema; o `useThemeMode` passaria a ler a preferência salva.
+  - **Idioma:** a chave PT/EN da interface (ver seção 1).
+  - **Conta:** "Log in" para o visitante; dados da conta e "sair" para quem está logado (liga com o comportamento ao sair, ainda ⏳ na seção 6.7).
+  - Outras opções a combinar depois.
+  - Não há frame no Figma para essa tela: definir o layout com o autor (ou desenhar no Figma) antes de implementar. Entra na etapa 5 (parte de conta) e na etapa 6 (tema e idioma).
 
 Nada bloqueando no momento. Decisões novas: proponha e confirme com o autor antes de seguir.
 

@@ -1,0 +1,8 @@
+node_modules
+.expo
+dist
+coverage
+package-lock.json
+*.md
+nativewind-env.d.ts
+expo-env.d.ts
