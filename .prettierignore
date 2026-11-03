@@ -6,3 +6,4 @@ package-lock.json
 *.md
 nativewind-env.d.ts
 expo-env.d.ts
+src/core/database/migrations

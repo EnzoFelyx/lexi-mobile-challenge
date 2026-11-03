@@ -22,6 +22,7 @@ module.exports = defineConfig([
       'coverage/*',
       'nativewind-env.d.ts',
       'expo-env.d.ts',
+      'src/core/database/migrations/*',
     ],
   },
   {

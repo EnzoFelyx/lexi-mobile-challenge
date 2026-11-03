@@ -30,6 +30,11 @@ export const en = {
   auth: {
     loginTitle: 'Log in',
   },
+  database: {
+    unavailableTitle: 'Something went wrong',
+    unavailableMessage:
+      "We couldn't open the dictionary on this device. Close the app and open it again.",
+  },
   placeholder: {
     note: 'This screen is a placeholder for the next stages.',
     openSampleWord: 'Open a sample word',
