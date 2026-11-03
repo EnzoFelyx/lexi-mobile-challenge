@@ -16,7 +16,7 @@
 | # | Etapa | Status |
 |---|---|---|
 | 0 | Decisões pendentes | ✅ |
-| 1 | Fundação | 🟨 |
+| 1 | Fundação | ✅ |
 | 2 | Lista de palavras | ⬜ |
 | 3 | Detalhe da palavra | ⬜ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
@@ -69,7 +69,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
 - [x] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
 - [x] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`
-- [ ] Rodar no Expo Go em Android e iOS (conferência do autor: ver o checklist do resumo da etapa 1)
+- [x] Rodar no Expo Go em Android e iOS (conferido pelo autor em 2026-11-03: tema claro/escuro, fontes, abas, `formSheet`, login e leitor de tela)
 
 **Pronto quando:** o app abre no Expo Go nos dois sistemas com o tema claro e escuro, e lint, typecheck e testes passam.
 
