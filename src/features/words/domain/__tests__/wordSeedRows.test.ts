@@ -1,0 +1,19 @@
+import { WORD_SORT_KEY_RANGE } from '@/constants/words';
+
+import { toWordSeedRows } from '../wordSeedRows';
+
+describe('toWordSeedRows', () => {
+  it('gives each word an integer sort key within the range', () => {
+    const randoms = [0, 0.5, 0.999999];
+    const random = jest.fn(() => randoms.shift() ?? 0);
+
+    const rows = toWordSeedRows(['a', 'hello', 'zebra'], random);
+
+    expect(rows).toEqual([
+      { word: 'a', sortKey: 0 },
+      { word: 'hello', sortKey: WORD_SORT_KEY_RANGE / 2 },
+      { word: 'zebra', sortKey: Math.floor(0.999999 * WORD_SORT_KEY_RANGE) },
+    ]);
+    rows.forEach((row) => expect(Number.isInteger(row.sortKey)).toBe(true));
+  });
+});

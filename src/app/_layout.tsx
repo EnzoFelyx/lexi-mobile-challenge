@@ -1,13 +1,15 @@
 import '@/global.css';
 
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Stack, ThemeProvider as NavigationThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { WORD_DETAIL_SHEET_HEIGHT } from '@/constants/navigation';
 import { useDatabaseMigrations } from '@/core/database/useDatabaseMigrations';
 import { registerDependencies } from '@/core/di/registerDependencies';
+import { createQueryClient } from '@/core/query/queryClient';
 import { createNavigationTheme } from '@/core/theme/navigationTheme';
 import { ThemeProvider } from '@/core/theme/ThemeProvider';
 import { useTheme } from '@/core/theme/useTheme';
@@ -19,6 +21,7 @@ registerDependencies();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [queryClient] = useState(createQueryClient);
   const theme = useTheme();
   const fontsReady = useThemeFonts();
   const database = useDatabaseMigrations();
@@ -47,25 +50,27 @@ export default function RootLayout() {
   }
 
   return (
-    <NavigationThemeProvider value={createNavigationTheme(theme)}>
-      <ThemeProvider>
-        <StatusBar style="auto" />
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen
-            name="word/[word]"
-            options={{
-              presentation: 'formSheet',
-              sheetAllowedDetents: [WORD_DETAIL_SHEET_HEIGHT],
-              sheetGrabberVisible: true,
-            }}
-          />
-          <Stack.Screen
-            name="(auth)/login"
-            options={{ headerShown: true, title: en.auth.loginTitle }}
-          />
-        </Stack>
-      </ThemeProvider>
-    </NavigationThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <NavigationThemeProvider value={createNavigationTheme(theme)}>
+        <ThemeProvider>
+          <StatusBar style="auto" />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen
+              name="word/[word]"
+              options={{
+                presentation: 'formSheet',
+                sheetAllowedDetents: [WORD_DETAIL_SHEET_HEIGHT],
+                sheetGrabberVisible: true,
+              }}
+            />
+            <Stack.Screen
+              name="(auth)/login"
+              options={{ headerShown: true, title: en.auth.loginTitle }}
+            />
+          </Stack>
+        </ThemeProvider>
+      </NavigationThemeProvider>
+    </QueryClientProvider>
   );
 }

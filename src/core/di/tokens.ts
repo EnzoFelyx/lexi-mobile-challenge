@@ -4,6 +4,9 @@
  */
 export const TOKENS = {
   Database: Symbol('Database'),
+  SqliteConnection: Symbol('SqliteConnection'),
+  WordListSource: Symbol('WordListSource'),
+  DictionarySeeder: Symbol('DictionarySeeder'),
 } as const satisfies Record<string, symbol>;
 
 export type Token = (typeof TOKENS)[keyof typeof TOKENS];

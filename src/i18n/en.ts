@@ -30,6 +30,17 @@ export const en = {
   auth: {
     loginTitle: 'Log in',
   },
+  dictionarySetup: {
+    title: 'Preparing your dictionary',
+    downloading: 'Downloading the word list. This only happens once.',
+    saving: 'Saving 370,000 words on your device…',
+    progressLabel: 'Dictionary setup progress',
+    percent: (value: number) => `${value}%`,
+    errorTitle: "Couldn't prepare the dictionary",
+    errorMessage:
+      'Check your internet connection and try again. The word list is downloaded only once.',
+    retry: 'Try again',
+  },
   database: {
     unavailableTitle: 'Something went wrong',
     unavailableMessage:
