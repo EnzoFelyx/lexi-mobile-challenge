@@ -59,13 +59,13 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] `.gitignore` com `.env` e `.env*.local`; `.env.example` com as variáveis do Supabase
 - [x] TypeScript `strict` e alias `@/` → `./src/`
 - [x] ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`; Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`
-- [ ] Scripts `lint`, `format`, `typecheck` e `test`
+- [x] Scripts `lint`, `format`, `typecheck` e `test`
 - [ ] Estrutura de pastas da seção 11 do `CLAUDE.md` (`features`, `core`, `shared`, `i18n`, `constants`)
 - [x] Tema em `src/core/theme/` a partir do `theme.ts` do Figma (light/dark), com hook para o tema ativo e contraste AA conferido (pendência: `textSecondary` sobre `surfaceMuted` no claro, ver `CLAUDE.md` seção 5)
-- [ ] Fontes Fraunces e Inter (`@expo-google-fonts/*`) e licença OFL registrada
-- [ ] NativeWind configurado (versão compatível com o SDK 58 e o Expo Go): `tailwind.config.ts` lendo cores, fontes, tipografia, spacing e radius do `theme.ts`, paleta padrão removida, dark mode por variáveis CSS e regra de lint contra cor em `className`
-- [ ] tsyringe configurada (`reflect-metadata`, plugins de decorators no Babel, container e `TOKENS` em `src/core/di/`)
-- [ ] Jest (`jest-expo`) + React Native Testing Library configurados, com um teste de exemplo passando
+- [x] Fontes Fraunces e Inter (`@expo-google-fonts/*`) e licença OFL registrada
+- [x] NativeWind configurado (versão compatível com o SDK 58 e o Expo Go): `tailwind.config.ts` lendo cores, fontes, tipografia, spacing e radius do `theme.ts`, paleta padrão removida, dark mode por variáveis CSS e regra de lint contra cor em `className`
+- [x] tsyringe configurada (`reflect-metadata`, plugins de decorators no Babel, container e `TOKENS` em `src/core/di/`)
+- [x] Jest (`jest-expo`) + React Native Testing Library configurados, com um teste de exemplo passando
 - [ ] `src/i18n/en.ts` com a estrutura dos textos e `src/constants/` com os primeiros valores
 - [ ] Componentes compartilhados base do Figma: Button (primary/secondary), header com logo e conta
 - [ ] Rotas da seção 11 com telas provisórias, abas superiores (`material-top-tabs` + `tabBar` própria) e detalhe abrindo como `formSheet`

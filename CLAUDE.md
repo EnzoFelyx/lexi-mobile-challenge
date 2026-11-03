@@ -123,7 +123,7 @@ O Figma **não tem variáveis**: os valores foram lidos das camadas (Component s
 - **Inter** Regular/Medium/SemiBold: interface.
 - Escala lida do Figma: display 32 · headword do card 19/26 (tracking -0.3) · body 14 · button 14 · label 13 · description 12/19 · chip 11 · caption 10/14 · eyebrow 10 (tracking 1.5, maiúsculas).
 - ⏳ Tamanho do headword grande do detalhe: conferir no frame "Word detail" (caixa de 54pt).
-- Fontes pelo `@expo-google-fonts/fraunces` e `@expo-google-fonts/inter` (licença SIL OFL).
+- Fontes pelo `@expo-google-fonts/fraunces` e `@expo-google-fonts/inter` (licença **SIL Open Font License 1.1**, que permite uso e redistribuição no app; citar nos créditos do README na etapa 7). Carregadas com `useFonts` (`src/core/theme/useThemeFonts.ts`), que funciona no Expo Go; o config plugin do `expo-font` não funciona no Expo Go. Só os pesos do `theme.ts` são importados, por subcaminho (`@expo-google-fonts/inter/500Medium`).
 
 ### Medidas do Figma ✅
 
@@ -270,6 +270,21 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 
 - GitHub: **`EnzoFelyx/lexi-mobile-challenge`**, **público**.
 - **README bilíngue:** `README.md` em inglês e `README.pt-BR.md` em português, com link de um para o outro. Os docs de processo (`CLAUDE.md`, `REGRAS.md`, `todo.md`, `CHANGELOG.md`) ficam em português.
+
+### Compatibilidade conferida (2026-11-03, etapa 1)
+
+- **NativeWind 4.2.7 + Tailwind 3.4** (o v5 ainda é RC): peer `react-native-reanimated >=3.6.2`, ok com o Reanimated 4.7.1 + Worklets 0.13 do SDK 58. JSX passa pelo `react-native-css-interop`.
+- **tsyringe com React Compiler ligado:** o `babel-preset-expo` 58 já ativa decorators em modo `legacy`; o `babel-plugin-transform-typescript-metadata` emite o `design:paramtypes`. O compilador só mexe em componentes e hooks, não nas classes. Provado com bundle e com teste no Jest.
+- **FlashList 2.3.2 e `expo-sqlite`** estão entre os módulos nativos do Expo Go do SDK 58; **Drizzle** é só JS. Os quatro foram empacotados juntos (`expo export` para Android e iOS) sem erro. Drizzle, `expo-sqlite` e FlashList foram desinstalados de novo e voltam na etapa 2 (regra de instalar na etapa em que se usa).
+- A execução dentro do Expo Go em aparelho real é conferida pelo autor no fim da etapa 1.
+
+### Convenções da fundação (2026-11-03)
+
+- **Classes do tema:** os nomes vêm dos tokens em kebab-case. Cores: `bg-surface`, `text-text-primary`, `bg-accent-soft`, `border-border` (aceitam opacidade, `bg-accent/50`). Fontes: `font-serif-semi-bold`, `font-sans-regular`, `font-sans-medium`, `font-sans-semi-bold`. Tipografia (tamanho, entrelinha e tracking): `text-display`, `text-headword-card`, `text-body`, `text-eyebrow`… Spacing `p-xl`, `gap-md`; raios `rounded-sm|md|pill`; tamanhos de componente `h-button`, `min-h-touch-target`, `h-input`, `h-chip`.
+- A tipografia do Tailwind não carrega a fonte: o componente de texto combina `font-*` + `text-*` (mapa tipado por variante).
+- **TypeScript 6:** `types: ["jest"]` no `tsconfig` (o TS 6 não inclui mais todos os `@types`), `experimentalDecorators` para os decorators da tsyringe e `noUncheckedIndexedAccess` ligado.
+- **Lint:** ESLint 9 (o `eslint-plugin-react-native` ainda não declara suporte ao 10), flat config em `eslint.config.js`, ignorando a `.claude/` local.
+- **Testes:** `__tests__/` ao lado do código; `container.reset()` depois de cada teste (`jest.setup.ts`).
 
 ### ⏳ A decidir
 

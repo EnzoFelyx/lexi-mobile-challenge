@@ -12,6 +12,7 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 ### Adicionado
 
 - Hook `useTheme`/`useThemeMode` (tema do sistema) e ponte dos tokens de cor do `theme.ts` para variáveis CSS (`--color-*`, em canais RGB), base do dark mode no NativeWind. (`d98c462`)
+- Fontes Fraunces SemiBold e Inter Regular/Medium/SemiBold (`@expo-google-fonts/*`, licença SIL OFL 1.1) carregadas com `useFonts` antes de esconder o splash, importando só os pesos usados. Se falharem, o app segue com a fonte do sistema. (`fab7f10`)
 
 ### Infraestrutura
 
@@ -21,7 +22,9 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 - TypeScript `strict` com `noUncheckedIndexedAccess` e um único alias `@/` → `./src/`. (`f3dcc6f`)
 - ESLint (`eslint-config-expo` + `eslint-plugin-react-native` + Prettier) com as regras do `REGRAS.md`, inclusive `no-restricted-syntax` contra cor crua em `className` e valor arbitrário de cor (`bg-[#fff]`). Prettier com `singleQuote`, `trailingComma: all`, `printWidth: 100`. Scripts `lint`, `format` e `typecheck`. (`2d8bd8c`)
 - Pastas das features (`words`, `favorites`, `history`, `auth`). (`6443b7d`)
-
+- NativeWind 4.2.7 (Tailwind 3) com `tailwind.config.ts` lendo cores (variáveis CSS), fontes, tipografia, spacing, radius e tamanhos do `theme.ts`, sem a escala padrão do Tailwind, e `ThemeProvider` trocando as variáveis entre claro e escuro. (`4864823`)
+- tsyringe com `reflect-metadata`, `babel-plugin-transform-typescript-metadata` (os decorators legacy já vêm do `babel-preset-expo`) e container + `TOKENS` em `src/core/di/`. (`0abd099`)
+- Jest 30 (`jest-expo`) + React Native Testing Library, com alias `@/`, container limpo entre testes e os primeiros testes (variáveis de cor e injeção pelo container). (`f5d66e9`)
 - Repositório público `EnzoFelyx/lexi-mobile-challenge` criado, com o primeiro push da `main`.
 - ECC instalado localmente com o `ecc-rn-setup` (perfil core, hooks `standard`, GateGuard desligado), preservando o plugin do Expo. A `.claude/` saiu do git. (`6a56b2a`)
 
