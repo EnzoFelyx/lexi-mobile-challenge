@@ -44,6 +44,10 @@ Scan the QR code with the camera (iOS) or with Expo Go (Android). The phone and 
 | `npm test` | Unit and component tests |
 | `npm run format` | Formats the code with Prettier |
 
+## Design
+
+The screens follow this [Figma file](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (light and dark versions, loading and error states, and a component showcase). The interface follows the challenge wireframe. Where the app differs from the Figma on purpose (for contrast or performance), the reason is recorded in [`CLAUDE.md`](CLAUDE.md).
+
 ## Architecture
 
 Folders by feature, with layers inside each one. The UI only knows the `domain` interfaces; the DI container picks the implementation.

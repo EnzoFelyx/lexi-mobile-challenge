@@ -188,7 +188,7 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 
 ## 7. Telas (Figma)
 
-Arquivo `2SH7Dc3Qpr9ZjIw0iv8GGv`, página 1, frames de 390×844. Node IDs (Light / Dark):
+Arquivo `2SH7Dc3Qpr9ZjIw0iv8GGv` ([link público, só leitura](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1), citado no README; compartilhamento conferido em 2026-11-03), página 1, frames de 390×844. Node IDs (Light / Dark):
 
 | Tela | Light | Dark |
 |---|---|---|

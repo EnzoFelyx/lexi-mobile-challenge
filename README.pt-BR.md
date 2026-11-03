@@ -44,6 +44,10 @@ Escaneie o QR code com a câmera (iOS) ou pelo Expo Go (Android). O celular e o 
 | `npm test` | Testes unitários e de componentes |
 | `npm run format` | Formata o código com o Prettier |
 
+## Design
+
+As telas seguem este [arquivo do Figma](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (versões clara e escura, estados de carregamento e erro e uma vitrine de componentes). A interface segue o wireframe do desafio. Onde o app difere do Figma de propósito (por contraste ou desempenho), o motivo está registrado no [`CLAUDE.md`](CLAUDE.md).
+
 ## Arquitetura
 
 Pastas por feature, com camadas dentro de cada uma. A interface só conhece as interfaces do `domain`; o container de injeção de dependência escolhe a implementação.
