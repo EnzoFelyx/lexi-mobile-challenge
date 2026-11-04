@@ -35,6 +35,8 @@ const componentSizes = mapEntries(
     touchTarget: sizes.touchTarget,
     header: sizes.header,
     brandPoint: sizes.brandPoint,
+    wordCard: sizes.wordCard.height,
+    scrollThumb: sizes.scrollThumb,
     tabs: sizes.tabs,
     tabItem: sizes.tabItem,
     button: sizes.button,

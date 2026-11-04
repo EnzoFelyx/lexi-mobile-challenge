@@ -7,6 +7,30 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-03 — Etapa 2 (lista de palavras)
+
+Etapa concluída em 2026-11-04: a lista abre pelas palavras comuns, rola até o fim sem travar, o download só roda uma vez e os testes passam (conferido no Expo Go pelo autor).
+
+### Documentação
+
+- Link público do Figma no README (seção "Design") e no `CLAUDE.md`. (`e7647d8`)
+
+### Adicionado
+
+- Banco local com `expo-sqlite` + Drizzle ORM 0.45: schema das tabelas `words`, `word_cache`, `favorites` e `history` (fonte única dos tipos), migration gerada por `npm run db:generate` e embutida como texto (`babel-plugin-inline-import` + extensão `.sql` no Metro), aplicada ao abrir o app antes do splash sumir. Leituras validadas com schemas Zod derivados do schema (`drizzle-zod`). Banco em modo WAL, registrado no container (`TOKENS.Database`). Se as migrations falharem, o app mostra uma tela de erro (`MessageScreen`) em vez de travar. (`d5e877b`)
+- Download único da lista do dwyl (370.100 palavras, ~7 MB) validado com Zod e gravado no SQLite numa transação exclusiva, em lotes de 5.000 com `sort_key` aleatório; entre lotes o JS thread fica livre para a barra de progresso. O fluxo passa pelo React Query (entra o `@tanstack/react-query`, com `QueryClientProvider` no layout raiz). Tela genérica de "preparando o dicionário" (indicador ao baixar, barra com porcentagem ao gravar, erro com "Try again") antes das abas; nas aberturas seguintes, vai direto. `ProgressBar` compartilhada, acessível como `progressbar`. (`c0789fc`)
+- `WordRepository` (domínio) e `SqliteWordRepository` com paginação keyset por (`sort_key`, `word`): busca `limit + 1` linhas para saber se há próxima página sem consulta extra, valida com Zod e está registrado no container. Testado com SQL real: `better-sqlite3` (só em desenvolvimento) roda as mesmas migrations do app num banco em memória. (`b01a68b`)
+- A Word list abre com palavras comuns em ordem aleatória (decisão do autor): camadas de `sort_key` com o Basic English de Ogden (854), depois 8.117 palavras frequentes (google-10000-english filtrada) e por fim o resto do dwyl. Lista gerada por `scripts/build-common-words.mjs` e embutida no app; a migration `0001` esvazia `words` uma vez para refazer o seed com a ordem nova. (`83c4b4c`)
+- Hook `useWordList` com `useInfiniteQuery` (páginas de 60 pelo `WordRepository` do container): entrega as palavras, os estados de primeira carga, de "carregando mais" e de erro (primeira página ou próxima), e as ações `loadNextPage` e `retry`. A trava contra páginas duplicadas (só busca com próxima página e sem busca em andamento, e `cancelRefetch: false`) foi testada também ao contrário: sem ela, o teste falha com 4 buscas em vez de 2. (`b2f7ade`)
+- Aba Word list de verdade: grade de 3 colunas com FlashList (entra `@shopify/flash-list` 2.3.2), título "Word list" com o texto de apoio rolando junto, `WordCard` do Figma só com a palavra (palavras longas encolhem em vez de quebrar) e rodapé "Finding more words…" com o ícone `loader-circle` girando (parado com "Reduzir movimento"); erro da próxima página com "Try again" no rodapé; carregamento, erro e lista vazia tratados. Tocar no card abre o detalhe. Tokens novos do Figma: tipografia `subtitle` (13/18) e `note` (11), altura do card e ícone de 16. (`a6f87fd`)
+- Rolagem rápida na grade (pedido do autor): barrinha no canto direito que aparece ao rolar, some depois de 1,2 s parada e, arrastada, percorre todo o conteúdo já carregado usando a altura inteira da tela, igual em Android e iOS. Fica no gutter de 24pt (não cobre os cards), só aparece com 3 telas ou mais de conteúdo, respeita "Reduzir movimento" e fica oculta para leitores de tela. (`8cd1c86`)
+
+### Testes
+
+- Seed e paginação ponta a ponta num SQLite real: o SQL de inserção em lotes roda como no app (3 lotes), uma falha no meio desfaz tudo, a lista abre pelas palavras comuns, percorre todas as palavras uma única vez e mantém a ordem entre leituras. O banco de teste ganhou uma conexão que imita a do `expo-sqlite`. Cobertura de `domain` e `data` da lista de palavras: 100%. (`0a8daa7`)
+
+---
+
 ## 2026-11-03 — Etapa 1 (fundação)
 
 Etapa concluída: o app abre no Expo Go em Android e iOS, nos temas claro e escuro (conferido pelo autor), com lint, typecheck e testes passando.
@@ -30,7 +54,7 @@ Etapa concluída: o app abre no Expo Go em Android e iOS, nos temas claro e escu
 
 ### Infraestrutura
 
-- Repositório recriado a partir do template da Coodesh (`coodesh/mobile-challenge-20240202`), o Passo 1 do desafio, com o histórico juntado por merge (hashes preservados). O enunciado original ficou em `CHALLENGE.md` e o wireframe em `img/wireframe.png`; o repositório anterior virou `lexi-mobile-challenge-old`, com o PR #1. (`ed893d8`)
+- Repositório recriado a partir do template da Coodesh (`coodesh/mobile-challenge-20240202`), o Passo 1 do desafio, com o histórico juntado por merge (hashes preservados). O enunciado original ficou em `CHALLENGE.md` e o wireframe em `img/wireframe.png`; o repositório anterior foi renomeado e depois excluído pelo autor (o conteúdo dos commits do PR #1 da etapa 1 está todo no histórico atual). (`ed893d8`)
 - Branch `chore/project-foundation` criada a partir da `main`.
 - Template do Expo limpo: telas e componentes de demo, `reset-project`, suporte web (`react-native-web`, `react-dom`, config `web`), dependências só da demo (`@expo/ui`, `expo-device`, `expo-glass-effect`, `expo-symbols`, `expo-web-browser`, `expo-image`) e assets sem uso. (`f9caa53`)
 - `.gitignore` com `.env` e `coverage/`; `.env.example` com as variáveis do Supabase. (`db970c3`)

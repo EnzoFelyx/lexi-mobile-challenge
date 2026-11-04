@@ -145,7 +145,10 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 ### 6.1 Lista de palavras
 
 - O JSON do dwyl (~370 mil palavras, formato `{ "a": 1, … }`) é **baixado na primeira execução** e gravado no **SQLite** em lotes de 1.000 a 5.000 dentro de transação, com tela de "preparando o dicionário" com progresso e erro com "tentar de novo".
+  - ⏳ **Layout da tela de "preparando o dicionário" (decisão do autor, 2026-11-03):** o autor vai desenhar no Figma depois (não há frame). Até lá, tela genérica com os componentes existentes (título, texto, progresso, "Try again"). Trocar quando o frame existir.
+- **Card sem fonética (decisão do autor, 2026-11-03):** o WordCard mostra só a palavra, diferente do Figma (que tem a fonética abaixo). A lista do dwyl não traz fonética, e buscar na API para cada card seria pesado. A fonética aparece só no detalhe, quando o usuário abre a palavra.
 - **Ordem aleatória e estável (decisão do autor, 2026-11-03):** o seed grava um `sort_key` aleatório por palavra, e a lista é ordenada por (`sort_key`, `word`). Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, muitas sem resultado na API. A ordem não muda entre sessões. Registrar a decisão no README.
+- **Palavras comuns primeiro (decisão do autor, 2026-11-03):** a lista abre com palavras comuns, em ordem aleatória, inspirada no wireframe (hello, today, great…). O README da Coodesh não define ordem. São três camadas, cada uma com sua faixa de `sort_key` (`camada × 2³¹ + sorteio`): (1) Basic English de Ogden, 854 itens da Simple English Wikipedia, domínio público; (2) 8.117 palavras mais frequentes (`first20hours/google-10000-english`, sem palavrões, sem palavras de menos de 3 letras e sem siglas; licença de uso educacional e pessoal); (3) o resto do dwyl. Só entram palavras que existem no dwyl. Gerado por `scripts/build-common-words.mjs` em `src/features/words/data/commonWords.json` (88 KB, embutido no app). A migration `0001_reseed_with_common_words` esvazia `words` uma vez para quem já tinha a ordem antiga baixar de novo.
 - Paginação por **keyset** (`WHERE (sort_key, word) > (?, ?) ORDER BY sort_key, word LIMIT 60`), nunca `OFFSET`. 60 = 20 linhas × 3 colunas.
 - Grade com **FlashList** (`numColumns={3}`).
 - `onEndReached` com trava contra páginas duplicadas.
@@ -186,7 +189,7 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 
 ## 7. Telas (Figma)
 
-Arquivo `2SH7Dc3Qpr9ZjIw0iv8GGv`, página 1, frames de 390×844. Node IDs (Light / Dark):
+Arquivo `2SH7Dc3Qpr9ZjIw0iv8GGv` ([link público, só leitura](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1), citado no README; compartilhamento conferido em 2026-11-03), página 1, frames de 390×844. Node IDs (Light / Dark):
 
 | Tela | Light | Dark |
 |---|---|---|
@@ -297,6 +300,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 
 ### ⏳ A decidir
 
+- **Splash do app (lembrete do autor, 2026-11-04):** o autor vai desenhar a splash no Figma (não há frame). Hoje o `expo-splash-screen` do `app.json` mostra o `splash-icon.png` do template do Expo sobre o fundo do tema (claro e escuro). Ao trocar, gerar imagem para os dois temas (`dark.image`). No Expo Go a splash configurada não aparece (só no build, como o APK): conferir no APK. Etapa 6.
 - **Tela de perfil / configurações (lembrete do autor, 2026-11-03; detalhes a discutir):** o botão de conta no header passaria a abrir uma tela de perfil/configurações em vez de ir direto ao login. Ideias até agora:
   - **Tema:** escolha manual (claro, escuro ou seguir o sistema). Muda a decisão atual de só seguir o sistema; o `useThemeMode` passaria a ler a preferência salva.
   - **Idioma:** a chave PT/EN da interface (ver seção 1).
@@ -361,6 +365,26 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 - `favorites`: `user_id` (nulo = visitante), `word`, `created_at`.
 - `history`: `user_id` (nulo = visitante), `word`, `viewed_at` (único por usuário e palavra).
 - Toda leitura passa pelo Zod antes de chegar ao domínio.
+- **Implementação (2026-11-03, etapa 2):**
+  - Schema em `src/core/database/schema.ts`; migrations em `src/core/database/migrations/` (geradas, fora do lint e do Prettier); validação em `validation.ts` (`parseRows` com o nome da tabela no erro).
+  - Versões estáveis: `drizzle-orm` 0.45, `drizzle-kit` 0.31, `drizzle-zod` 0.8, `zod` 4 (a doc do Drizzle para Expo já aponta o 1.0 `rc`; não usamos RC).
+  - `sort_key` é inteiro. `favorites` e `history` têm `id` autoincremento e índice único por (usuário, palavra) com `CASE WHEN user_id IS NULL THEN '' ELSE user_id END`: no SQLite NULLs não colidem num índice único (o visitante repetiria a palavra), e o `drizzle-kit` 0.31 quebra `coalesce(...)` porque separa a expressão nas vírgulas. Conferido no `sqlite3`. Na etapa 4, o upsert precisa usar esse mesmo alvo (ou atualizar e depois inserir).
+  - A consulta keyset usa o índice de cobertura `words_sort_key_word_idx` (conferido com `EXPLAIN QUERY PLAN`).
+  - Banco em WAL. `src/core/di/container.ts` só exporta o container; `registerDependencies.ts` é o único que importa o client (abrir o banco não pode acontecer nos testes).
+  - As migrations rodam no layout raiz (`useDatabaseMigrations`); o splash só some quando as fontes e o banco estão prontos.
+- **Seed (2026-11-03, etapa 2):**
+  - `WordListSource` (domínio) → `DwylWordListSource` (baixa e valida com Zod; ~140 ms para validar as 370.100 chaves no Mac). `DictionarySeeder` → `SqliteDictionarySeeder`: `isSeeded` = existe linha em `words`; `seed` grava tudo numa **transação exclusiva** do `expo-sqlite`, em lotes de 5.000 (`INSERT OR IGNORE` de várias linhas), cedendo o JS thread entre lotes. Se o app fechar no meio, nada fica pela metade. Simulado com a lista real: 0,43 s no Mac.
+  - A transação exclusiva roda em outra conexão, então o seed usa SQL escrito à mão (o Drizzle fica na conexão principal). A conexão crua está no container como `TOKENS.SqliteConnection`.
+  - O fluxo passa pelo React Query (`useDictionarySetup`, chave em `hooks/queryKeys.ts`), com `retry: false`: o download é grande, então o erro aparece e o usuário escolhe "Try again". O `QueryClient` padrão tem `retry` de `QUERY_RETRY_COUNT` (2).
+  - `DictionaryGate` envolve as abas: fica em branco na checagem (milissegundos), mostra a tela de setup no primeiro uso e as abas quando está pronto. O header continua visível.
+  - Observação: a lista do dwyl tem muitas palavras raras ("maucherite", "tholance"), que podem não existir na API. Por isso a lista abre com as palavras comuns (seção 6.1); as raras só aparecem depois de ~150 páginas, e o 404 tem tratamento planejado (seção 6.2).
+- **Repositório de palavras (2026-11-03, etapa 2):** `WordRepository.getPage(cursor, limit)` devolve `{ words, nextCursor }`; o cursor é o último (`sortKey`, `word`) da página. `buildWordPage` (função pura) recebe `limit + 1` linhas: a extra só indica que há mais, então o fim da lista não custa uma consulta vazia.
+- **Hook da lista (2026-11-04, etapa 2):** `useWordList` usa `useInfiniteQuery` (chave `wordQueryKeys.list`, `staleTime: Infinity`, porque a lista local só muda num novo seed). Por padrão, chamar `fetchNextPage` durante uma busca **cancela e recomeça**; como o `onEndReached` dispara várias vezes, `loadNextPage` só busca com `hasNextPage`, sem busca em andamento e sem erro, e passa `cancelRefetch: false`. O erro é `firstPage` (tela de erro) ou `nextPage` (aviso no fim da grade, `retry` refaz só a página que falhou).
+- **Grade da Word list (2026-11-04, etapa 2):** `WordListScreen` (usa `useWordList`) → `WordGrid` (FlashList, `numColumns` 3) → `WordCard`. A FlashList divide a largura igualmente entre as colunas, então o espaço de 12pt entre cards vem de meia margem em cada célula, e o conteúdo compensa para manter o gutter de 24pt. Esses valores vão num `StyleSheet` a partir dos tokens (`contentContainerStyle` não aceita `className`). O título e o rodapé são `ListHeaderComponent`/`ListFooterComponent` e rolam junto, como no Figma. O `WordCard` recebe `onPress(word)` e é `memo`, para a lista não criar uma função por item. A próxima página começa a carregar meia tela antes do fim (`WORD_LIST_END_THRESHOLD`).
+- **Rolagem rápida (pedido do autor, 2026-11-04):** `useFastScroll` + `FastScrollbar` (`src/shared/`), usados na `WordGrid`. Não está no Figma. O Android não tem barra arrastável nas listas do React Native, então é um componente próprio: `PanResponder` para o arraste e shared values do Reanimated para posição, tamanho e opacidade (rolar não re-renderiza a lista). As contas são funções puras e worklets em `src/shared/utils/fastScroll.ts`. **Limite:** a lista é infinita, então a barrinha cobre o conteúdo **já carregado**; arrastando até o fim, a próxima página entra como na rolagem normal. Pular para qualquer ponto das 370 mil palavras exigiria outra paginação. A área de toque é o gutter direito (24pt, abaixo dos 44pt mínimos), escolhida para não cobrir os cards; é um atalho extra, a rolagem normal continua.
+- **Spinner:** `src/shared/components/Spinner.tsx` gira o `loader-circle` do Figma com Reanimated e fica parado se o sistema pede menos movimento (`useReducedMotion`).
+- **Jest e Reanimated 4.7:** o Reanimated quebra ao ser importado no Jest (registra um recurso de CSS nativo que o modo de teste não tem), e o mock oficial importa o mesmo código. `jest.setup.ts` usa um mock local mínimo (`src/shared/testing/reanimatedMock.ts`) com só o que o app usa; ao usar algo novo do Reanimated, acrescente lá. A FlashList usa o `jestSetup` dela e entra no `transformIgnorePatterns` (é ESM).
+- **Testes com SQL real:** `src/core/database/testing/createTestDatabase.ts` abre um SQLite em memória com o `better-sqlite3` (dependência de desenvolvimento, fora do bundle) e aplica as migrations do `_journal.json`. Repositórios que usam o Drizzle são testados assim. O seed, que usa a conexão crua do `expo-sqlite`, roda sobre `createTestConnection` (`src/core/database/testing/`), que imita `withExclusiveTransactionAsync` e `runAsync` no better-sqlite3: assim o SQL de inserção em lotes e o ROLLBACK rodam de verdade (`dictionaryFlow.test.ts`: seed em 3 lotes, falha no meio sem deixar nada, lista abrindo pelas palavras comuns, percurso completo sem repetição e ordem estável). Cobertura de `domain` e `data` da lista: 100%.
 
 ### Supabase (remoto)
 
@@ -419,7 +443,8 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 ### Repositório git
 
 - Repositório único, app na raiz, remote `https://github.com/EnzoFelyx/lexi-mobile-challenge.git` (público).
-- **Criado a partir do template da Coodesh (2026-11-03, decisão do autor):** o Passo 1 do desafio ("Use this template" em `coodesh/mobile-challenge-20240202`) tinha sido pulado. O repositório original foi renomeado para `EnzoFelyx/lexi-mobile-challenge-old` (guarda o PR #1 da etapa 1), um novo `lexi-mobile-challenge` foi gerado do template e o histórico local foi juntado a ele com merge (`--allow-unrelated-histories`), então todos os commits e hashes continuam iguais. O README do template virou `CHALLENGE.md`; o `img/wireframe.png` veio junto. A `main` foi enviada direto (importação inicial); o resto segue por PR. Branch principal: `main` (o template criou `master`, renomeada em 2026-11-03).
+- **Criado a partir do template da Coodesh (2026-11-03, decisão do autor):** o Passo 1 do desafio ("Use this template" em `coodesh/mobile-challenge-20240202`) tinha sido pulado. O repositório original foi renomeado para `EnzoFelyx/lexi-mobile-challenge-old` e, depois da migração, excluído (decisão do autor; perdeu-se só a página do PR #1 da etapa 1, cujos commits estão todos aqui). Um novo `lexi-mobile-challenge` foi gerado do template e o histórico local foi juntado a ele com merge (`--allow-unrelated-histories`), então todos os commits e hashes continuam iguais. O README do template virou `CHALLENGE.md`; o `img/wireframe.png` veio junto. A `main` foi enviada direto (importação inicial); o resto segue por PR.
+- Branch principal: `main` (o template criou `master`, renomeada em 2026-11-03).
 - Commits como `EnzoFelyx`, sem rodapé `Co-Authored-By`.
 - Uma branch por etapa (`chore/project-foundation`, `feat/word-list`…), merge por PR.
 - Conventional Commits em inglês.

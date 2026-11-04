@@ -63,6 +63,8 @@ export const typography = {
   label: { fontFamily: fonts.sansMedium, fontSize: 13 }, // labels de input, aba inativa
   labelStrong: { fontFamily: fonts.sansSemiBold, fontSize: 13 }, // aba ativa
   description: { fontFamily: fonts.sansRegular, fontSize: 12, lineHeight: 19 },
+  subtitle: { fontFamily: fonts.sansRegular, fontSize: 13, lineHeight: 18 }, // texto de apoio dos títulos
+  note: { fontFamily: fonts.sansRegular, fontSize: 11 }, // "Finding more words…"
   chip: { fontFamily: fonts.sansSemiBold, fontSize: 11 },
   caption: { fontFamily: fonts.sansRegular, fontSize: 10, lineHeight: 14 }, // fonética no card
   eyebrow: {
@@ -94,6 +96,8 @@ export const sizes = {
   header: 64, // header com logo e botão de conta
   brandPoint: 6, // ponto de acento ao lado do logo
   icon: 18, // ícones de botão
+  spinner: 16, // loader-circle do "carregando mais"
+  scrollThumb: 4, // barrinha de rolagem rápida (fora do Figma: mesma espessura do trilho de progresso)
   accountIcon: 19,
   iconStrokeWidth: 1.7, // traço dos ícones Lucide no Figma
   tabs: 52,

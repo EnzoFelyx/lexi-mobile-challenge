@@ -17,7 +17,7 @@
 |---|---|---|
 | 0 | Decisões pendentes | ✅ |
 | 1 | Fundação | ✅ |
-| 2 | Lista de palavras | ⬜ |
+| 2 | Lista de palavras | ✅ |
 | 3 | Detalhe da palavra | ⬜ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
 | 5 | Supabase e login | ⬜ |
@@ -53,7 +53,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 - [x] Renomear a branch `master` para `main`
 - [x] Criar o repositório público `EnzoFelyx/lexi-mobile-challenge` e fazer o primeiro push
-- [x] Recriar o repositório a partir do template da Coodesh (Passo 1 do desafio), mantendo o histórico: o antigo virou `lexi-mobile-challenge-old` (com o PR #1); enunciado em `CHALLENGE.md` (2026-11-03)
+- [x] Recriar o repositório a partir do template da Coodesh (Passo 1 do desafio), mantendo o histórico: o antigo foi renomeado e depois excluído; enunciado em `CHALLENGE.md` (2026-11-03)
 - [x] Instalar o ECC com o `./install.sh` do `ecc-rn-setup`, preservando o plugin `expo@claude-plugins-official` do `.claude/settings.json` (a `.claude/` saiu do git)
 - [x] Criar a branch `chore/project-foundation`
 - [x] Limpar o template do Expo: telas e componentes de demo, `reset-project`, suporte web (`react-native-web`, `react-dom`, config `web` do `app.json`) e assets sem uso
@@ -80,15 +80,16 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** a aba Word list com as ~370 mil palavras e rolagem infinita fluida.
 
-- [ ] Banco SQLite com Drizzle: schema, migrations geradas (`db:generate`, `.sql` embutido via `inline-import`) e validação Zod na leitura (tabelas `words`, `word_cache`, `favorites`, `history`)
-- [ ] Seed: baixar o `words_dictionary.json` do dwyl na primeira execução e gravar em lotes dentro de transação, com `sort_key` aleatório por palavra
-- [ ] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo"
-- [ ] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página
-- [ ] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
-- [ ] Componentes do Figma: SegmentedTabs (✅ antecipado na etapa 1, como `tabBar` das abas) e WordCard
-- [ ] Grade de 3 colunas com **FlashList**, título de seção, texto de apoio e "carregando mais" no fim
-- [ ] Testes: paginação keyset (próxima página, fim da lista) e seed em lotes
-- [ ] Conferir no Expo Go (Android e iOS), com rolagem fluida
+- [x] Banco SQLite com Drizzle: schema, migrations geradas (`db:generate`, `.sql` embutido via `inline-import`) e validação Zod na leitura (tabelas `words`, `word_cache`, `favorites`, `history`)
+- [x] Seed: baixar o `words_dictionary.json` do dwyl na primeira execução e gravar em lotes dentro de transação, com `sort_key` aleatório por palavra
+- [x] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo" (genérica por enquanto)
+- [ ] 📝 **Lembrete do autor:** desenhar no Figma a tela de "preparando o dicionário" e depois trocar a tela genérica pelo frame
+- [x] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página
+- [x] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
+- [x] Componentes do Figma: SegmentedTabs (✅ antecipado na etapa 1, como `tabBar` das abas) e WordCard (só a palavra, sem fonética: decisão do autor)
+- [x] Grade de 3 colunas com **FlashList**, título de seção, texto de apoio e "carregando mais" no fim
+- [x] Testes: paginação keyset (próxima página, fim da lista) e seed em lotes (incluindo seed + paginação ponta a ponta num SQLite real; 100% de cobertura em `domain` e `data`)
+- [x] Conferir no Expo Go (Android e iOS), com rolagem fluida (conferido pelo autor em 2026-11-04, inclusive a rolagem rápida)
 
 **Pronto quando:** a lista rola até o fim sem travar, o seed só roda uma vez e os testes passam.
 
@@ -161,6 +162,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Completar os testes unitários e de componente (meta ~70% em `domain` e `data`)
 - [ ] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
 - [ ] Polimento visual fiel ao Figma, em light e dark
+- [ ] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Hoje a splash usa o `splash-icon.png` do template do Expo sobre o fundo do tema
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
 - [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
 - [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
@@ -180,6 +182,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
+- [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
 - [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
 - [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
 - [ ] Commit final, link do repositório na plataforma da Coodesh e envio
