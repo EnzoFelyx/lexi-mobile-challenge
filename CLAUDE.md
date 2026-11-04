@@ -169,6 +169,8 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 ### 6.3 Histórico
 
 - Sem duplicados: rever uma palavra atualiza o `viewed_at` e ela sobe para o topo. Ordem: mais recente primeiro.
+- **Gravação (2026-11-04, etapa 3):** `HistoryRepository.recordView(word, userId)` → `SqliteHistoryRepository`: **atualiza e, se não havia linha, insere**. O upsert direto precisaria do índice com a expressão do visitante como alvo, que os tipos do Drizzle não aceitam (só com `as never`). Se dois registros chegarem juntos, o índice único barra o segundo (`onConflictDoNothing`). O hook `useRecordWordView` grava uma vez por palavra aberta; até a etapa 5, sempre como visitante (`userId` nulo). **Só palavras encontradas entram no histórico (decisão do autor, 2026-11-04):** o detalhe passa `null` enquanto carrega e no "Word not found"; se o "Retry" encontrar a palavra, ela é registrada nesse momento. Uma falha ao gravar só gera `console.warn`, sem atrapalhar o detalhe.
+- **Detalhe pelo React Query:** `useWordDetail(word)` (chave `wordQueryKeys.detail(word)`, `staleTime: Infinity`) devolve `loading`, `found`, `not_found` ou `error`. No `not_found`, o `retry` usa `queryClient.fetchQuery` com `refresh: true`, para passar por cima do 404 guardado; no `error` (rede), só refaz a busca.
 
 ### 6.4 Favoritos
 

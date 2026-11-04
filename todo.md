@@ -101,7 +101,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 - [x] `DictionaryService` (interface + Free Dictionary API) com resposta validada por Zod
 - [x] Cache: React Query → SQLite (`word_cache`) → API, inclusive para o 404 (a parte do React Query entra com o hook)
-- [ ] Hook `useWordDetail` e registro no container
+- [x] Hook `useWordDetail` e registro no container
 - [ ] Detalhe em `formSheet` (Figma `3:15839`): "X", coração, card com palavra e fonética, Meanings por classe gramatical com chips e exemplos
 - [ ] Skeleton de carregamento (Figma `3:15914`)
 - [ ] Erro "Word not found" (Figma `3:15979`) com Retry e Next
