@@ -85,7 +85,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo" (genérica por enquanto)
 - [ ] 📝 **Lembrete do autor:** desenhar no Figma a tela de "preparando o dicionário" e depois trocar a tela genérica pelo frame
 - [x] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página
-- [ ] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
+- [x] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
 - [ ] Componentes do Figma: SegmentedTabs (✅ antecipado na etapa 1, como `tabBar` das abas) e WordCard (só a palavra, sem fonética: decisão do autor)
 - [ ] Grade de 3 colunas com **FlashList**, título de seção, texto de apoio e "carregando mais" no fim
 - [ ] Testes: paginação keyset (próxima página, fim da lista) e seed em lotes
