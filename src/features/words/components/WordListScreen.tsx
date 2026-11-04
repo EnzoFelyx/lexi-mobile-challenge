@@ -10,6 +10,9 @@ import { useWordList } from '../hooks/useWordList';
 import { type LoadMoreStatus, LoadMoreFooter } from './LoadMoreFooter';
 import { WordGrid } from './WordGrid';
 
+const openFromWordList = (word: string, index: number) =>
+  openWordDetail(word, { source: 'words', index });
+
 /** Aba Word list: grade com rolagem infinita, com carregamento, erro e lista vazia tratados. */
 export function WordListScreen() {
   const list = useWordList();
@@ -40,7 +43,7 @@ export function WordListScreen() {
   return (
     <WordGrid
       words={list.words}
-      onWordPress={openWordDetail}
+      onWordPress={openFromWordList}
       onEndReached={list.loadNextPage}
       header={<SectionHeading title={en.words.title} subtitle={en.words.subtitle} />}
       footer={<LoadMoreFooter status={footerStatus} onRetry={list.retry} />}

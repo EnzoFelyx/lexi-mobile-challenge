@@ -19,7 +19,14 @@ export interface WordList {
   error: 'firstPage' | 'nextPage' | null;
   hasMore: boolean;
   loadNextPage: () => void;
+  /** Busca a próxima página e devolve todas as palavras carregadas (usado pelo "Next"). */
+  loadMore: () => Promise<string[]>;
   retry: () => void;
+}
+
+interface UseWordListOptions {
+  /** Desligado quando quem usa não precisa da lista (ex.: detalhe aberto a partir de History). */
+  enabled?: boolean;
 }
 
 /**
@@ -27,7 +34,7 @@ export interface WordList {
  * `loadNextPage` pode ser chamado à vontade pelo `onEndReached`: só busca quando há próxima
  * página e nenhuma busca em andamento, então nunca carrega a mesma página duas vezes.
  */
-export function useWordList(): WordList {
+export function useWordList({ enabled = true }: UseWordListOptions = {}): WordList {
   const query = useInfiniteQuery({
     queryKey: wordQueryKeys.list,
     queryFn: ({ pageParam }) =>
@@ -38,6 +45,7 @@ export function useWordList(): WordList {
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     // A lista é local e só muda num novo seed: não há o que revalidar.
     staleTime: Infinity,
+    enabled,
   });
 
   useEffect(() => {
@@ -51,6 +59,11 @@ export function useWordList(): WordList {
       return;
     }
     void query.fetchNextPage({ cancelRefetch: false });
+  };
+
+  const loadMore = async (): Promise<string[]> => {
+    const result = query.hasNextPage ? await query.fetchNextPage({ cancelRefetch: false }) : query;
+    return result.data?.pages.flatMap((page) => page.words) ?? [];
   };
 
   const retry = () => {
@@ -70,6 +83,7 @@ export function useWordList(): WordList {
     error,
     hasMore: query.hasNextPage,
     loadNextPage,
+    loadMore,
     retry,
   };
 }

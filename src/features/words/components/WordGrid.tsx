@@ -11,7 +11,7 @@ import { WordCard } from './WordCard';
 
 interface WordGridProps {
   words: readonly string[];
-  onWordPress: (word: string) => void;
+  onWordPress: (word: string, index: number) => void;
   onEndReached?: () => void;
   header: ReactElement;
   footer?: ReactElement | null;
@@ -45,9 +45,9 @@ export function WordGrid({ words, onWordPress, onEndReached, header, footer }: W
     listRef.current?.scrollToOffset({ offset, animated: false }),
   );
 
-  const renderItem = ({ item }: { item: string }) => (
+  const renderItem = ({ item, index }: { item: string; index: number }) => (
     <View style={styles.cell}>
-      <WordCard word={item} onPress={onWordPress} />
+      <WordCard word={item} index={index} onPress={onWordPress} />
     </View>
   );
 

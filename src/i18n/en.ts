@@ -57,6 +57,9 @@ export const en = {
     reassurance: 'Your place is saved. There’s always another word to explore.',
     retry: 'Retry',
     next: 'Next',
+    previous: 'Previous',
+    previousHint: 'Opens the previous word in this list',
+    nextHint: 'Opens the next word in this list',
   },
   auth: {
     loginTitle: 'Log in',

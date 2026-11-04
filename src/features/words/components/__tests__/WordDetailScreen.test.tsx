@@ -37,9 +37,12 @@ const register = (lookup: WordLookup) => {
 };
 
 const renderDetail = (word: string, onClose = jest.fn()) =>
-  render(<WordDetailScreen word={word} onClose={onClose} />, {
-    wrapper: createQueryClientWrapper(),
-  });
+  render(
+    <WordDetailScreen word={word} position={null} onClose={onClose} onNavigate={jest.fn()} />,
+    {
+      wrapper: createQueryClientWrapper(),
+    },
+  );
 
 describe('WordDetailScreen', () => {
   it('shows the word, its phonetic and its meanings, and records it in the history', async () => {

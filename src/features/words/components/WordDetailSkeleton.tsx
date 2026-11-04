@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 
+import { sizes } from '@/core/theme/theme';
 import { en } from '@/i18n/en';
 import { AppText } from '@/shared/components/AppText';
 import { Skeleton } from '@/shared/components/Skeleton';
@@ -22,16 +23,21 @@ const styles = StyleSheet.create({
 });
 
 const MEANING_PLACEHOLDERS = 2;
+
+interface WordDetailSkeletonProps {
+  /** Mostra os blocos do Previous/Next quando o detalhe tem navegação. */
+  withNavigation: boolean;
+}
 const noop = () => undefined;
 
 /** Skeleton do detalhe enquanto a palavra carrega (Figma 3:15914). */
-export function WordDetailSkeleton() {
+export function WordDetailSkeleton({ withNavigation }: WordDetailSkeletonProps) {
   return (
     <View
       accessible
       accessibilityLabel={en.wordDetail.loading}
       accessibilityState={{ busy: true }}
-      className="gap-lg-plus pt-sm"
+      className="flex-1 gap-lg-plus pt-sm"
     >
       <View className="gap-sm rounded-lg bg-accent-soft p-lg-plus">
         <View className="justify-center" style={styles.headwordBox}>
@@ -61,6 +67,16 @@ export function WordDetailSkeleton() {
       <AppText variant="note" tone="secondary">
         {en.wordDetail.lookingUp}
       </AppText>
+      {withNavigation ? (
+        <View className="mt-auto flex-row gap-md pb-xl pt-sm">
+          <View className="flex-1">
+            <Skeleton width="100%" height={sizes.button} />
+          </View>
+          <View className="flex-1">
+            <Skeleton width="100%" height={sizes.button} />
+          </View>
+        </View>
+      ) : null}
     </View>
   );
 }

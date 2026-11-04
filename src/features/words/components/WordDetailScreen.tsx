@@ -2,7 +2,10 @@ import { ScrollView, View } from 'react-native';
 
 import { useRecordWordView } from '@/features/history/hooks/useRecordWordView';
 
+import type { WordPosition } from '../domain/wordNavigation';
 import { useWordDetail } from '../hooks/useWordDetail';
+import { useWordNavigation } from '../hooks/useWordNavigation';
+import { DetailNavigation } from './DetailNavigation';
 import { DetailToolbar } from './DetailToolbar';
 import { HeadwordCard } from './HeadwordCard';
 import { MeaningsSection } from './MeaningsSection';
@@ -12,15 +15,21 @@ import { WordDetailSkeleton } from './WordDetailSkeleton';
 
 interface WordDetailScreenProps {
   word: string;
+  /** De onde o detalhe foi aberto; nulo = sem Previous/Next. */
+  position: WordPosition | null;
   onClose: () => void;
+  onNavigate: (word: string, position: WordPosition) => void;
 }
 
 /**
  * Detalhe da palavra (folha `formSheet`): skeleton enquanto carrega, o detalhe com o player da
  * pronúncia, ou o estado de erro do Figma ("Word not found", falha de rede, limite da API).
  */
-export function WordDetailScreen({ word, onClose }: WordDetailScreenProps) {
+export function WordDetailScreen({ word, position, onClose, onNavigate }: WordDetailScreenProps) {
   const { state, retry } = useWordDetail(word);
+  const navigation = useWordNavigation({ word, position, onNavigate });
+  // No erro, o "Next" do Figma só aparece se houver próxima palavra.
+  const nextWhenAvailable = navigation.canGoNext ? navigation.goToNext : undefined;
   useRecordWordView(state.status === 'found' ? state.detail.word : null);
 
   return (
@@ -29,9 +38,15 @@ export function WordDetailScreen({ word, onClose }: WordDetailScreenProps) {
     // ela pode ficar só com layout), o ScrollView vira filho direto e cobre a barra, sem margem.
     <View collapsable={false} className="flex-1 gap-sm bg-background px-xl pt-lg">
       <DetailToolbar onClose={onClose} />
-      {state.status === 'loading' ? <WordDetailSkeleton /> : null}
-      {state.status === 'not_found' ? <WordDetailError kind="not_found" onRetry={retry} /> : null}
-      {state.status === 'error' ? <WordDetailError kind={state.reason} onRetry={retry} /> : null}
+      {state.status === 'loading' ? (
+        <WordDetailSkeleton withNavigation={position !== null} />
+      ) : null}
+      {state.status === 'not_found' ? (
+        <WordDetailError kind="not_found" onRetry={retry} onNext={nextWhenAvailable} />
+      ) : null}
+      {state.status === 'error' ? (
+        <WordDetailError kind={state.reason} onRetry={retry} onNext={nextWhenAvailable} />
+      ) : null}
       {state.status === 'found' ? (
         <ScrollView
           contentContainerClassName="gap-lg-plus pb-xl pt-sm"
@@ -46,6 +61,9 @@ export function WordDetailScreen({ word, onClose }: WordDetailScreenProps) {
           </HeadwordCard>
           <MeaningsSection meanings={state.detail.meanings} />
         </ScrollView>
+      ) : null}
+      {state.status === 'found' && position !== null ? (
+        <DetailNavigation navigation={navigation} />
       ) : null}
     </View>
   );

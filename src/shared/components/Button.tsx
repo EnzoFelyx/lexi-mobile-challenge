@@ -14,6 +14,8 @@ interface ButtonProps {
   variant?: ButtonVariant;
   icon?: LucideIcon;
   accessibilityHint?: string;
+  /** Sem ação no momento (ex.: "Previous" na primeira palavra). O Figma não define o visual. */
+  disabled?: boolean;
   className?: string;
 }
 
@@ -39,6 +41,7 @@ export function Button({
   variant = 'primary',
   icon: Icon,
   accessibilityHint,
+  disabled = false,
   className,
 }: ButtonProps) {
   const { colors, sizes } = useTheme();
@@ -48,8 +51,10 @@ export function Button({
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
       onPress={onPress}
-      className={`h-button flex-row items-center justify-center gap-sm rounded-md border px-lg active:opacity-80 ${containerClass[variant]} ${className ?? ''}`}
+      className={`h-button flex-row items-center justify-center gap-sm rounded-md border px-lg ${disabled ? 'opacity-40' : 'active:opacity-80'} ${containerClass[variant]} ${className ?? ''}`}
     >
       {Icon ? (
         <Icon
