@@ -437,7 +437,8 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 ### Repositório git
 
 - Repositório único, app na raiz, remote `https://github.com/EnzoFelyx/lexi-mobile-challenge.git` (público).
-- **Criado a partir do template da Coodesh (2026-11-03, decisão do autor):** o Passo 1 do desafio ("Use this template" em `coodesh/mobile-challenge-20240202`) tinha sido pulado. O repositório original foi renomeado para `EnzoFelyx/lexi-mobile-challenge-old` (guarda o PR #1 da etapa 1), um novo `lexi-mobile-challenge` foi gerado do template e o histórico local foi juntado a ele com merge (`--allow-unrelated-histories`), então todos os commits e hashes continuam iguais. O README do template virou `CHALLENGE.md`; o `img/wireframe.png` veio junto. A `main` foi enviada direto (importação inicial); o resto segue por PR. Branch principal: `main` (o template criou `master`, renomeada em 2026-11-03).
+- **Criado a partir do template da Coodesh (2026-11-03, decisão do autor):** o Passo 1 do desafio ("Use this template" em `coodesh/mobile-challenge-20240202`) tinha sido pulado. O repositório original foi renomeado para `EnzoFelyx/lexi-mobile-challenge-old` e, depois da migração, excluído (decisão do autor; perdeu-se só a página do PR #1 da etapa 1, cujos commits estão todos aqui). Um novo `lexi-mobile-challenge` foi gerado do template e o histórico local foi juntado a ele com merge (`--allow-unrelated-histories`), então todos os commits e hashes continuam iguais. O README do template virou `CHALLENGE.md`; o `img/wireframe.png` veio junto. A `main` foi enviada direto (importação inicial); o resto segue por PR.
+- Branch principal: `main` (o template criou `master`, renomeada em 2026-11-03).
 - Commits como `EnzoFelyx`, sem rodapé `Co-Authored-By`.
 - Uma branch por etapa (`chore/project-foundation`, `feat/word-list`…), merge por PR.
 - Conventional Commits em inglês.
