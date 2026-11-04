@@ -71,7 +71,10 @@ Cada feature (`words`, `favorites`, `history`, `auth`) tem as mesmas camadas:
 - Requisições passam pelo **React Query** (sem `fetch` solto em `useEffect`), com retry configurado e chaves estáveis.
 - Seed e paginação nunca bloqueiam o JS thread: lotes em transação, keyset, trava contra chamadas duplicadas.
 - Efeitos limpam assinaturas, timers e players ao desmontar.
-- Nunca engula erros (`catch {}` vazio). Mensagem amigável ao usuário e `console.warn` com contexto para o dev.
+- Nunca engula erros (`catch {}` vazio). Mensagem amigável ao usuário e registro com contexto para o dev pelo `logger` (`src/shared/utils/logger.ts`), nunca `console.warn` solto (decisão do autor, 2026-11-04):
+  - `logger.warn(scope, mensagem, erro)` para **falha de verdade** já tratada na tela (banco, rede, gravação…);
+  - `logger.debug(scope, mensagem, detalhe)` para **situação esperada e contornada** (ex.: áudio da API fora do ar e a voz do aparelho assumindo), que fica só no terminal, sem aviso amarelo no celular;
+  - o `logger` só registra em desenvolvimento; no build de produção não registra nada.
 
 ## Regra 7 — Reutilização e zero duplicidade
 
@@ -140,7 +143,7 @@ Cada feature (`words`, `favorites`, `history`, `auth`) tem as mesmas camadas:
 ## Qualidade automática
 
 - **ESLint + Prettier** (`singleQuote`, `trailingComma: all`, `printWidth: 100`).
-- Regras de lint como `error`: `react-native/no-color-literals`, `react-native/no-inline-styles`, `@typescript-eslint/no-explicit-any`, `react-hooks/exhaustive-deps`, `no-console` (permitindo `warn` e `error`) e `no-restricted-syntax` contra cor em `className`.
+- Regras de lint como `error`: `react-native/no-color-literals`, `react-native/no-inline-styles`, `@typescript-eslint/no-explicit-any`, `react-hooks/exhaustive-deps`, `no-console` (permitindo `warn` e `error`; o `logger` é o único lugar que chama o `console`) e `no-restricted-syntax` contra cor em `className`.
 - Scripts: `lint`, `format`, `typecheck`, `test` e `db:generate`.
 - GitHub Actions roda lint, typecheck e testes a cada push.
 

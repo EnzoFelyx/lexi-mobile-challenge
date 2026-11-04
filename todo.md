@@ -108,7 +108,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Mensagem própria para o limite da API (HTTP 429, "Too many lookups right now. Wait a moment and try again."), em vez de "verifique sua internet"; o 429 não vai para o cache (decisão do autor, 2026-11-04)
 - [ ] Filtros leves contra o "Word not found" (decisão do autor): a Word list pula palavras com 404 já guardado no cache; o seed ignora palavras com hífen ou símbolos
 - [ ] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
-- [ ] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
+- [x] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
 - [x] Abrir o detalhe registra no histórico (só palavras encontradas)
 - [ ] Testes: fluxo do cache (404 cacheado não chama a API), escolha do áudio e fallback, estados da tela
 - [ ] Conferir no Expo Go (Android e iOS)
