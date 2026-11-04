@@ -10,6 +10,7 @@ import { chunk } from '@/shared/utils/chunk';
 import { yieldToEventLoop } from '@/shared/utils/yieldToEventLoop';
 
 import type { DictionarySeeder, SeedProgressListener } from '../domain/DictionarySeeder';
+import { isListableWord } from '../domain/listableWord';
 import { toWordSeedRows } from '../domain/wordSeedRows';
 import { COMMON_WORD_TIERS } from './commonWordTiers';
 
@@ -36,7 +37,7 @@ export class SqliteDictionarySeeder implements DictionarySeeder {
    * A transação exclusiva usa outra conexão, por isso o SQL é escrito à mão (o Drizzle usa a principal).
    */
   async seed(wordList: readonly string[], onProgress: SeedProgressListener): Promise<void> {
-    const rows = toWordSeedRows(wordList, Math.random, COMMON_WORD_TIERS);
+    const rows = toWordSeedRows(wordList.filter(isListableWord), Math.random, COMMON_WORD_TIERS);
     const batches = chunk(rows, SEED_BATCH_SIZE);
 
     await this.connection.withExclusiveTransactionAsync(async (transaction) => {

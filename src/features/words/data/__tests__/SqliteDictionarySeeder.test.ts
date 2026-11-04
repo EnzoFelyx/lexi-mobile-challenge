@@ -1,6 +1,7 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { SEED_BATCH_SIZE } from '@/constants/words';
+import { letterWord } from '@/shared/testing/letterWord';
 import type { Database } from '@/core/database/client';
 
 import { SqliteDictionarySeeder } from '../SqliteDictionarySeeder';
@@ -39,7 +40,7 @@ describe('SqliteDictionarySeeder', () => {
   it('writes every word in batches inside one transaction, reporting progress', async () => {
     const { connection, runAsync } = fakeConnection();
     const seeder = new SqliteDictionarySeeder(databaseReturning([]), connection);
-    const words = Array.from({ length: SEED_BATCH_SIZE * 2 + 1 }, (_, index) => `word${index}`);
+    const words = Array.from({ length: SEED_BATCH_SIZE * 2 + 1 }, (_, index) => letterWord(index));
     const onProgress = jest.fn();
 
     await seeder.seed(words, onProgress);
@@ -48,8 +49,21 @@ describe('SqliteDictionarySeeder', () => {
     expect(runAsync).toHaveBeenCalledTimes(3);
     const [lastSql, lastParams] = runAsync.mock.calls[2];
     expect(lastSql).toBe('INSERT OR IGNORE INTO words (word, sort_key) VALUES (?, ?)');
-    expect(lastParams).toEqual([`word${SEED_BATCH_SIZE * 2}`, expect.any(Number)]);
+    expect(lastParams).toEqual([letterWord(SEED_BATCH_SIZE * 2), expect.any(Number)]);
     expect(onProgress.mock.calls.map(([fraction]) => fraction)).toEqual([1 / 3, 2 / 3, 1]);
+  });
+
+  it('leaves out words with hyphens or symbols', async () => {
+    const { connection, runAsync } = fakeConnection();
+    const seeder = new SqliteDictionarySeeder(databaseReturning([]), connection);
+
+    await seeder.seed(['hello', 'jean-pierre', 'today'], jest.fn());
+
+    const [, params] = runAsync.mock.calls[0];
+    expect(params.filter((value: unknown) => typeof value === 'string')).toEqual([
+      'hello',
+      'today',
+    ]);
   });
 
   it('propagates a write failure so the transaction rolls back', async () => {

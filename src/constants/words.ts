@@ -28,3 +28,9 @@ export const DICTIONARY_API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/
 
 /** Significados visíveis por classe gramatical antes do "Show more" (decisão do autor). */
 export const MEANING_PREVIEW_COUNT = 3;
+
+/**
+ * Validade do "Word not found" guardado: depois disso a palavra volta à lista e a API é consultada
+ * de novo. O 404 da API nem sempre é definitivo (o CDN dela guarda respostas por ~1 dia).
+ */
+export const NOT_FOUND_CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;

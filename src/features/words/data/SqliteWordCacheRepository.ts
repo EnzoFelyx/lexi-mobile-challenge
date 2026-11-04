@@ -7,6 +7,7 @@ import { parseRows, wordCacheRowSchema } from '@/core/database/validation';
 import { TOKENS } from '@/core/di/tokens';
 import { logger } from '@/shared/utils/logger';
 
+import { isNotFoundStillValid } from '../domain/notFoundExpiry';
 import type { WordCacheRepository } from '../domain/WordCacheRepository';
 import type { WordLookup } from '../domain/WordDetail';
 import { wordDetailSchema } from './dictionarySchemas';
@@ -26,7 +27,10 @@ export class SqliteWordCacheRepository implements WordCacheRepository {
       return null;
     }
     if (row.status === 'not_found') {
-      return { status: 'not_found', word: row.word };
+      // 404 vencido: trata como ausente, para a API ser consultada de novo.
+      return isNotFoundStillValid(row.fetchedAt, new Date())
+        ? { status: 'not_found', word: row.word }
+        : null;
     }
     const detail = wordDetailSchema.safeParse(JSON.parse(row.payload ?? 'null'));
     if (!detail.success) {

@@ -1,3 +1,4 @@
+import { NOT_FOUND_CACHE_TTL_MS } from '@/constants/words';
 import { wordCache } from '@/core/database/schema';
 import { createTestDatabase, type TestDatabase } from '@/core/database/testing/createTestDatabase';
 
@@ -49,6 +50,27 @@ describe('SqliteWordCacheRepository', () => {
   it('replaces a cached 404 when the word is found later', async () => {
     await repository.save({ status: 'not_found', word: 'hello' });
     await repository.save(FOUND);
+
+    await expect(repository.get('hello')).resolves.toEqual(FOUND);
+  });
+
+  it('forgets a "Word not found" after it expires, so the API is asked again', async () => {
+    const expired = new Date(Date.now() - NOT_FOUND_CACHE_TTL_MS - 1000);
+    await testDatabase.database
+      .insert(wordCache)
+      .values({ word: 'every', status: 'not_found', payload: null, fetchedAt: expired });
+
+    await expect(repository.get('every')).resolves.toBeNull();
+  });
+
+  it('keeps a found word with no expiry', async () => {
+    const longAgo = new Date(Date.now() - NOT_FOUND_CACHE_TTL_MS * 10);
+    await testDatabase.database.insert(wordCache).values({
+      word: 'hello',
+      status: 'ok',
+      payload: JSON.stringify(FOUND.status === 'found' ? FOUND.detail : null),
+      fetchedAt: longAgo,
+    });
 
     await expect(repository.get('hello')).resolves.toEqual(FOUND);
   });
