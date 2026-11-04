@@ -8,6 +8,12 @@ export const TOKENS = {
   WordListSource: Symbol('WordListSource'),
   DictionarySeeder: Symbol('DictionarySeeder'),
   WordRepository: Symbol('WordRepository'),
+  DictionaryService: Symbol('DictionaryService'),
+  WordCacheRepository: Symbol('WordCacheRepository'),
+  HistoryRepository: Symbol('HistoryRepository'),
+  PronunciationAudioFactory: Symbol('PronunciationAudioFactory'),
+  PronunciationAudioCache: Symbol('PronunciationAudioCache'),
+  SpeechService: Symbol('SpeechService'),
 } as const satisfies Record<string, symbol>;
 
 export type Token = (typeof TOKENS)[keyof typeof TOKENS];

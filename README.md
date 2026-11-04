@@ -6,7 +6,7 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 (foundation) and 2 (word list) are done: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid, opening with common words. The word detail, favorites, history and login come in the next stages.
+🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 3 are done: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), and opens each word with its phonetic, pronunciation and meanings, cached on the device, with Previous/Next through the list. Favorites, the history screen and login come in the next stages.
 
 ## Technologies
 
@@ -21,7 +21,8 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 | Fonts and icons | Fraunces and Inter (Google Fonts), Lucide |
 | Local data | SQLite (`expo-sqlite`) + Drizzle ORM, rows validated with Zod, TanStack Query |
 | Lists | FlashList (3-column grid with infinite scroll and a fast scrollbar) |
-| Planned | Zustand, Supabase (auth and sync), `expo-audio` + `expo-speech` |
+| Pronunciation | `expo-audio` (API mp3, cached with `expo-file-system`) and `expo-speech` (device voice as fallback) |
+| Planned | Zustand, Supabase (auth and sync) |
 
 ## How to run
 

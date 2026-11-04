@@ -1,8 +1,17 @@
 import { router } from 'expo-router';
 
-/** Abre o detalhe da palavra (folha `formSheet`). */
-export function openWordDetail(word: string): void {
-  router.push({ pathname: '/word/[word]', params: { word } });
+/** De qual lista e posição o detalhe foi aberto (o Previous/Next anda dentro dela). */
+export interface ListPosition {
+  source: string;
+  index: number;
+}
+
+/** Abre o detalhe da palavra (folha `formSheet`), dizendo de qual lista e posição veio. */
+export function openWordDetail(word: string, position?: ListPosition): void {
+  const params = position
+    ? { word, source: position.source, index: String(position.index) }
+    : { word };
+  router.push({ pathname: '/word/[word]', params });
 }
 
 export function openLogin(): void {

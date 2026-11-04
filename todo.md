@@ -18,7 +18,7 @@
 | 0 | Decisões pendentes | ✅ |
 | 1 | Fundação | ✅ |
 | 2 | Lista de palavras | ✅ |
-| 3 | Detalhe da palavra | ⬜ |
+| 3 | Detalhe da palavra | ✅ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
 | 5 | Supabase e login | ⬜ |
 | 6 | Qualidade | ⬜ |
@@ -99,17 +99,19 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** ver a palavra, os significados, a fonética e ouvir a pronúncia.
 
-- [ ] `DictionaryService` (interface + Free Dictionary API) com resposta validada por Zod
-- [ ] Cache: React Query → SQLite (`word_cache`) → API, inclusive para o 404
-- [ ] Hook `useWordDetail` e registro no container
-- [ ] Detalhe em `formSheet` (Figma `3:15839`): "X", coração, card com palavra e fonética, Meanings por classe gramatical com chips e exemplos
-- [ ] Skeleton de carregamento (Figma `3:15914`)
-- [ ] Erro "Word not found" (Figma `3:15979`) com Retry e Next
-- [ ] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
-- [ ] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
-- [ ] Abrir o detalhe registra no histórico
-- [ ] Testes: fluxo do cache (404 cacheado não chama a API), escolha do áudio e fallback, estados da tela
-- [ ] Conferir no Expo Go (Android e iOS)
+- [x] `DictionaryService` (interface + Free Dictionary API) com resposta validada por Zod
+- [x] Cache: React Query → SQLite (`word_cache`) → API, inclusive para o 404 (a parte do React Query entra com o hook)
+- [x] Hook `useWordDetail` e registro no container
+- [x] Detalhe em `formSheet` (Figma `3:15839`): "X", coração, card com palavra e fonética, Meanings por classe gramatical com chips e exemplos
+- [x] Skeleton de carregamento (Figma `3:15914`; os blocos do Previous/Next entram com a navegação)
+- [x] Erro "Word not found" (Figma `3:15979`) com Retry e Next (o Next aparece quando houver próxima palavra, com a navegação)
+- [x] Mensagem própria para o limite da API (HTTP 429, "Too many lookups right now. Wait a moment and try again."), em vez de "verifique sua internet"; o 429 não vai para o cache (decisão do autor, 2026-11-04)
+- [x] "Word not found" (decisão do autor): as palavras continuam na lista (esconder foi descartado, ver `CLAUDE.md` 6.1); o 404 guardado vale 7 dias; o seed ignora palavras com hífen ou símbolos
+- [x] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
+- [x] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
+- [x] Abrir o detalhe registra no histórico (só palavras encontradas)
+- [x] Testes: fluxo do cache (404 cacheado não chama a API), escolha do áudio e fallback, estados da tela
+- [x] Conferir no Expo Go (Android e iOS) (conferido pelo autor em 2026-11-04)
 
 **Pronto quando:** qualquer palavra abre com dados ou erro tratado, a segunda abertura vem do cache (inclusive offline) e o áudio sempre toca algo.
 
@@ -164,10 +166,12 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Polimento visual fiel ao Figma, em light e dark
 - [ ] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Hoje a splash usa o `splash-icon.png` do template do Expo sobre o fundo do tema
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
+- [ ] (Opcional) Card levemente apagado para palavra com "Word not found" conhecido, sem tirá-la da lista
 - [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
 - [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [ ] Teste completo em Android e iOS
+- [ ] (Opcional) Script que valida as ~9 mil palavras comuns na API (devagar, dentro do limite) e tira das camadas as que dão 404 e os nomes próprios
 - [ ] (Opcional) Maestro E2E: abrir a lista, rolar, abrir uma palavra, favoritar e conferir em Favorites; login e logout
 
 **Pronto quando:** CI verde, testes passando e o app fiel ao Figma nos dois sistemas e nos dois temas.

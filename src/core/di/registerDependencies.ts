@@ -1,11 +1,25 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { database, type Database, sqliteConnection } from '@/core/database/client';
+import { SqliteHistoryRepository } from '@/features/history/data/SqliteHistoryRepository';
+import type { HistoryRepository } from '@/features/history/domain/HistoryRepository';
 import type { DictionarySeeder } from '@/features/words/domain/DictionarySeeder';
+import type { DictionaryService } from '@/features/words/domain/DictionaryService';
+import type {
+  PronunciationAudioCache,
+  PronunciationAudioFactory,
+  SpeechService,
+} from '@/features/words/domain/PronunciationAudio';
+import type { WordCacheRepository } from '@/features/words/domain/WordCacheRepository';
 import type { WordListSource } from '@/features/words/domain/WordListSource';
 import type { WordRepository } from '@/features/words/domain/WordRepository';
 import { DwylWordListSource } from '@/features/words/data/DwylWordListSource';
+import { ExpoPronunciationAudioFactory } from '@/features/words/data/ExpoPronunciationAudioFactory';
+import { ExpoSpeechService } from '@/features/words/data/ExpoSpeechService';
+import { FileSystemPronunciationAudioCache } from '@/features/words/data/FileSystemPronunciationAudioCache';
+import { FreeDictionaryService } from '@/features/words/data/FreeDictionaryService';
 import { SqliteDictionarySeeder } from '@/features/words/data/SqliteDictionarySeeder';
+import { SqliteWordCacheRepository } from '@/features/words/data/SqliteWordCacheRepository';
 import { SqliteWordRepository } from '@/features/words/data/SqliteWordRepository';
 
 import { container } from './container';
@@ -23,4 +37,19 @@ export function registerDependencies(): void {
   container.registerSingleton<WordListSource>(TOKENS.WordListSource, DwylWordListSource);
   container.registerSingleton<DictionarySeeder>(TOKENS.DictionarySeeder, SqliteDictionarySeeder);
   container.registerSingleton<WordRepository>(TOKENS.WordRepository, SqliteWordRepository);
+  container.registerSingleton<DictionaryService>(TOKENS.DictionaryService, FreeDictionaryService);
+  container.registerSingleton<WordCacheRepository>(
+    TOKENS.WordCacheRepository,
+    SqliteWordCacheRepository,
+  );
+  container.registerSingleton<HistoryRepository>(TOKENS.HistoryRepository, SqliteHistoryRepository);
+  container.registerSingleton<PronunciationAudioFactory>(
+    TOKENS.PronunciationAudioFactory,
+    ExpoPronunciationAudioFactory,
+  );
+  container.registerSingleton<PronunciationAudioCache>(
+    TOKENS.PronunciationAudioCache,
+    FileSystemPronunciationAudioCache,
+  );
+  container.registerSingleton<SpeechService>(TOKENS.SpeechService, ExpoSpeechService);
 }

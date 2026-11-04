@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { logger } from '@/shared/utils/logger';
 
 import type { Database } from './client';
 import migrations from './migrations/migrations';
@@ -21,7 +22,7 @@ export function useDatabaseMigrations(): DatabaseMigrationsState {
 
   useEffect(() => {
     if (error) {
-      console.warn('[database] Could not apply the local database migrations.', error);
+      logger.warn('database', 'Could not apply the local database migrations.', error);
     }
   }, [error]);
 

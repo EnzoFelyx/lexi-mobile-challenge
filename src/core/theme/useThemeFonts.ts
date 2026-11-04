@@ -1,9 +1,12 @@
 import { Fraunces_600SemiBold } from '@expo-google-fonts/fraunces/600SemiBold';
 import { Inter_400Regular } from '@expo-google-fonts/inter/400Regular';
+import { Inter_400Regular_Italic } from '@expo-google-fonts/inter/400Regular_Italic';
 import { Inter_500Medium } from '@expo-google-fonts/inter/500Medium';
 import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
+
+import { logger } from '@/shared/utils/logger';
 
 import { fonts } from './theme';
 
@@ -13,6 +16,7 @@ const fontAssets = {
   [fonts.sansRegular]: Inter_400Regular,
   [fonts.sansMedium]: Inter_500Medium,
   [fonts.sansSemiBold]: Inter_600SemiBold,
+  [fonts.sansItalic]: Inter_400Regular_Italic,
 };
 
 /**
@@ -24,7 +28,7 @@ export function useThemeFonts(): boolean {
 
   useEffect(() => {
     if (error) {
-      console.warn('[theme] Could not load the theme fonts; falling back to system fonts.', error);
+      logger.warn('theme', 'Could not load the theme fonts; falling back to system fonts.', error);
     }
   }, [error]);
 

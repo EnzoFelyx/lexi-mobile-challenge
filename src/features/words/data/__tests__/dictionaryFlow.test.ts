@@ -2,6 +2,7 @@ import { SEED_BATCH_SIZE, WORD_LIST_PAGE_SIZE } from '@/constants/words';
 import type { Database } from '@/core/database/client';
 import { createTestConnection } from '@/core/database/testing/createTestConnection';
 import { createTestDatabase, type TestDatabase } from '@/core/database/testing/createTestDatabase';
+import { letterWord } from '@/shared/testing/letterWord';
 
 import type { WordCursor } from '../../domain/WordRepository';
 import { COMMON_WORD_TIERS } from '../commonWordTiers';
@@ -17,7 +18,7 @@ import { SqliteWordRepository } from '../SqliteWordRepository';
 const RARE_WORD_COUNT = SEED_BATCH_SIZE * 2 + 1;
 // Um pouco mais que uma página de palavras do Basic English.
 const COMMON_WORDS = [...(COMMON_WORD_TIERS[0] ?? [])].slice(0, WORD_LIST_PAGE_SIZE + 10);
-const RARE_WORDS = Array.from({ length: RARE_WORD_COUNT }, (_, index) => `zzrare${index}`);
+const RARE_WORDS = Array.from({ length: RARE_WORD_COUNT }, (_, index) => letterWord(index, 'zz'));
 const ALL_WORDS = [...RARE_WORDS, ...COMMON_WORDS];
 
 const readWholeList = async (repository: SqliteWordRepository): Promise<string[]> => {

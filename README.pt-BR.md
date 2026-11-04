@@ -6,7 +6,7 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 (fundação) e 2 (lista de palavras) estão prontas: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita, começando pelas palavras comuns. O detalhe, os favoritos, o histórico e o login vêm nas próximas etapas.
+🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 3 estão prontas: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), e abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, com Previous/Next pela lista. Os favoritos, a tela de histórico e o login vêm nas próximas etapas.
 
 ## Tecnologias
 
@@ -21,7 +21,8 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 | Fontes e ícones | Fraunces e Inter (Google Fonts), Lucide |
 | Dados locais | SQLite (`expo-sqlite`) + Drizzle ORM, linhas validadas com Zod, TanStack Query |
 | Listas | FlashList (grade de 3 colunas com rolagem infinita e barra de rolagem rápida) |
-| Previsto | Zustand, Supabase (login e sincronização), `expo-audio` + `expo-speech` |
+| Pronúncia | `expo-audio` (mp3 da API, guardado com `expo-file-system`) e `expo-speech` (voz do aparelho quando não há mp3) |
+| Previsto | Zustand, Supabase (login e sincronização) |
 
 ## Como rodar
 

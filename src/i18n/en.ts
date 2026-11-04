@@ -34,6 +34,32 @@ export const en = {
   },
   wordDetail: {
     close: 'Close',
+    title: 'Word explorer',
+    meanings: 'Meanings',
+    showMore: (count: number) => `Show ${count} more`,
+    showLess: 'Show less',
+    example: (text: string) => `“${text}”`,
+    loading: 'Loading the word',
+    lookingUp: 'Looking up a little more meaning…',
+    notFound: {
+      title: 'Word not found',
+      message:
+        'We couldn’t find a definition for this word. Try again, or discover the next word in your list.',
+    },
+    unavailable: {
+      title: 'Couldn’t load the word',
+      message: 'Check your internet connection and try again.',
+    },
+    rateLimited: {
+      title: 'Too many lookups',
+      message: 'Too many lookups right now. Wait a moment and try again.',
+    },
+    reassurance: 'Your place is saved. There’s always another word to explore.',
+    retry: 'Retry',
+    next: 'Next',
+    previous: 'Previous',
+    previousHint: 'Opens the previous word in this list',
+    nextHint: 'Opens the next word in this list',
   },
   auth: {
     loginTitle: 'Log in',
@@ -48,6 +74,20 @@ export const en = {
     errorMessage:
       'Check your internet connection and try again. The word list is downloaded only once.',
     retry: 'Try again',
+  },
+  pronunciation: {
+    accent: {
+      uk: 'British pronunciation',
+      us: 'American pronunciation',
+      au: 'Australian pronunciation',
+      ca: 'Canadian pronunciation',
+    },
+    generic: 'Pronunciation',
+    preparing: 'Preparing audio',
+    play: (word: string) => `Play the pronunciation of ${word}`,
+    playWithVoice: (word: string) => `Play the pronunciation of ${word} with the device voice`,
+    pause: 'Pause the pronunciation',
+    progress: 'Pronunciation progress',
   },
   database: {
     unavailableTitle: 'Something went wrong',
