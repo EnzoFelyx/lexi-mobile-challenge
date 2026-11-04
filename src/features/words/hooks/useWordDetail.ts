@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { logger } from '@/shared/utils/logger';
 
 import type { DictionaryService } from '../domain/DictionaryService';
 import { lookUpWord } from '../domain/lookUpWord';
@@ -47,7 +48,7 @@ export function useWordDetail(word: string): WordDetailResult {
 
   useEffect(() => {
     if (query.error) {
-      console.warn(`[words] Could not look up "${word}".`, query.error);
+      logger.warn('words', `Could not look up "${word}".`, query.error);
     }
   }, [query.error, word]);
 
@@ -56,7 +57,7 @@ export function useWordDetail(word: string): WordDetailResult {
       void queryClient
         .fetchQuery({ queryKey, queryFn: () => lookUp(word, true), staleTime: 0 })
         .catch((error: unknown) => {
-          console.warn(`[words] Retrying "${word}" failed.`, error);
+          logger.warn('words', `Retrying "${word}" failed.`, error);
         });
       return;
     }

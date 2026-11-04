@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { logger } from '@/shared/utils/logger';
 
 import type { HistoryRepository } from '../domain/HistoryRepository';
 
@@ -23,7 +24,7 @@ export function useRecordWordView(foundWord: string | null): void {
       .recordView(foundWord, GUEST_USER_ID)
       .catch((error: unknown) => {
         // Falhar ao gravar o histórico não pode atrapalhar a leitura da palavra.
-        console.warn(`[history] Could not record "${foundWord}" as viewed.`, error);
+        logger.warn('history', `Could not record "${foundWord}" as viewed.`, error);
       });
   }, [foundWord]);
 }

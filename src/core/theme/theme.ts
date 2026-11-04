@@ -75,6 +75,7 @@ export const typography = {
   phonetic: { fontFamily: fonts.sansItalic, fontSize: 16, lineHeight: 20 }, // fonética no detalhe
   example: { fontFamily: fonts.sansItalic, fontSize: 12, lineHeight: 19 }, // exemplo de uso
   note: { fontFamily: fonts.sansRegular, fontSize: 11 }, // "Finding more words…"
+  meta: { fontFamily: fonts.sansSemiBold, fontSize: 10 }, // rótulo do player ("British pronunciation")
   chip: { fontFamily: fonts.sansSemiBold, fontSize: 11 },
   caption: { fontFamily: fonts.sansRegular, fontSize: 10, lineHeight: 14 }, // fonética no card
   eyebrow: {
@@ -109,6 +110,7 @@ export const sizes = {
   brandPoint: 6, // ponto de acento ao lado do logo
   icon: 18, // ícones de botão
   closeIcon: 20, // "X" do detalhe
+  playIcon: 20, // play/pause do player
   spinner: 16, // loader-circle do "carregando mais"
   scrollThumb: 4, // barrinha de rolagem rápida (fora do Figma: mesma espessura do trilho de progresso)
   accountIcon: 19,

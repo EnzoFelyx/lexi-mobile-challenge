@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { WORD_LIST_PAGE_SIZE } from '@/constants/words';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { logger } from '@/shared/utils/logger';
 
 import type { WordCursor, WordRepository } from '../domain/WordRepository';
 import { wordQueryKeys } from './queryKeys';
@@ -41,7 +42,7 @@ export function useWordList(): WordList {
 
   useEffect(() => {
     if (query.error) {
-      console.warn('[words] Could not load the word list.', query.error);
+      logger.warn('words', 'Could not load the word list.', query.error);
     }
   }, [query.error]);
 

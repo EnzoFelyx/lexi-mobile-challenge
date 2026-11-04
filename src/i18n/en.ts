@@ -60,6 +60,21 @@ export const en = {
       'Check your internet connection and try again. The word list is downloaded only once.',
     retry: 'Try again',
   },
+  pronunciation: {
+    accent: {
+      uk: 'British pronunciation',
+      us: 'American pronunciation',
+      au: 'Australian pronunciation',
+      ca: 'Canadian pronunciation',
+    },
+    generic: 'Pronunciation',
+    preparing: 'Preparing audio',
+    unknownDuration: '–:––',
+    play: (word: string) => `Play the pronunciation of ${word}`,
+    playWithVoice: (word: string) => `Play the pronunciation of ${word} with the device voice`,
+    pause: 'Pause the pronunciation',
+    progress: 'Pronunciation progress',
+  },
   database: {
     unavailableTitle: 'Something went wrong',
     unavailableMessage:

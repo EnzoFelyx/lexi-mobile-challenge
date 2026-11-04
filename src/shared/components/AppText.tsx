@@ -22,6 +22,7 @@ export const textVariantClass: Record<TextVariant, string> = {
   phonetic: 'font-sans-italic text-phonetic',
   example: 'font-sans-italic text-example',
   note: 'font-sans-regular text-note',
+  meta: 'font-sans-semi-bold text-meta',
   chip: 'font-sans-semi-bold text-chip',
   caption: 'font-sans-regular text-caption',
   eyebrow: 'font-sans-semi-bold text-eyebrow uppercase',

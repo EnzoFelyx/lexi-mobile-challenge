@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { logger } from '@/shared/utils/logger';
 
 import type { DictionarySeeder } from '../domain/DictionarySeeder';
 import type { WordListSource } from '../domain/WordListSource';
@@ -48,7 +49,7 @@ export function useDictionarySetup(): DictionarySetup {
 
   useEffect(() => {
     if (query.error) {
-      console.warn('[words] Could not prepare the dictionary.', query.error);
+      logger.warn('words', 'Could not prepare the dictionary.', query.error);
     }
   }, [query.error]);
 

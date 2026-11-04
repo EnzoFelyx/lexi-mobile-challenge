@@ -6,6 +6,8 @@ import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 
+import { logger } from '@/shared/utils/logger';
+
 import { fonts } from './theme';
 
 // Só os pesos do theme.ts, importados por subcaminho para não empacotar a família inteira.
@@ -26,7 +28,7 @@ export function useThemeFonts(): boolean {
 
   useEffect(() => {
     if (error) {
-      console.warn('[theme] Could not load the theme fonts; falling back to system fonts.', error);
+      logger.warn('theme', 'Could not load the theme fonts; falling back to system fonts.', error);
     }
   }, [error]);
 

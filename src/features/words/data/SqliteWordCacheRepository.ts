@@ -5,6 +5,7 @@ import type { Database } from '@/core/database/client';
 import { wordCache } from '@/core/database/schema';
 import { parseRows, wordCacheRowSchema } from '@/core/database/validation';
 import { TOKENS } from '@/core/di/tokens';
+import { logger } from '@/shared/utils/logger';
 
 import type { WordCacheRepository } from '../domain/WordCacheRepository';
 import type { WordLookup } from '../domain/WordDetail';
@@ -30,7 +31,7 @@ export class SqliteWordCacheRepository implements WordCacheRepository {
     const detail = wordDetailSchema.safeParse(JSON.parse(row.payload ?? 'null'));
     if (!detail.success) {
       // Cache corrompido ou de outro formato: trata como ausente e busca na API de novo.
-      console.warn(`[words] Ignoring an invalid cached entry for "${word}".`, detail.error);
+      logger.warn('words', `Ignoring an invalid cached entry for "${word}".`, detail.error);
       return null;
     }
     return { status: 'found', detail: detail.data };
