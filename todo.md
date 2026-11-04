@@ -181,6 +181,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
+- [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
 - [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
 - [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
 - [ ] Commit final, link do repositório na plataforma da Coodesh e envio
