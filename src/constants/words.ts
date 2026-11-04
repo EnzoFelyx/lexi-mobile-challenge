@@ -22,3 +22,6 @@ export const WORD_SORT_KEY_RANGE = 2 ** 31;
 
 /** Quanto antes do fim (em telas) a próxima página começa a carregar: a rolagem não chega a parar. */
 export const WORD_LIST_END_THRESHOLD = 0.5;
+
+/** Free Dictionary API: GET `${DICTIONARY_API_URL}/<palavra>`; 404 quando a palavra não existe. */
+export const DICTIONARY_API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en';
