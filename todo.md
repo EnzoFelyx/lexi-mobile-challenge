@@ -103,9 +103,9 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Cache: React Query → SQLite (`word_cache`) → API, inclusive para o 404 (a parte do React Query entra com o hook)
 - [x] Hook `useWordDetail` e registro no container
 - [x] Detalhe em `formSheet` (Figma `3:15839`): "X", coração, card com palavra e fonética, Meanings por classe gramatical com chips e exemplos
-- [ ] Skeleton de carregamento (Figma `3:15914`)
-- [ ] Erro "Word not found" (Figma `3:15979`) com Retry e Next
-- [ ] Mensagem própria para o limite da API (HTTP 429, "Too many lookups right now. Wait a moment and try again."), em vez de "verifique sua internet"; o 429 não vai para o cache (decisão do autor, 2026-11-04)
+- [x] Skeleton de carregamento (Figma `3:15914`; os blocos do Previous/Next entram com a navegação)
+- [x] Erro "Word not found" (Figma `3:15979`) com Retry e Next (o Next aparece quando houver próxima palavra, com a navegação)
+- [x] Mensagem própria para o limite da API (HTTP 429, "Too many lookups right now. Wait a moment and try again."), em vez de "verifique sua internet"; o 429 não vai para o cache (decisão do autor, 2026-11-04)
 - [ ] Filtros leves contra o "Word not found" (decisão do autor): a Word list pula palavras com 404 já guardado no cache; o seed ignora palavras com hífen ou símbolos
 - [ ] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
 - [x] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
