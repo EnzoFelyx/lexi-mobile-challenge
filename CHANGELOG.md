@@ -9,6 +9,8 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ## 2026-11-04 — Etapa 3 (detalhe da palavra)
 
+Etapa concluída em 2026-11-04: qualquer palavra abre com dados ou erro tratado, a segunda abertura vem do cache, o áudio sempre toca algo (mp3 ou voz do aparelho) e o Previous/Next anda pela lista (conferido no Expo Go pelo autor).
+
 ### Adicionado
 
 - Busca da palavra na Free Dictionary API (`FreeDictionaryService`, resposta validada com Zod) e cache persistente no SQLite (`SqliteWordCacheRepository`), inclusive para o 404. `lookUpWord` consulta o cache antes da API, guarda a resposta e não guarda erro de rede; `toWordDetail` junta as entradas da API (fonética, áudios sem repetidos e significados por classe gramatical). Decisões da etapa registradas no `CLAUDE.md` (coração escondido até a etapa 4, histórico gravado já agora, voz do aparelho no mesmo player, até 3 significados por classe com "Show more"). (`001a68e`)
@@ -18,6 +20,7 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 - Estados do Figma no detalhe: skeleton enquanto a palavra carrega e tela de erro com ilustração, texto, "Your place is saved…" e Retry, em três variantes: "Word not found" (404), falha de rede e limite da API (429, "Too many lookups…"). O 429 não é repetido automaticamente (erro marcado como não repetível no `QueryClient`). (`4c62a3e`)
 - "Word not found": o 404 guardado no cache passa a valer 7 dias (depois, a API é consultada de novo), porque o 404 dessa API às vezes vem do CDN dela, como em "every". As palavras continuam na lista (decisão do autor: esconder foi descartado). O download inicial ignora palavras com hífen ou símbolos (só 2 no dwyl). (`ef1079e`)
 - O player não mostra mais "–:––" enquanto o áudio carrega: a duração só aparece quando é conhecida (decisão do autor; o Figma mostrava o marcador). O log da pronúncia registra só quando o servidor de áudio cai e quando volta, não uma linha por palavra (pedido do autor). (`2a57f95`)
+- Previous/Next no detalhe, dentro da lista de origem: a rota recebe a origem e a posição (validadas com Zod), a palavra troca dentro da mesma folha, o "Next" no fim do que já foi carregado busca a próxima página, e os botões ficam desabilitados nas pontas. Entram o "Next" no erro "Word not found" e os blocos do rodapé no skeleton. No card da Word list, palavra longa passa a quebrar em até 2 linhas no tamanho normal (com hífen no Android) em vez de encolher (decisão do autor). (`826c639`)
 
 ---
 

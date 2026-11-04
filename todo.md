@@ -18,7 +18,7 @@
 | 0 | Decisões pendentes | ✅ |
 | 1 | Fundação | ✅ |
 | 2 | Lista de palavras | ✅ |
-| 3 | Detalhe da palavra | 🟨 |
+| 3 | Detalhe da palavra | ✅ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
 | 5 | Supabase e login | ⬜ |
 | 6 | Qualidade | ⬜ |
@@ -107,11 +107,11 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Erro "Word not found" (Figma `3:15979`) com Retry e Next (o Next aparece quando houver próxima palavra, com a navegação)
 - [x] Mensagem própria para o limite da API (HTTP 429, "Too many lookups right now. Wait a moment and try again."), em vez de "verifique sua internet"; o 429 não vai para o cache (decisão do autor, 2026-11-04)
 - [x] "Word not found" (decisão do autor): as palavras continuam na lista (esconder foi descartado, ver `CLAUDE.md` 6.1); o 404 guardado vale 7 dias; o seed ignora palavras com hífen ou símbolos
-- [ ] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
+- [x] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
 - [x] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
 - [x] Abrir o detalhe registra no histórico (só palavras encontradas)
-- [ ] Testes: fluxo do cache (404 cacheado não chama a API), escolha do áudio e fallback, estados da tela
-- [ ] Conferir no Expo Go (Android e iOS)
+- [x] Testes: fluxo do cache (404 cacheado não chama a API), escolha do áudio e fallback, estados da tela
+- [x] Conferir no Expo Go (Android e iOS) (conferido pelo autor em 2026-11-04)
 
 **Pronto quando:** qualquer palavra abre com dados ou erro tratado, a segunda abertura vem do cache (inclusive offline) e o áudio sempre toca algo.
 
