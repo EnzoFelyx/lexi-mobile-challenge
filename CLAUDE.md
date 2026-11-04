@@ -375,6 +375,8 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
   - A transação exclusiva roda em outra conexão, então o seed usa SQL escrito à mão (o Drizzle fica na conexão principal). A conexão crua está no container como `TOKENS.SqliteConnection`.
   - O fluxo passa pelo React Query (`useDictionarySetup`, chave em `hooks/queryKeys.ts`), com `retry: false`: o download é grande, então o erro aparece e o usuário escolhe "Try again". O `QueryClient` padrão tem `retry` de `QUERY_RETRY_COUNT` (2).
   - `DictionaryGate` envolve as abas: fica em branco na checagem (milissegundos), mostra a tela de setup no primeiro uso e as abas quando está pronto. O header continua visível.
+- **Repositório de palavras (2026-11-03, etapa 2):** `WordRepository.getPage(cursor, limit)` devolve `{ words, nextCursor }`; o cursor é o último (`sortKey`, `word`) da página. `buildWordPage` (função pura) recebe `limit + 1` linhas: a extra só indica que há mais, então o fim da lista não custa uma consulta vazia.
+- **Testes com SQL real:** `src/core/database/testing/createTestDatabase.ts` abre um SQLite em memória com o `better-sqlite3` (dependência de desenvolvimento, fora do bundle) e aplica as migrations do `_journal.json`. Repositórios que usam o Drizzle são testados assim; o que depende do `expo-sqlite` cru (seed) usa mock.
   - Observação: mesmo em ordem aleatória, a lista do dwyl tem muitas palavras raras ("maucherite", "tholance"), que podem não existir na API. O 404 já tem tratamento planejado (seção 6.2).
 
 ### Supabase (remoto)
