@@ -5,17 +5,21 @@ import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
 import { logger } from '@/shared/utils/logger';
 
+import { DictionaryRateLimitError } from '../domain/DictionaryRateLimitError';
 import type { DictionaryService } from '../domain/DictionaryService';
 import { lookUpWord } from '../domain/lookUpWord';
 import type { WordCacheRepository } from '../domain/WordCacheRepository';
 import type { WordDetail } from '../domain/WordDetail';
 import { wordQueryKeys } from './queryKeys';
 
+/** Por que a palavra não carregou: limite da API (429) ou falha de rede/servidor. */
+export type WordDetailErrorReason = 'rate_limited' | 'unavailable';
+
 export type WordDetailState =
   | { status: 'loading' }
   | { status: 'found'; detail: WordDetail }
   | { status: 'not_found' }
-  | { status: 'error' };
+  | { status: 'error'; reason: WordDetailErrorReason };
 
 export interface WordDetailResult {
   state: WordDetailState;
@@ -69,7 +73,10 @@ export function useWordDetail(word: string): WordDetailResult {
       ? { status: 'found', detail: query.data.detail }
       : { status: 'not_found' }
     : query.isError
-      ? { status: 'error' }
+      ? {
+          status: 'error',
+          reason: query.error instanceof DictionaryRateLimitError ? 'rate_limited' : 'unavailable',
+        }
       : { status: 'loading' };
 
   return { state, isRetrying: query.isFetching && state.status !== 'loading', retry };

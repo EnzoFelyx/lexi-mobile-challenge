@@ -40,11 +40,23 @@ export const en = {
     showLess: 'Show less',
     example: (text: string) => `“${text}”`,
     loading: 'Loading the word',
-    notFoundTitle: 'Word not found',
-    notFoundMessage: "This word isn't in the dictionary yet.",
-    errorTitle: "Couldn't load the word",
-    errorMessage: 'Check your internet connection and try again.',
+    lookingUp: 'Looking up a little more meaning…',
+    notFound: {
+      title: 'Word not found',
+      message:
+        'We couldn’t find a definition for this word. Try again, or discover the next word in your list.',
+    },
+    unavailable: {
+      title: 'Couldn’t load the word',
+      message: 'Check your internet connection and try again.',
+    },
+    rateLimited: {
+      title: 'Too many lookups',
+      message: 'Too many lookups right now. Wait a moment and try again.',
+    },
+    reassurance: 'Your place is saved. There’s always another word to explore.',
     retry: 'Retry',
+    next: 'Next',
   },
   auth: {
     loginTitle: 'Log in',

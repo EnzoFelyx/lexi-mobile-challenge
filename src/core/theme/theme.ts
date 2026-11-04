@@ -63,6 +63,7 @@ export const typography = {
     letterSpacing: -1.4,
   }, // palavra no card do detalhe
   heading: { fontFamily: fonts.serifSemiBold, fontSize: 24 }, // "Meanings"
+  title: { fontFamily: fonts.serifSemiBold, fontSize: 30 }, // título dos estados de erro do detalhe
 
   // Inter
   body: { fontFamily: fonts.sansRegular, fontSize: 14 }, // inputs, definições
@@ -75,6 +76,8 @@ export const typography = {
   phonetic: { fontFamily: fonts.sansItalic, fontSize: 16, lineHeight: 20 }, // fonética no detalhe
   example: { fontFamily: fonts.sansItalic, fontSize: 12, lineHeight: 19 }, // exemplo de uso
   note: { fontFamily: fonts.sansRegular, fontSize: 11 }, // "Finding more words…"
+  message: { fontFamily: fonts.sansRegular, fontSize: 14, lineHeight: 22 }, // texto dos estados de erro
+  hint: { fontFamily: fonts.sansRegular, fontSize: 11, lineHeight: 18 }, // caixa "Your place is saved…"
   meta: { fontFamily: fonts.sansSemiBold, fontSize: 10 }, // rótulo do player ("British pronunciation")
   chip: { fontFamily: fonts.sansSemiBold, fontSize: 11 },
   caption: { fontFamily: fonts.sansRegular, fontSize: 10, lineHeight: 14 }, // fonética no card
@@ -101,6 +104,7 @@ export const radius = {
   sm: 8, // chip, abas internas
   md: 12, // cards, botões, inputs, trilho das abas
   lg: 16, // card da palavra no detalhe
+  illustration: 36, // quadrado da ilustração dos estados de erro
   pill: 100, // play, favorito, progresso
 } as const;
 
@@ -111,6 +115,8 @@ export const sizes = {
   icon: 18, // ícones de botão
   closeIcon: 20, // "X" do detalhe
   playIcon: 20, // play/pause do player
+  illustration: 112, // quadrado da ilustração dos estados de erro
+  illustrationIcon: 44, // ícone dentro da ilustração
   spinner: 16, // loader-circle do "carregando mais"
   scrollThumb: 4, // barrinha de rolagem rápida (fora do Figma: mesma espessura do trilho de progresso)
   accountIcon: 19,

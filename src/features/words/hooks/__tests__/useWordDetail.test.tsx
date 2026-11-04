@@ -4,6 +4,7 @@ import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
 import { createQueryClientWrapper } from '@/shared/testing/queryClientWrapper';
 
+import { DictionaryRateLimitError } from '../../domain/DictionaryRateLimitError';
 import type { DictionaryService } from '../../domain/DictionaryService';
 import type { WordCacheRepository } from '../../domain/WordCacheRepository';
 import type { WordDetail, WordLookup } from '../../domain/WordDetail';
@@ -76,6 +77,20 @@ describe('useWordDetail', () => {
     expect(service.lookup).toHaveBeenCalledWith('colour');
   });
 
+  it('tells apart the API rate limit from other failures', async () => {
+    register(null, async () => {
+      throw new DictionaryRateLimitError('hello');
+    });
+
+    const { result } = await renderHook(() => useWordDetail('hello'), {
+      wrapper: createQueryClientWrapper(),
+    });
+
+    await waitFor(() =>
+      expect(result.current.state).toEqual({ status: 'error', reason: 'rate_limited' }),
+    );
+  });
+
   it('shows an error on a network failure and recovers on retry', async () => {
     let online = false;
     register(null, async () => {
@@ -87,7 +102,9 @@ describe('useWordDetail', () => {
     const { result } = await renderHook(() => useWordDetail('hello'), {
       wrapper: createQueryClientWrapper(),
     });
-    await waitFor(() => expect(result.current.state.status).toBe('error'));
+    await waitFor(() =>
+      expect(result.current.state).toEqual({ status: 'error', reason: 'unavailable' }),
+    );
 
     online = true;
     await act(async () => result.current.retry());

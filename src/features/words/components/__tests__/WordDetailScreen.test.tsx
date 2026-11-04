@@ -59,9 +59,18 @@ describe('WordDetailScreen', () => {
 
     await renderDetail('maucherite');
 
-    expect(await screen.findByText(en.wordDetail.notFoundTitle)).toBeOnTheScreen();
+    expect(await screen.findByText(en.wordDetail.notFound.title)).toBeOnTheScreen();
     expect(screen.getByRole('button', { name: en.wordDetail.retry })).toBeOnTheScreen();
     expect(history.recordView).not.toHaveBeenCalled();
+  });
+
+  it('shows the loading skeleton while the word is looked up', async () => {
+    register(HELLO);
+
+    await renderDetail('hello');
+
+    expect(screen.getByLabelText(en.wordDetail.loading)).toBeOnTheScreen();
+    expect(await screen.findByRole('header', { name: 'hello' })).toBeOnTheScreen();
   });
 
   it('closes when the X is pressed', async () => {

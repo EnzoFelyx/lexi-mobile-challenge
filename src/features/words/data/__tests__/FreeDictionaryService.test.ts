@@ -70,3 +70,14 @@ describe('FreeDictionaryService', () => {
     );
   });
 });
+
+describe('FreeDictionaryService rate limit', () => {
+  it('reports the API rate limit (HTTP 429) as its own error, not to be retried', async () => {
+    respond(429);
+
+    await expect(new FreeDictionaryService().lookup('hello')).rejects.toMatchObject({
+      name: 'DictionaryRateLimitError',
+      retryable: false,
+    });
+  });
+});
