@@ -102,12 +102,14 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] `DictionaryService` (interface + Free Dictionary API) com resposta validada por Zod
 - [x] Cache: React Query → SQLite (`word_cache`) → API, inclusive para o 404 (a parte do React Query entra com o hook)
 - [x] Hook `useWordDetail` e registro no container
-- [ ] Detalhe em `formSheet` (Figma `3:15839`): "X", coração, card com palavra e fonética, Meanings por classe gramatical com chips e exemplos
+- [x] Detalhe em `formSheet` (Figma `3:15839`): "X", coração, card com palavra e fonética, Meanings por classe gramatical com chips e exemplos
 - [ ] Skeleton de carregamento (Figma `3:15914`)
 - [ ] Erro "Word not found" (Figma `3:15979`) com Retry e Next
+- [ ] Mensagem própria para o limite da API (HTTP 429, "Too many lookups right now. Wait a moment and try again."), em vez de "verifique sua internet"; o 429 não vai para o cache (decisão do autor, 2026-11-04)
+- [ ] Filtros leves contra o "Word not found" (decisão do autor): a Word list pula palavras com 404 já guardado no cache; o seed ignora palavras com hífen ou símbolos
 - [ ] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
 - [ ] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
-- [ ] Abrir o detalhe registra no histórico
+- [x] Abrir o detalhe registra no histórico (só palavras encontradas)
 - [ ] Testes: fluxo do cache (404 cacheado não chama a API), escolha do áudio e fallback, estados da tela
 - [ ] Conferir no Expo Go (Android e iOS)
 
@@ -168,6 +170,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [ ] Teste completo em Android e iOS
+- [ ] (Opcional) Script que valida as ~9 mil palavras comuns na API (devagar, dentro do limite) e tira das camadas as que dão 404 e os nomes próprios
 - [ ] (Opcional) Maestro E2E: abrir a lista, rolar, abrir uma palavra, favoritar e conferir em Favorites; login e logout
 
 **Pronto quando:** CI verde, testes passando e o app fiel ao Figma nos dois sistemas e nos dois temas.

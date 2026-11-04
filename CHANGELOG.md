@@ -13,6 +13,7 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 - Busca da palavra na Free Dictionary API (`FreeDictionaryService`, resposta validada com Zod) e cache persistente no SQLite (`SqliteWordCacheRepository`), inclusive para o 404. `lookUpWord` consulta o cache antes da API, guarda a resposta e não guarda erro de rede; `toWordDetail` junta as entradas da API (fonética, áudios sem repetidos e significados por classe gramatical). Decisões da etapa registradas no `CLAUDE.md` (coração escondido até a etapa 4, histórico gravado já agora, voz do aparelho no mesmo player, até 3 significados por classe com "Show more"). (`001a68e`)
 - Hook `useWordDetail` com o React Query na frente do cache (palavra aberta de novo na mesma sessão nem consulta o SQLite), estados de carregamento, encontrada, "Word not found" e erro de rede, e `retry` que passa por cima do 404 guardado. `HistoryRepository` (`features/history`) com o registro da palavra vista, sem duplicados (atualiza a data), separado por usuário, e o hook `useRecordWordView`, que registra só as palavras encontradas (decisão do autor). (`dd488d4`)
+- Tela do detalhe do Figma na folha `formSheet`: barra com "X" e "WORD EXPLORER", card da palavra (Fraunces 48 e fonética em itálico) e "Meanings" com chips de classe gramatical, definições, exemplos e "Show more" depois de 3 significados. Abrir uma palavra encontrada a grava no histórico. Entra o Inter Itálico; carregamento e erros ainda provisórios (o skeleton e o "Word not found" do Figma vêm depois). (`3fe0b07`)
 
 ---
 
