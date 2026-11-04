@@ -29,4 +29,8 @@ export const withTiming = identity;
 
 export const withRepeat = identity;
 
+export const withDelay = (_delay: number, animation: unknown) => animation;
+
+export const withSequence = (...animations: unknown[]) => animations.at(-1);
+
 export const cancelAnimation = (): void => undefined;

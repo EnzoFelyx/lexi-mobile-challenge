@@ -97,6 +97,7 @@ export const sizes = {
   brandPoint: 6, // ponto de acento ao lado do logo
   icon: 18, // ícones de botão
   spinner: 16, // loader-circle do "carregando mais"
+  scrollThumb: 4, // barrinha de rolagem rápida (fora do Figma: mesma espessura do trilho de progresso)
   accountIcon: 19,
   iconStrokeWidth: 1.7, // traço dos ícones Lucide no Figma
   tabs: 52,

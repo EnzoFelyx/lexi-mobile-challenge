@@ -1,9 +1,11 @@
-import { FlashList } from '@shopify/flash-list';
-import type { ReactElement } from 'react';
+import { FlashList, type FlashListRef } from '@shopify/flash-list';
+import { type ReactElement, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { WORD_GRID_COLUMNS, WORD_LIST_END_THRESHOLD } from '@/constants/words';
 import { sizes, spacing } from '@/core/theme/theme';
+import { FastScrollbar } from '@/shared/components/FastScrollbar';
+import { useFastScroll } from '@/shared/hooks/useFastScroll';
 
 import { WordCard } from './WordCard';
 
@@ -33,8 +35,16 @@ const styles = StyleSheet.create({
 
 const keyExtractor = (word: string) => word;
 
-/** Grade de 3 colunas do wireframe, com título que rola junto e rodapé de carregamento. */
+/**
+ * Grade de 3 colunas do wireframe, com título que rola junto, rodapé de carregamento e a
+ * barrinha de rolagem rápida no canto direito.
+ */
 export function WordGrid({ words, onWordPress, onEndReached, header, footer }: WordGridProps) {
+  const listRef = useRef<FlashListRef<string>>(null);
+  const { listProps, thumb } = useFastScroll((offset) =>
+    listRef.current?.scrollToOffset({ offset, animated: false }),
+  );
+
   const renderItem = ({ item }: { item: string }) => (
     <View style={styles.cell}>
       <WordCard word={item} onPress={onWordPress} />
@@ -42,16 +52,23 @@ export function WordGrid({ words, onWordPress, onEndReached, header, footer }: W
   );
 
   return (
-    <FlashList
-      data={words}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      numColumns={WORD_GRID_COLUMNS}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={WORD_LIST_END_THRESHOLD}
-      contentContainerStyle={styles.content}
-      ListHeaderComponent={<View style={styles.header}>{header}</View>}
-      ListFooterComponent={footer ? <View style={styles.inset}>{footer}</View> : null}
-    />
+    <View className="flex-1" onLayout={listProps.onLayout}>
+      <FlashList
+        ref={listRef}
+        data={words}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        numColumns={WORD_GRID_COLUMNS}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={WORD_LIST_END_THRESHOLD}
+        contentContainerStyle={styles.content}
+        ListHeaderComponent={<View style={styles.header}>{header}</View>}
+        ListFooterComponent={footer ? <View style={styles.inset}>{footer}</View> : null}
+        onScroll={listProps.onScroll}
+        onContentSizeChange={listProps.onContentSizeChange}
+        showsVerticalScrollIndicator={listProps.showsVerticalScrollIndicator}
+      />
+      <FastScrollbar thumb={thumb} />
+    </View>
   );
 }
