@@ -15,6 +15,8 @@ export const textVariantClass: Record<TextVariant, string> = {
   label: 'font-sans-medium text-label',
   labelStrong: 'font-sans-semi-bold text-label-strong',
   description: 'font-sans-regular text-description',
+  subtitle: 'font-sans-regular text-subtitle',
+  note: 'font-sans-regular text-note',
   chip: 'font-sans-semi-bold text-chip',
   caption: 'font-sans-regular text-caption',
   eyebrow: 'font-sans-semi-bold text-eyebrow uppercase',

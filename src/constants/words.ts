@@ -19,3 +19,6 @@ export const SEED_BATCH_SIZE = 5000;
  * espalha 370 mil palavras com poucas colisões.
  */
 export const WORD_SORT_KEY_RANGE = 2 ** 31;
+
+/** Quanto antes do fim (em telas) a próxima página começa a carregar: a rolagem não chega a parar. */
+export const WORD_LIST_END_THRESHOLD = 0.5;
