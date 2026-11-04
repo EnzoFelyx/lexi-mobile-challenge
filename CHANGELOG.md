@@ -45,6 +45,7 @@ Etapa concluída: o app abre no Expo Go em Android e iOS, nos temas claro e escu
 
 ### Infraestrutura
 
+- Repositório recriado a partir do template da Coodesh (`coodesh/mobile-challenge-20240202`), o Passo 1 do desafio, com o histórico juntado por merge (hashes preservados). O enunciado original ficou em `CHALLENGE.md` e o wireframe em `img/wireframe.png`; o repositório anterior virou `lexi-mobile-challenge-old`, com o PR #1. (`ed893d8`)
 - Branch `chore/project-foundation` criada a partir da `main`.
 - Template do Expo limpo: telas e componentes de demo, `reset-project`, suporte web (`react-native-web`, `react-dom`, config `web`), dependências só da demo (`@expo/ui`, `expo-device`, `expo-glass-effect`, `expo-symbols`, `expo-web-browser`, `expo-image`) e assets sem uso. (`f9caa53`)
 - `.gitignore` com `.env` e `coverage/`; `.env.example` com as variáveis do Supabase. (`db970c3`)

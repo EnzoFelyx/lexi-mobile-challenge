@@ -64,7 +64,7 @@ src/
 
 ## Processo e decisões
 
-O desafio pede que o processo de investigação e as decisões fiquem documentados. Eles estão em arquivos versionados:
+O desafio pede que o processo de investigação e as decisões fiquem documentados. Este repositório foi criado a partir do [template do desafio da Coodesh](https://github.com/coodesh/mobile-challenge-20240202); o enunciado original está no [`CHALLENGE.md`](CHALLENGE.md), com o [wireframe](img/wireframe.png). O processo está em arquivos versionados:
 
 - [`CLAUDE.md`](CLAUDE.md): contexto do projeto, requisitos do desafio, cada decisão com data e motivo, tokens do design, stack e arquitetura.
 - [`REGRAS.md`](REGRAS.md): regras de código (camadas, injeção de dependência, tema centralizado, chamadas assíncronas seguras, zero duplicidade).
