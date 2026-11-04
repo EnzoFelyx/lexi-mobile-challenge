@@ -73,7 +73,7 @@ The challenge asks for the investigation process and the decisions to be documen
 
 Some decisions so far:
 
-- **Random but stable word order.** In alphabetical order the list would start with "a", "aa", "aaa"…, many of them missing from the API. Each word gets a random sort key when the list is stored, so the order varies but stays the same between sessions.
+- **Common words first, in a random but stable order.** In alphabetical order the list would start with "a", "aa", "aaa"…, and the dwyl file is full of rare words missing from the API. Like the wireframe (hello, today, great…), the list opens with Ogden's Basic English, then the most frequent English words, then the rest. Each word gets a random sort key inside its group when the list is stored, so the order varies but stays the same between sessions.
 - **Local-first with an optional login.** The app opens straight on the list. Without an account, favorites and history stay on the device; when the user logs in, they are merged into the account and linked to the user ID.
 - **Runs on Expo Go.** No custom native code, so the evaluator can test on iOS without a paid Apple account. An Android APK will also be published.
 - **English interface.** The challenge wireframe mixes languages (tabs and "Meanings" in English, "Voltar/Próximo" in Portuguese). Since every definition, example and part of speech from the Free Dictionary API is in English, the whole interface is in English for consistency; "Previous/Next" keep the wireframe's function. A Portuguese/English switch inside the app is planned as an extra.
@@ -82,6 +82,7 @@ Some decisions so far:
 ## Credits
 
 - Word list: [dwyl/english-words](https://github.com/dwyl/english-words) (`words_dictionary.json`).
+- Common words at the top of the list: [Ogden's Basic English](https://simple.wikipedia.org/wiki/Wikipedia:BASIC_English_alphabetical_wordlist) (public domain) and [google-10000-english](https://github.com/first20hours/google-10000-english) (educational use), built by `scripts/build-common-words.mjs`.
 - Definitions, phonetics and audio: [Free Dictionary API](https://dictionaryapi.dev/).
 - Fonts: [Fraunces](https://fonts.google.com/specimen/Fraunces) and [Inter](https://fonts.google.com/specimen/Inter), under the SIL Open Font License 1.1.
 - Icons: [Lucide](https://lucide.dev/).

@@ -73,7 +73,7 @@ O desafio pede que o processo de investigação e as decisões fiquem documentad
 
 Algumas decisões até aqui:
 
-- **Ordem aleatória e estável das palavras.** Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, muitas sem resultado na API. Cada palavra recebe uma chave aleatória ao ser gravada, então a ordem é variada, mas não muda entre as sessões.
+- **Palavras comuns primeiro, em ordem aleatória e estável.** Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, e o arquivo do dwyl tem muitas palavras raras, sem resultado na API. Como no wireframe (hello, today, great…), a lista abre com o Basic English de Ogden, depois as palavras mais frequentes do inglês e por fim o resto. Cada palavra recebe uma chave aleatória dentro do seu grupo ao ser gravada, então a ordem é variada, mas não muda entre as sessões.
 - **Local-first com login opcional.** O app abre direto na lista. Sem conta, favoritos e histórico ficam no aparelho; ao entrar, eles são mesclados na conta e associados ao ID do usuário.
 - **Roda no Expo Go.** Sem código nativo próprio, para o avaliador testar no iOS sem conta paga da Apple. Também haverá um APK para Android.
 - **Interface em inglês.** O wireframe do desafio mistura idiomas (abas e "Meanings" em inglês, "Voltar/Próximo" em português). Como todas as definições, exemplos e classes gramaticais da Free Dictionary API vêm em inglês, a interface inteira ficou em inglês por consistência; "Previous/Next" mantêm a função do wireframe. Uma chave de idioma português/inglês dentro do app está prevista como extra.
@@ -82,6 +82,7 @@ Algumas decisões até aqui:
 ## Créditos
 
 - Lista de palavras: [dwyl/english-words](https://github.com/dwyl/english-words) (`words_dictionary.json`).
+- Palavras comuns no topo da lista: [Basic English de Ogden](https://simple.wikipedia.org/wiki/Wikipedia:BASIC_English_alphabetical_wordlist) (domínio público) e [google-10000-english](https://github.com/first20hours/google-10000-english) (uso educacional), montadas pelo `scripts/build-common-words.mjs`.
 - Definições, fonética e áudio: [Free Dictionary API](https://dictionaryapi.dev/).
 - Fontes: [Fraunces](https://fonts.google.com/specimen/Fraunces) e [Inter](https://fonts.google.com/specimen/Inter), sob a SIL Open Font License 1.1.
 - Ícones: [Lucide](https://lucide.dev/).
