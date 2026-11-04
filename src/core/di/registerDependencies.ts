@@ -3,8 +3,10 @@ import type { SQLiteDatabase } from 'expo-sqlite';
 import { database, type Database, sqliteConnection } from '@/core/database/client';
 import type { DictionarySeeder } from '@/features/words/domain/DictionarySeeder';
 import type { WordListSource } from '@/features/words/domain/WordListSource';
+import type { WordRepository } from '@/features/words/domain/WordRepository';
 import { DwylWordListSource } from '@/features/words/data/DwylWordListSource';
 import { SqliteDictionarySeeder } from '@/features/words/data/SqliteDictionarySeeder';
+import { SqliteWordRepository } from '@/features/words/data/SqliteWordRepository';
 
 import { container } from './container';
 import { TOKENS } from './tokens';
@@ -20,4 +22,5 @@ export function registerDependencies(): void {
 
   container.registerSingleton<WordListSource>(TOKENS.WordListSource, DwylWordListSource);
   container.registerSingleton<DictionarySeeder>(TOKENS.DictionarySeeder, SqliteDictionarySeeder);
+  container.registerSingleton<WordRepository>(TOKENS.WordRepository, SqliteWordRepository);
 }

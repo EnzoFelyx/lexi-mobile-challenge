@@ -7,6 +7,7 @@ export const TOKENS = {
   SqliteConnection: Symbol('SqliteConnection'),
   WordListSource: Symbol('WordListSource'),
   DictionarySeeder: Symbol('DictionarySeeder'),
+  WordRepository: Symbol('WordRepository'),
 } as const satisfies Record<string, symbol>;
 
 export type Token = (typeof TOKENS)[keyof typeof TOKENS];

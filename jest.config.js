@@ -17,5 +17,6 @@ module.exports = {
     '!src/**/*.d.ts',
     '!src/app/**',
     '!src/shared/testing/**',
+    '!src/core/database/testing/**',
   ],
 };
