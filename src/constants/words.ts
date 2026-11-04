@@ -14,5 +14,8 @@ export const DWYL_WORDS_URL =
 /** Palavras por INSERT no seed: 5.000 × 2 parâmetros fica bem abaixo do limite de 32.766 do SQLite. */
 export const SEED_BATCH_SIZE = 5000;
 
-/** Faixa do `sort_key` aleatório: inteiro de 31 bits, espalha 370 mil palavras com poucas colisões. */
+/**
+ * Faixa do `sort_key` aleatório de cada camada (palavras comuns primeiro): inteiro de 31 bits,
+ * espalha 370 mil palavras com poucas colisões.
+ */
 export const WORD_SORT_KEY_RANGE = 2 ** 31;
