@@ -6,7 +6,7 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stage 1 (foundation) is done: the app runs on Expo Go with light and dark themes, the navigation and the base components. The word list, word detail, favorites, history and login come in the next stages.
+🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 (foundation) and 2 (word list) are done: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid, opening with common words. The word detail, favorites, history and login come in the next stages.
 
 ## Technologies
 
@@ -19,7 +19,9 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 | Tests | Jest (`jest-expo`) + React Native Testing Library |
 | Quality | ESLint + Prettier, with rules against hardcoded colors and `any` |
 | Fonts and icons | Fraunces and Inter (Google Fonts), Lucide |
-| Planned | SQLite + Drizzle ORM (word list and cache), TanStack Query, Zustand, Supabase (auth and sync), `expo-audio` + `expo-speech` |
+| Local data | SQLite (`expo-sqlite`) + Drizzle ORM, rows validated with Zod, TanStack Query |
+| Lists | FlashList (3-column grid with infinite scroll and a fast scrollbar) |
+| Planned | Zustand, Supabase (auth and sync), `expo-audio` + `expo-speech` |
 
 ## How to run
 

@@ -9,6 +9,8 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ## 2026-11-03 — Etapa 2 (lista de palavras)
 
+Etapa concluída em 2026-11-04: a lista abre pelas palavras comuns, rola até o fim sem travar, o download só roda uma vez e os testes passam (conferido no Expo Go pelo autor).
+
 ### Documentação
 
 - Link público do Figma no README (seção "Design") e no `CLAUDE.md`. (`e7647d8`)

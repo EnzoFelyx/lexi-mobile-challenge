@@ -17,7 +17,7 @@
 |---|---|---|
 | 0 | Decisões pendentes | ✅ |
 | 1 | Fundação | ✅ |
-| 2 | Lista de palavras | 🟨 |
+| 2 | Lista de palavras | ✅ |
 | 3 | Detalhe da palavra | ⬜ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
 | 5 | Supabase e login | ⬜ |
