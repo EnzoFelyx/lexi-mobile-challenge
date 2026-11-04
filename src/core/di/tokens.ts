@@ -10,6 +10,7 @@ export const TOKENS = {
   WordRepository: Symbol('WordRepository'),
   DictionaryService: Symbol('DictionaryService'),
   WordCacheRepository: Symbol('WordCacheRepository'),
+  HistoryRepository: Symbol('HistoryRepository'),
 } as const satisfies Record<string, symbol>;
 
 export type Token = (typeof TOKENS)[keyof typeof TOKENS];

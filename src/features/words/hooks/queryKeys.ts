@@ -2,4 +2,5 @@
 export const wordQueryKeys = {
   dictionarySetup: ['words', 'dictionary-setup'] as const,
   list: ['words', 'list'] as const,
+  detail: (word: string) => ['words', 'detail', word] as const,
 };

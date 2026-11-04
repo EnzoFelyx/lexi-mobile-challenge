@@ -1,6 +1,8 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { database, type Database, sqliteConnection } from '@/core/database/client';
+import { SqliteHistoryRepository } from '@/features/history/data/SqliteHistoryRepository';
+import type { HistoryRepository } from '@/features/history/domain/HistoryRepository';
 import type { DictionarySeeder } from '@/features/words/domain/DictionarySeeder';
 import type { DictionaryService } from '@/features/words/domain/DictionaryService';
 import type { WordCacheRepository } from '@/features/words/domain/WordCacheRepository';
@@ -32,4 +34,5 @@ export function registerDependencies(): void {
     TOKENS.WordCacheRepository,
     SqliteWordCacheRepository,
   );
+  container.registerSingleton<HistoryRepository>(TOKENS.HistoryRepository, SqliteHistoryRepository);
 }
