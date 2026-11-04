@@ -1,8 +1,8 @@
 import { router, useLocalSearchParams } from 'expo-router';
 
-import { WordDetailPlaceholder } from '@/features/words/components/WordDetailPlaceholder';
+import { WordDetailScreen } from '@/features/words/components/WordDetailScreen';
 
 export default function WordDetailRoute() {
   const { word } = useLocalSearchParams<{ word: string }>();
-  return <WordDetailPlaceholder word={word ?? ''} onClose={router.back} />;
+  return <WordDetailScreen word={word ?? ''} onClose={router.back} />;
 }

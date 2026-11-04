@@ -9,6 +9,8 @@ export type TextTone = 'primary' | 'secondary' | 'accent' | 'onAccent';
 export const textVariantClass: Record<TextVariant, string> = {
   display: 'font-serif-semi-bold text-display',
   logo: 'font-serif-semi-bold text-logo',
+  headwordLarge: 'font-serif-semi-bold text-headword-large',
+  heading: 'font-serif-semi-bold text-heading',
   headwordCard: 'font-serif-semi-bold text-headword-card',
   body: 'font-sans-regular text-body',
   button: 'font-sans-semi-bold text-button',
@@ -16,6 +18,9 @@ export const textVariantClass: Record<TextVariant, string> = {
   labelStrong: 'font-sans-semi-bold text-label-strong',
   description: 'font-sans-regular text-description',
   subtitle: 'font-sans-regular text-subtitle',
+  definition: 'font-sans-regular text-definition',
+  phonetic: 'font-sans-italic text-phonetic',
+  example: 'font-sans-italic text-example',
   note: 'font-sans-regular text-note',
   chip: 'font-sans-semi-bold text-chip',
   caption: 'font-sans-regular text-caption',

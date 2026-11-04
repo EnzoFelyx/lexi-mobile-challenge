@@ -25,3 +25,6 @@ export const WORD_LIST_END_THRESHOLD = 0.5;
 
 /** Free Dictionary API: GET `${DICTIONARY_API_URL}/<palavra>`; 404 quando a palavra não existe. */
 export const DICTIONARY_API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en';
+
+/** Significados visíveis por classe gramatical antes do "Show more" (decisão do autor). */
+export const MEANING_PREVIEW_COUNT = 3;

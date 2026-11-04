@@ -34,6 +34,17 @@ export const en = {
   },
   wordDetail: {
     close: 'Close',
+    title: 'Word explorer',
+    meanings: 'Meanings',
+    showMore: (count: number) => `Show ${count} more`,
+    showLess: 'Show less',
+    example: (text: string) => `“${text}”`,
+    loading: 'Loading the word',
+    notFoundTitle: 'Word not found',
+    notFoundMessage: "This word isn't in the dictionary yet.",
+    errorTitle: "Couldn't load the word",
+    errorMessage: 'Check your internet connection and try again.',
+    retry: 'Retry',
   },
   auth: {
     loginTitle: 'Log in',

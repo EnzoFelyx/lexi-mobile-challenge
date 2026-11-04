@@ -38,6 +38,7 @@ export const fonts = {
   sansRegular: 'Inter_400Regular',
   sansMedium: 'Inter_500Medium',
   sansSemiBold: 'Inter_600SemiBold',
+  sansItalic: 'Inter_400Regular_Italic', // fonética e exemplos do detalhe
 } as const;
 
 export const typography = {
@@ -55,7 +56,13 @@ export const typography = {
     lineHeight: 26,
     letterSpacing: -0.3,
   },
-  // TODO: confirmar no frame "Word detail" o tamanho do headword grande (caixa de 54pt de altura)
+  headwordLarge: {
+    fontFamily: fonts.serifSemiBold,
+    fontSize: 48,
+    lineHeight: 54,
+    letterSpacing: -1.4,
+  }, // palavra no card do detalhe
+  heading: { fontFamily: fonts.serifSemiBold, fontSize: 24 }, // "Meanings"
 
   // Inter
   body: { fontFamily: fonts.sansRegular, fontSize: 14 }, // inputs, definições
@@ -64,6 +71,9 @@ export const typography = {
   labelStrong: { fontFamily: fonts.sansSemiBold, fontSize: 13 }, // aba ativa
   description: { fontFamily: fonts.sansRegular, fontSize: 12, lineHeight: 19 },
   subtitle: { fontFamily: fonts.sansRegular, fontSize: 13, lineHeight: 18 }, // texto de apoio dos títulos
+  definition: { fontFamily: fonts.sansRegular, fontSize: 13, lineHeight: 20 }, // significado no detalhe
+  phonetic: { fontFamily: fonts.sansItalic, fontSize: 16, lineHeight: 20 }, // fonética no detalhe
+  example: { fontFamily: fonts.sansItalic, fontSize: 12, lineHeight: 19 }, // exemplo de uso
   note: { fontFamily: fonts.sansRegular, fontSize: 11 }, // "Finding more words…"
   chip: { fontFamily: fonts.sansSemiBold, fontSize: 11 },
   caption: { fontFamily: fonts.sansRegular, fontSize: 10, lineHeight: 14 }, // fonética no card
@@ -81,6 +91,7 @@ export const spacing = {
   sm: 8,
   md: 12,
   lg: 16,
+  lgPlus: 20, // padding do card da palavra e espaço entre blocos do detalhe
   xl: 24, // gutter lateral das telas
   xxl: 32,
 } as const;
@@ -88,6 +99,7 @@ export const spacing = {
 export const radius = {
   sm: 8, // chip, abas internas
   md: 12, // cards, botões, inputs, trilho das abas
+  lg: 16, // card da palavra no detalhe
   pill: 100, // play, favorito, progresso
 } as const;
 
@@ -96,6 +108,7 @@ export const sizes = {
   header: 64, // header com logo e botão de conta
   brandPoint: 6, // ponto de acento ao lado do logo
   icon: 18, // ícones de botão
+  closeIcon: 20, // "X" do detalhe
   spinner: 16, // loader-circle do "carregando mais"
   scrollThumb: 4, // barrinha de rolagem rápida (fora do Figma: mesma espessura do trilho de progresso)
   accountIcon: 19,

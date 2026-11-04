@@ -1,5 +1,6 @@
 import { Fraunces_600SemiBold } from '@expo-google-fonts/fraunces/600SemiBold';
 import { Inter_400Regular } from '@expo-google-fonts/inter/400Regular';
+import { Inter_400Regular_Italic } from '@expo-google-fonts/inter/400Regular_Italic';
 import { Inter_500Medium } from '@expo-google-fonts/inter/500Medium';
 import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
 import { useFonts } from 'expo-font';
@@ -13,6 +14,7 @@ const fontAssets = {
   [fonts.sansRegular]: Inter_400Regular,
   [fonts.sansMedium]: Inter_500Medium,
   [fonts.sansSemiBold]: Inter_600SemiBold,
+  [fonts.sansItalic]: Inter_400Regular_Italic,
 };
 
 /**
