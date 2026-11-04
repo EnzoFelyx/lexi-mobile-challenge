@@ -23,6 +23,10 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 - Aba Word list de verdade: grade de 3 colunas com FlashList (entra `@shopify/flash-list` 2.3.2), título "Word list" com o texto de apoio rolando junto, `WordCard` do Figma só com a palavra (palavras longas encolhem em vez de quebrar) e rodapé "Finding more words…" com o ícone `loader-circle` girando (parado com "Reduzir movimento"); erro da próxima página com "Try again" no rodapé; carregamento, erro e lista vazia tratados. Tocar no card abre o detalhe. Tokens novos do Figma: tipografia `subtitle` (13/18) e `note` (11), altura do card e ícone de 16. (`a6f87fd`)
 - Rolagem rápida na grade (pedido do autor): barrinha no canto direito que aparece ao rolar, some depois de 1,2 s parada e, arrastada, percorre todo o conteúdo já carregado usando a altura inteira da tela, igual em Android e iOS. Fica no gutter de 24pt (não cobre os cards), só aparece com 3 telas ou mais de conteúdo, respeita "Reduzir movimento" e fica oculta para leitores de tela. (`8cd1c86`)
 
+### Testes
+
+- Seed e paginação ponta a ponta num SQLite real: o SQL de inserção em lotes roda como no app (3 lotes), uma falha no meio desfaz tudo, a lista abre pelas palavras comuns, percorre todas as palavras uma única vez e mantém a ordem entre leituras. O banco de teste ganhou uma conexão que imita a do `expo-sqlite`. Cobertura de `domain` e `data` da lista de palavras: 100%. (`0a8daa7`)
+
 ---
 
 ## 2026-11-03 — Etapa 1 (fundação)

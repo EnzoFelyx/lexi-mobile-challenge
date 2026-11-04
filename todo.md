@@ -88,8 +88,8 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
 - [x] Componentes do Figma: SegmentedTabs (✅ antecipado na etapa 1, como `tabBar` das abas) e WordCard (só a palavra, sem fonética: decisão do autor)
 - [x] Grade de 3 colunas com **FlashList**, título de seção, texto de apoio e "carregando mais" no fim
-- [ ] Testes: paginação keyset (próxima página, fim da lista) e seed em lotes
-- [ ] Conferir no Expo Go (Android e iOS), com rolagem fluida
+- [x] Testes: paginação keyset (próxima página, fim da lista) e seed em lotes (incluindo seed + paginação ponta a ponta num SQLite real; 100% de cobertura em `domain` e `data`)
+- [x] Conferir no Expo Go (Android e iOS), com rolagem fluida (conferido pelo autor em 2026-11-04, inclusive a rolagem rápida)
 
 **Pronto quando:** a lista rola até o fim sem travar, o seed só roda uma vez e os testes passam.
 
@@ -162,6 +162,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Completar os testes unitários e de componente (meta ~70% em `domain` e `data`)
 - [ ] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
 - [ ] Polimento visual fiel ao Figma, em light e dark
+- [ ] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Hoje a splash usa o `splash-icon.png` do template do Expo sobre o fundo do tema
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
 - [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
 - [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
