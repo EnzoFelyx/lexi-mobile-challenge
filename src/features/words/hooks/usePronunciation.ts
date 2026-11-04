@@ -58,19 +58,21 @@ export function usePronunciation(word: string, audioUrls: readonly string[]): Pr
     let unsubscribe = () => {};
     let timeout: ReturnType<typeof setTimeout> | undefined;
 
-    const fallBackToVoice = (reason: unknown) => {
+    // Falhas do download já são registradas pelo cache (uma linha quando o servidor cai e outra
+    // quando volta); aqui só o tempo limite, que não passa por ele.
+    const fallBackToVoice = (reason: 'download_failed' | 'timeout') => {
       if (cancelled || settled) {
         return;
       }
       settled = true;
       fellBack = true;
       clearTimeout(timeout);
-      // Esperado quando o servidor de áudio da API falha: a voz assume, o usuário não percebe.
-      logger.debug(
-        'words',
-        `The pronunciation audio of "${word}" is unavailable; using the voice.`,
-        reason,
-      );
+      if (reason === 'timeout') {
+        logger.debug(
+          'words',
+          `The pronunciation audio of "${word}" took too long; using the voice.`,
+        );
+      }
       setAudioFailed(true);
       setStatus('ready');
     };
@@ -111,7 +113,7 @@ export function usePronunciation(word: string, audioUrls: readonly string[]): Pr
           setProgress(playback.duration > 0 ? playback.currentTime / playback.duration : 0);
         });
       })
-      .catch(fallBackToVoice);
+      .catch(() => fallBackToVoice('download_failed'));
 
     return () => {
       cancelled = true;

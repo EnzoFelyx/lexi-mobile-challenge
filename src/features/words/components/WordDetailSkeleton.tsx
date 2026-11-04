@@ -42,7 +42,7 @@ export function WordDetailSkeleton() {
           label={en.pronunciation.preparing}
           status="loading"
           progress={0}
-          durationText={en.pronunciation.unknownDuration}
+          durationText={null}
           buttonLabel={en.pronunciation.preparing}
           progressLabel={en.pronunciation.progress}
           onToggle={noop}

@@ -12,7 +12,7 @@ interface AudioPlayerProps {
   label: string;
   status: PlayerStatus;
   progress: number;
-  /** Texto à direita ("0:02" ou "–:––"); nulo esconde (voz do aparelho). */
+  /** Duração à direita ("0:02"); nulo esconde (carregando ou voz do aparelho). */
   durationText: string | null;
   buttonLabel: string;
   progressLabel: string;

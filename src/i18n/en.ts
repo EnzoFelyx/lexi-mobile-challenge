@@ -81,7 +81,6 @@ export const en = {
     },
     generic: 'Pronunciation',
     preparing: 'Preparing audio',
-    unknownDuration: '–:––',
     play: (word: string) => `Play the pronunciation of ${word}`,
     playWithVoice: (word: string) => `Play the pronunciation of ${word} with the device voice`,
     pause: 'Pause the pronunciation',

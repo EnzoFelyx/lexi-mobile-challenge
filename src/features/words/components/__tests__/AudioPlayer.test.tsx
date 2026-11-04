@@ -29,7 +29,7 @@ describe('AudioPlayer', () => {
       <AudioPlayer
         {...baseProps}
         label="Preparing audio"
-        durationText="–:––"
+        durationText={null}
         status="loading"
         onToggle={jest.fn()}
       />,
@@ -38,5 +38,6 @@ describe('AudioPlayer', () => {
     expect(screen.getByRole('button', { name: baseProps.buttonLabel })).toBeDisabled();
     expect(screen.getByText('Preparing audio')).toBeOnTheScreen();
     expect(screen.getByText('.', { includeHiddenElements: true })).toBeOnTheScreen();
+    expect(screen.queryByText('0:02')).not.toBeOnTheScreen();
   });
 });

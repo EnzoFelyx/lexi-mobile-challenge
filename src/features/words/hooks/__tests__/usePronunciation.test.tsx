@@ -154,17 +154,18 @@ describe('usePronunciation', () => {
     expect(result.current).toMatchObject({ kind: 'voice', status: 'ready' });
   });
 
-  it('falls back to the voice once, without a second notice when the timeout comes later', async () => {
+  it('falls back to the voice once, leaving the download failure for the cache to log', async () => {
     jest.useFakeTimers();
     const { audio } = fakeAudio();
     register(audio, async () => {
       throw new Error('response has status 502');
     });
-    await renderLoaded(audio);
+    const { result } = await renderLoaded(audio);
 
     await act(async () => jest.advanceTimersByTime(PLAYER_LOAD_TIMEOUT_MS));
 
-    expect(debug).toHaveBeenCalledTimes(1);
+    expect(result.current.kind).toBe('voice');
+    expect(debug).not.toHaveBeenCalled();
     expect(console.warn).not.toHaveBeenCalled();
     jest.useRealTimers();
   });

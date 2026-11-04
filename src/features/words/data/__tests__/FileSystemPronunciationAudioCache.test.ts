@@ -70,6 +70,24 @@ describe('FileSystemPronunciationAudioCache', () => {
     await expect(new FileSystemPronunciationAudioCache().resolve(URL)).rejects.toThrow('502');
   });
 
+  it('logs the audio server going down once, and coming back once', async () => {
+    const debug = jest.spyOn(console, 'debug').mockImplementation(() => undefined);
+    download
+      .mockRejectedValueOnce(new Error('response has status 502'))
+      .mockRejectedValueOnce(new Error('response has status 502'));
+    const cache = new FileSystemPronunciationAudioCache();
+
+    await expect(cache.resolve(URL)).rejects.toThrow('502');
+    await expect(cache.resolve(URL.replace('hello', 'cart'))).rejects.toThrow('502');
+    await cache.resolve(URL.replace('hello', 'give'));
+
+    expect(debug.mock.calls.map(([message]) => message)).toEqual([
+      '[words] Pronunciation audio is unavailable; using the device voice until it comes back.',
+      '[words] Pronunciation audio is available again.',
+    ]);
+    debug.mockRestore();
+  });
+
   it('does not download a failed audio again in the same session', async () => {
     download.mockRejectedValueOnce(new Error('response has status 502'));
     const cache = new FileSystemPronunciationAudioCache();

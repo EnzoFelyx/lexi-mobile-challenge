@@ -20,14 +20,10 @@ const labelFor = ({ kind, accent, status }: Player): string => {
   return accent ? en.pronunciation.accent[accent] : en.pronunciation.generic;
 };
 
-const durationTextFor = ({ kind, status, duration }: Player): string | null => {
-  if (kind === 'voice') {
-    return null;
-  }
-  return status === 'loading' || duration === null
-    ? en.pronunciation.unknownDuration
-    : formatDuration(duration);
-};
+// Só mostra a duração quando ela existe: carregando (ou sem duração conhecida) e na voz do
+// aparelho fica vazio. O Figma mostra "–:––" ao carregar; tirado por decisão do autor.
+const durationTextFor = ({ kind, status, duration }: Player): string | null =>
+  kind === 'voice' || status === 'loading' || duration === null ? null : formatDuration(duration);
 
 /** Liga a pronúncia da palavra (mp3 ou voz do aparelho) ao player do Figma. */
 export function PronunciationPlayer({ word, audioUrls }: PronunciationPlayerProps) {
