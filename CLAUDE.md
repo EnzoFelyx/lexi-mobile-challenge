@@ -157,7 +157,12 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 
 - Abre como **folha nativa** sobre as abas: `presentation: 'formSheet'` do Expo Router, com altura alta (decisão do autor, 2026-11-03). Puxador e arrastar para fechar são do sistema. Figma: drag handle, "X" à esquerda, coração à direita.
 - Card com a palavra (Fraunces), fonética, player de áudio e **Meanings** agrupados por classe gramatical (chips `noun`, `verb`), com definição e exemplo.
-- **404 da API:** mostra "Word not found" com **Retry** e **Next**; o 404 também vai para o cache, para não chamar a API de novo.
+- **404 da API:** mostra "Word not found" com **Retry** e **Next**; o 404 também vai para o cache, para não chamar a API de novo. O **Retry ignora o cache** e consulta a API outra vez (`lookUpWord(..., { refresh: true })`).
+- **Decisões da etapa 3 (autor, 2026-11-04):**
+  - **Coração escondido até a etapa 4:** o cabeçalho do detalhe fica só com o "X"; o favorito entra já funcionando na etapa 4.
+  - **Histórico gravado já na etapa 3:** o `HistoryRepository` nasce agora só com o registro (sem duplicados, atualizando `viewed_at`); a aba History lê esses dados na etapa 4.
+  - **Voz do aparelho no mesmo player:** sem mp3, o player é igual, com rótulo "Device voice" e a barra cheia enquanto fala, sem duração (o `expo-speech` não informa).
+  - **Significados:** até 3 por classe gramatical e um botão "Show more" para o resto ("set" tem 45 como verbo).
 - **Previous / Next:** navegam dentro da **lista de origem** (Word list, History ou Favorites). O detalhe recebe a origem e o índice; nas pontas, o botão fica desabilitado.
 - Abrir o detalhe **registra no histórico** automaticamente.
 
@@ -176,6 +181,7 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 ### 6.6 Cache (obrigatório 2)
 
 - Ordem: **React Query (memória) → SQLite (`word_cache`) → API**. Palavra já buscada abre na hora, inclusive offline e depois de fechar o app.
+- **Implementação (2026-11-04, etapa 3):** `lookUpWord` (domínio) consulta o `WordCacheRepository` e só então o `DictionaryService`; guarda a resposta, inclusive o 404, mas **não** guarda erro de rede (a próxima tentativa funciona). O cache não expira (o dicionário quase não muda). `FreeDictionaryService` valida a resposta com Zod (`dictionarySchemas.ts`) e `toWordDetail` junta as entradas: fonética do topo ou a primeira da lista, áudios sem repetidos e significados agrupados por classe gramatical. O `payload` do cache é o `WordDetail` já montado, validado de novo ao ler; se vier corrompido, é tratado como ausente. Schema conferido contra respostas reais (hello, set, run, coal, through, the, a).
 
 ### 6.7 Login (diferencial 4)
 

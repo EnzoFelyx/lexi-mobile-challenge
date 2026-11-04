@@ -18,7 +18,7 @@
 | 0 | Decisões pendentes | ✅ |
 | 1 | Fundação | ✅ |
 | 2 | Lista de palavras | ✅ |
-| 3 | Detalhe da palavra | ⬜ |
+| 3 | Detalhe da palavra | 🟨 |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ⬜ |
 | 5 | Supabase e login | ⬜ |
 | 6 | Qualidade | ⬜ |
@@ -99,8 +99,8 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** ver a palavra, os significados, a fonética e ouvir a pronúncia.
 
-- [ ] `DictionaryService` (interface + Free Dictionary API) com resposta validada por Zod
-- [ ] Cache: React Query → SQLite (`word_cache`) → API, inclusive para o 404
+- [x] `DictionaryService` (interface + Free Dictionary API) com resposta validada por Zod
+- [x] Cache: React Query → SQLite (`word_cache`) → API, inclusive para o 404 (a parte do React Query entra com o hook)
 - [ ] Hook `useWordDetail` e registro no container
 - [ ] Detalhe em `formSheet` (Figma `3:15839`): "X", coração, card com palavra e fonética, Meanings por classe gramatical com chips e exemplos
 - [ ] Skeleton de carregamento (Figma `3:15914`)

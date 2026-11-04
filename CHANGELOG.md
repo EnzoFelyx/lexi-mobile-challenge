@@ -7,6 +7,14 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-04 — Etapa 3 (detalhe da palavra)
+
+### Adicionado
+
+- Busca da palavra na Free Dictionary API (`FreeDictionaryService`, resposta validada com Zod) e cache persistente no SQLite (`SqliteWordCacheRepository`), inclusive para o 404. `lookUpWord` consulta o cache antes da API, guarda a resposta e não guarda erro de rede; `toWordDetail` junta as entradas da API (fonética, áudios sem repetidos e significados por classe gramatical). Decisões da etapa registradas no `CLAUDE.md` (coração escondido até a etapa 4, histórico gravado já agora, voz do aparelho no mesmo player, até 3 significados por classe com "Show more"). (`001a68e`)
+
+---
+
 ## 2026-11-03 — Etapa 2 (lista de palavras)
 
 Etapa concluída em 2026-11-04: a lista abre pelas palavras comuns, rola até o fim sem travar, o download só roda uma vez e os testes passam (conferido no Expo Go pelo autor).
