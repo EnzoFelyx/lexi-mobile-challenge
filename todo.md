@@ -106,7 +106,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Skeleton de carregamento (Figma `3:15914`; os blocos do Previous/Next entram com a navegação)
 - [x] Erro "Word not found" (Figma `3:15979`) com Retry e Next (o Next aparece quando houver próxima palavra, com a navegação)
 - [x] Mensagem própria para o limite da API (HTTP 429, "Too many lookups right now. Wait a moment and try again."), em vez de "verifique sua internet"; o 429 não vai para o cache (decisão do autor, 2026-11-04)
-- [ ] Filtros leves contra o "Word not found" (decisão do autor): a Word list pula palavras com 404 já guardado no cache; o seed ignora palavras com hífen ou símbolos
+- [x] "Word not found" (decisão do autor): as palavras continuam na lista (esconder foi descartado, ver `CLAUDE.md` 6.1); o 404 guardado vale 7 dias; o seed ignora palavras com hífen ou símbolos
 - [ ] Previous/Next dentro da lista de origem (recebe origem e índice), desabilitados nas pontas
 - [x] Player: primeiro `phonetics[].audio` não vazio com `expo-audio`; sem mp3, TTS com `expo-speech`; estados pronto e carregando
 - [x] Abrir o detalhe registra no histórico (só palavras encontradas)
@@ -166,6 +166,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Polimento visual fiel ao Figma, em light e dark
 - [ ] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Hoje a splash usa o `splash-icon.png` do template do Expo sobre o fundo do tema
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
+- [ ] (Opcional) Card levemente apagado para palavra com "Word not found" conhecido, sem tirá-la da lista
 - [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
 - [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
