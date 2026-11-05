@@ -11,6 +11,11 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 Etapa concluída em 2026-11-05, com **todos os obrigatórios do desafio prontos**: favoritar e desfavoritar, ver o histórico e navegar por History e Favorites funcionam para o visitante, com lint, typecheck e testes passando (conferido no Expo Go no iPhone pelo autor; o Android fica para a etapa 7, decisão do autor).
 
+### Documentação
+
+- Marco dos obrigatórios prontos: tag `v0.4.0` ("All required features of the challenge") no merge commit da etapa (`127c316`).
+- README principal em português (decisão do autor): `README.md` passa a ser o português, com link para o `README.en.md` em inglês (antes, `README.md` em inglês e `README.pt-BR.md` em português). (`3c35a17`)
+
 ### Adicionado
 
 - Favoritos no SQLite (`FavoritesRepository`, `SqliteFavoritesRepository`) e leitura do histórico, da visita mais recente para a mais antiga, para o visitante. O coração terá atualização otimista pelo React Query (decisão do autor, no lugar do Zustand): muda na hora e, se a gravação falhar, volta ao estado anterior com um alerta do sistema. Gravar uma visita atualiza a aba History. Decisões da etapa registradas no `CLAUDE.md` (alerta do sistema, Previous/Next seguindo a posição ao desfavoritar, cards sem fonética, listas inteiras sem paginação). (`6757c8a`)
