@@ -39,7 +39,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] **Login** → **opcional, com modo visitante**: abre na lista e mescla os dados locais ao entrar
 - [x] **Apresentação do detalhe** → **`formSheet`**
 - [x] **Abas superiores** → **`material-top-tabs` com `tabBar` própria** (SegmentedTabs do Figma)
-- [x] **Idioma do README** → **bilíngue** (`README.md` em inglês e `README.pt-BR.md` em português)
+- [x] **Idioma do README** → **bilíngue** (`README.md` em português, o principal desde 2026-11-05, e `README.en.md` em inglês)
 - [x] **Repositório no GitHub** → **`EnzoFelyx/lexi-mobile-challenge`, público**
 - [x] Registrar todas as decisões no `CLAUDE.md`
 
@@ -129,7 +129,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Previous/Next também funcionando a partir de History e Favorites
 - [x] Testes: merge do histórico, favorito otimista revertendo, telas vazias e cheias
 - [x] Conferir no Expo Go no iOS (o Android fica para a etapa 7, decisão do autor em 2026-11-05)
-- [ ] ✅ **Marco:** commit/tag marcando os obrigatórios prontos
+- [x] ✅ **Marco:** commit/tag marcando os obrigatórios prontos (tag `v0.4.0` no merge commit `127c316`, "All required features of the challenge")
 
 **Pronto quando:** os 5 casos de uso do Obrigatório 1 funcionam, com cache e wireframe atendidos.
 
@@ -182,7 +182,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** tudo pronto para o avaliador testar com o mínimo de esforço.
 
-- [ ] README bilíngue completo (a versão inicial já existe desde a etapa 1) (`README.md` em inglês e `README.pt-BR.md` em português, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas, créditos das fontes (Fraunces e Inter, SIL OFL 1.1) e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
+- [ ] README bilíngue completo (a versão inicial já existe desde a etapa 1) (`README.md` em português e `README.en.md` em inglês, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas, créditos das fontes (Fraunces e Inter, SIL OFL 1.1) e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada

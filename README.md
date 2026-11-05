@@ -1,32 +1,32 @@
 # Lexi
 
-**English** · [Português](README.pt-BR.md)
+**Português** · [English](README.en.md)
 
-An English dictionary for Android and iOS: browse words with infinite scroll, see meanings and phonetics, listen to the pronunciation, and keep favorites and a viewing history.
+Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem infinita, veja significados e fonética, ouça a pronúncia e guarde favoritos e o histórico de palavras vistas.
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 4 are done, covering **every required feature of the challenge**: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), opens each word with its phonetic, pronunciation and meanings, cached on the device, and keeps favorites and a history of viewed words, with Previous/Next in every tab. Login comes in the next stage.
+🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 4 estão prontas, com **todos os obrigatórios do desafio**: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, e guarda favoritos e o histórico de palavras vistas, com Previous/Next em todas as abas. O login vem na próxima etapa.
 
-## Technologies
+## Tecnologias
 
-| Area | Choice |
+| Área | Escolha |
 | --- | --- |
 | App | React Native 0.88 + TypeScript (`strict`), Expo SDK 58, Expo Router |
-| Styling | NativeWind 4 (Tailwind 3) with tokens taken from the Figma design, light and dark themes |
-| Navigation | Expo Router: top tabs (`TopTabs`) with a custom tab bar, word detail as a native form sheet |
-| Dependency injection | tsyringe |
-| Tests | Jest (`jest-expo`) + React Native Testing Library |
-| Quality | ESLint + Prettier, with rules against hardcoded colors and `any` |
-| Fonts and icons | Fraunces and Inter (Google Fonts), Lucide |
-| Local data | SQLite (`expo-sqlite`) + Drizzle ORM, rows validated with Zod, TanStack Query |
-| Lists | FlashList (3-column grid with infinite scroll and a fast scrollbar) |
-| Pronunciation | `expo-audio` (API mp3, cached with `expo-file-system`) and `expo-speech` (device voice as fallback) |
-| Planned | Zustand, Supabase (auth and sync) |
+| Estilização | NativeWind 4 (Tailwind 3) com os tokens do Figma, tema claro e escuro |
+| Navegação | Expo Router: abas superiores (`TopTabs`) com barra própria, detalhe da palavra em folha nativa (`formSheet`) |
+| Injeção de dependência | tsyringe |
+| Testes | Jest (`jest-expo`) + React Native Testing Library |
+| Qualidade | ESLint + Prettier, com regras contra cor fixa no código e `any` |
+| Fontes e ícones | Fraunces e Inter (Google Fonts), Lucide |
+| Dados locais | SQLite (`expo-sqlite`) + Drizzle ORM, linhas validadas com Zod, TanStack Query |
+| Listas | FlashList (grade de 3 colunas com rolagem infinita e barra de rolagem rápida) |
+| Pronúncia | `expo-audio` (mp3 da API, guardado com `expo-file-system`) e `expo-speech` (voz do aparelho quando não há mp3) |
+| Previsto | Zustand, Supabase (login e sincronização) |
 
-## How to run
+## Como rodar
 
-Requirements: [Node.js](https://nodejs.org/) 22.13 or newer and the **Expo Go** app (SDK 58) on an Android or iOS device.
+Requisitos: [Node.js](https://nodejs.org/) 22.13 ou mais novo e o app **Expo Go** (SDK 58) num aparelho Android ou iOS.
 
 ```bash
 git clone https://github.com/EnzoFelyx/lexi-mobile-challenge.git
@@ -35,66 +35,65 @@ npm install
 npx expo start
 ```
 
-Scan the QR code with the camera (iOS) or with Expo Go (Android). The phone and the computer must be on the same network; otherwise use `npx expo start --tunnel`.
+Escaneie o QR code com a câmera (iOS) ou pelo Expo Go (Android). O celular e o computador precisam estar na mesma rede; se não estiverem, use `npx expo start --tunnel`.
 
 ### Scripts
 
-| Command | What it does |
+| Comando | O que faz |
 | --- | --- |
-| `npm start` | Starts the dev server (Expo Go) |
+| `npm start` | Sobe o servidor de desenvolvimento (Expo Go) |
 | `npm run lint` | ESLint + Prettier |
-| `npm run typecheck` | TypeScript type checking |
-| `npm test` | Unit and component tests |
-| `npm run format` | Formats the code with Prettier |
+| `npm run typecheck` | Checagem de tipos do TypeScript |
+| `npm test` | Testes unitários e de componentes |
+| `npm run format` | Formata o código com o Prettier |
 
 ## Design
 
-The screens follow this [Figma file](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (light and dark versions, loading and error states, and a component showcase). The interface follows the challenge wireframe. Where the app differs from the Figma on purpose (for contrast or performance), the reason is recorded in [`CLAUDE.md`](CLAUDE.md).
+As telas seguem este [arquivo do Figma](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (versões clara e escura, estados de carregamento e erro e uma vitrine de componentes). A interface segue o wireframe do desafio. Onde o app difere do Figma de propósito (por contraste ou desempenho), o motivo está registrado no [`CLAUDE.md`](CLAUDE.md).
 
-## Navigation and interaction
+## Navegação e interação
 
-Small changes to make moving through words and using the app faster and more predictable. People who study vocabulary go through many words in a row, so the Figma buttons stay as the main (and accessible) path, and a few shortcuts sit on top of them:
+Pequenas mudanças para deixar a navegação entre palavras e o uso do app mais rápidos e previsíveis. Quem estuda vocabulário passa por muitas palavras seguidas, então os botões do Figma continuam sendo o caminho principal (e acessível), com alguns atalhos por cima:
 
-- **Previous/Next in every tab.** The word detail walks the list of the tab it was opened from: Word list, History or Favorites. History and Favorites keep the order the user saw while the detail is open, so opening a word (which moves it to the top of the history) or unfavoriting it does not make "Next" skip words.
-- **Clear the history** from the History tab, always after a confirmation.
-- **Double tap to favorite**, like a social media post. A double tap anywhere on the word card or its meanings toggles the favorite, just like the heart on the toolbar. Saving shows a heart in the middle of the screen; removing only updates the toolbar heart. Buttons inside the detail (play, "Show more") keep their own taps, and screen reader users keep the toolbar heart.
-- **Swipe sideways to change words.** On the detail, a horizontal swipe goes to the next word (left) or the previous one (right), in the same list as Previous/Next. It triggers with a short swipe and does not move the screen; diagonal drags are ignored, so scrolling the meanings and closing the sheet work as before.
+- **Previous/Next em todas as abas.** O detalhe da palavra anda pela lista da aba de onde foi aberto: Word list, History ou Favorites. Em History e Favorites, a ordem que o usuário viu é mantida enquanto o detalhe está aberto, então abrir uma palavra (que a leva ao topo do histórico) ou desfavoritá-la não faz o "Next" pular palavras.
+- **Toque duplo para favoritar**, como num post de rede social. Toque duplo em qualquer parte do card da palavra ou dos significados alterna o favorito, igual ao coração da barra. Ao favoritar, um coração aparece no meio da tela; ao desfavoritar, só o coração da barra muda. Os botões do detalhe (play, "Show more") continuam com o toque deles, e quem usa leitor de tela segue com o coração da barra.
+- **Arrastar para os lados troca de palavra.** No detalhe, um arrasto horizontal vai para a próxima palavra (para a esquerda) ou para a anterior (para a direita), na mesma lista do Previous/Next. Basta um arrasto curto, e a tela não se mexe; arrastos na diagonal são ignorados, então rolar os significados e fechar a folha continuam iguais.
 
-## Architecture
+## Arquitetura
 
-Folders by feature, with layers inside each one. The UI only knows the `domain` interfaces; the DI container picks the implementation.
+Pastas por feature, com camadas dentro de cada uma. A interface só conhece as interfaces do `domain`; o container de injeção de dependência escolhe a implementação.
 
 ```text
 src/
-  app/        # Expo Router routes (thin: they only compose screens)
+  app/        # rotas do Expo Router (finas: só compõem as telas)
   features/   # words, favorites, history, auth → domain / data / hooks / components
-  core/       # theme (Figma tokens), DI container, database and Supabase clients
-  shared/     # reusable components, hooks and utils
-  i18n/       # all UI strings
-  constants/  # named values (page size, sheet height…)
+  core/       # tema (tokens do Figma), container de DI, clients do banco e do Supabase
+  shared/     # componentes, hooks e utilitários reutilizáveis
+  i18n/       # todos os textos da interface
+  constants/  # valores nomeados (tamanho da página, altura da folha…)
 ```
 
-## Process and decisions
+## Processo e decisões
 
-The challenge asks for the investigation process and the decisions to be documented. This repository was created from the [Coodesh challenge template](https://github.com/coodesh/mobile-challenge-20240202); the original description is kept in [`CHALLENGE.md`](CHALLENGE.md), with the [wireframe](img/wireframe.png). The process lives in versioned files (in Portuguese):
+O desafio pede que o processo de investigação e as decisões fiquem documentados. Este repositório foi criado a partir do [template do desafio da Coodesh](https://github.com/coodesh/mobile-challenge-20240202); o enunciado original está no [`CHALLENGE.md`](CHALLENGE.md), com o [wireframe](img/wireframe.png). O processo está em arquivos versionados:
 
-- [`CLAUDE.md`](CLAUDE.md): project context, challenge requirements, every decision with its date and reason, design tokens, stack and architecture.
-- [`REGRAS.md`](REGRAS.md): code rules (layers, DI, centralized theme, safe async calls, no duplication).
-- [`todo.md`](todo.md): roadmap split into stages, each with its "done when" criteria.
-- [`CHANGELOG.md`](CHANGELOG.md): what changed in each stage, with the commit hashes.
+- [`CLAUDE.md`](CLAUDE.md): contexto do projeto, requisitos do desafio, cada decisão com data e motivo, tokens do design, stack e arquitetura.
+- [`REGRAS.md`](REGRAS.md): regras de código (camadas, injeção de dependência, tema centralizado, chamadas assíncronas seguras, zero duplicidade).
+- [`todo.md`](todo.md): roteiro dividido em etapas, cada uma com o critério de "pronto quando".
+- [`CHANGELOG.md`](CHANGELOG.md): o que mudou em cada etapa, com os hashes dos commits.
 
-Some decisions so far:
+Algumas decisões até aqui:
 
-- **Common words first, in a random but stable order.** In alphabetical order the list would start with "a", "aa", "aaa"…, and the dwyl file is full of rare words missing from the API. Like the wireframe (hello, today, great…), the list opens with Ogden's Basic English, then the most frequent English words, then the rest. Each word gets a random sort key inside its group when the list is stored, so the order varies but stays the same between sessions.
-- **Local-first with an optional login.** The app opens straight on the list. Without an account, favorites and history stay on the device; when the user logs in, they are merged into the account and linked to the user ID.
-- **Runs on Expo Go.** No custom native code, so the evaluator can test on iOS without a paid Apple account. An Android APK will also be published.
-- **English interface.** The challenge wireframe mixes languages (tabs and "Meanings" in English, "Voltar/Próximo" in Portuguese). Since every definition, example and part of speech from the Free Dictionary API is in English, the whole interface is in English for consistency; "Previous/Next" keep the wireframe's function. A Portuguese/English switch inside the app is planned as an extra.
-- **Accessibility.** WCAG AA contrast is checked by a test on every color pair. The light secondary text was slightly darkened from the Figma value to pass on the tab rail.
+- **Palavras comuns primeiro, em ordem aleatória e estável.** Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, e o arquivo do dwyl tem muitas palavras raras, sem resultado na API. Como no wireframe (hello, today, great…), a lista abre com o Basic English de Ogden, depois as palavras mais frequentes do inglês e por fim o resto. Cada palavra recebe uma chave aleatória dentro do seu grupo ao ser gravada, então a ordem é variada, mas não muda entre as sessões.
+- **Local-first com login opcional.** O app abre direto na lista. Sem conta, favoritos e histórico ficam no aparelho; ao entrar, eles são mesclados na conta e associados ao ID do usuário.
+- **Roda no Expo Go.** Sem código nativo próprio, para o avaliador testar no iOS sem conta paga da Apple. Também haverá um APK para Android.
+- **Interface em inglês.** O wireframe do desafio mistura idiomas (abas e "Meanings" em inglês, "Voltar/Próximo" em português). Como todas as definições, exemplos e classes gramaticais da Free Dictionary API vêm em inglês, a interface inteira ficou em inglês por consistência; "Previous/Next" mantêm a função do wireframe. Uma chave de idioma português/inglês dentro do app está prevista como extra.
+- **Acessibilidade.** O contraste AA da WCAG é conferido por um teste em cada par de cores. O texto secundário do tema claro foi escurecido um pouco em relação ao Figma para passar no trilho das abas.
 
-## Credits
+## Créditos
 
-- Word list: [dwyl/english-words](https://github.com/dwyl/english-words) (`words_dictionary.json`).
-- Common words at the top of the list: [Ogden's Basic English](https://simple.wikipedia.org/wiki/Wikipedia:BASIC_English_alphabetical_wordlist) (public domain) and [google-10000-english](https://github.com/first20hours/google-10000-english) (educational use), built by `scripts/build-common-words.mjs`.
-- Definitions, phonetics and audio: [Free Dictionary API](https://dictionaryapi.dev/).
-- Fonts: [Fraunces](https://fonts.google.com/specimen/Fraunces) and [Inter](https://fonts.google.com/specimen/Inter), under the SIL Open Font License 1.1.
-- Icons: [Lucide](https://lucide.dev/).
+- Lista de palavras: [dwyl/english-words](https://github.com/dwyl/english-words) (`words_dictionary.json`).
+- Palavras comuns no topo da lista: [Basic English de Ogden](https://simple.wikipedia.org/wiki/Wikipedia:BASIC_English_alphabetical_wordlist) (domínio público) e [google-10000-english](https://github.com/first20hours/google-10000-english) (uso educacional), montadas pelo `scripts/build-common-words.mjs`.
+- Definições, fonética e áudio: [Free Dictionary API](https://dictionaryapi.dev/).
+- Fontes: [Fraunces](https://fonts.google.com/specimen/Fraunces) e [Inter](https://fonts.google.com/specimen/Inter), sob a SIL Open Font License 1.1.
+- Ícones: [Lucide](https://lucide.dev/).
