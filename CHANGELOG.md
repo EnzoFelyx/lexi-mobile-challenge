@@ -19,6 +19,8 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 - Previous/Next também a partir de History e Favorites, para melhorar a navegação (motivação registrada no `CLAUDE.md`, seção 6.8, e na nova seção "Navigation and interaction" dos READMEs). O detalhe anda pela lista da aba como estava ao abrir: abrir uma palavra (que a leva ao topo da History) ou desfavoritá-la não muda a ordem até o detalhe fechar. (`ff5d67e`)
 
+- Toque duplo no card da palavra ou nos significados para favoritar ou desfavoritar, como nas redes sociais (pedido do autor, para agilizar o uso; motivação no `CLAUDE.md`, seção 6.8). Ao favoritar, um coração aparece no centro da área visível e some; ao desfavoritar, só o coração da barra muda. Play e "Show more" continuam com o toque deles. (`6137276`)
+
 ### Infraestrutura
 
 - O wrapper de testes do React Query não deixa mais um timer aberto nas mutações, que às vezes impedia o Jest de terminar. (`6757c8a`)
