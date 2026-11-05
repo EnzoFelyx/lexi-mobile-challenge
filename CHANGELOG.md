@@ -21,6 +21,8 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 - Toque duplo no card da palavra ou nos significados para favoritar ou desfavoritar, como nas redes sociais (pedido do autor, para agilizar o uso; motivação no `CLAUDE.md`, seção 6.8). Ao favoritar, um coração aparece no centro da área visível e some; ao desfavoritar, só o coração da barra muda. Play e "Show more" continuam com o toque deles. (`6137276`)
 
+- Arrastar para os lados no detalhe troca de palavra, na mesma lista do Previous/Next (pedido do autor, para navegar sem depender só dos botões; motivação no `CLAUDE.md`, seção 6.8). Gatilho sensível (40pt ou um arrasto rápido), sem movimento na tela e só para arrastos horizontais: diagonais são ignoradas, e a rolagem e o fechar da folha continuam iguais. O pulso da folha ao toque no iOS 26 é do sistema e ficou (decisão do autor). (`cd53309`)
+
 ### Infraestrutura
 
 - O wrapper de testes do React Query não deixa mais um timer aberto nas mutações, que às vezes impedia o Jest de terminar. (`6757c8a`)

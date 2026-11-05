@@ -57,6 +57,7 @@ Pequenas mudanças para deixar a navegação entre palavras e o uso do app mais 
 
 - **Previous/Next em todas as abas.** O detalhe da palavra anda pela lista da aba de onde foi aberto: Word list, History ou Favorites. Em History e Favorites, a ordem que o usuário viu é mantida enquanto o detalhe está aberto, então abrir uma palavra (que a leva ao topo do histórico) ou desfavoritá-la não faz o "Next" pular palavras.
 - **Toque duplo para favoritar**, como num post de rede social. Toque duplo em qualquer parte do card da palavra ou dos significados alterna o favorito, igual ao coração da barra. Ao favoritar, um coração aparece no meio da tela; ao desfavoritar, só o coração da barra muda. Os botões do detalhe (play, "Show more") continuam com o toque deles, e quem usa leitor de tela segue com o coração da barra.
+- **Arrastar para os lados troca de palavra.** No detalhe, um arrasto horizontal vai para a próxima palavra (para a esquerda) ou para a anterior (para a direita), na mesma lista do Previous/Next. Basta um arrasto curto, e a tela não se mexe; arrastos na diagonal são ignorados, então rolar os significados e fechar a folha continuam iguais.
 
 ## Arquitetura
 

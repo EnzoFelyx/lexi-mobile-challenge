@@ -58,6 +58,7 @@ Small changes to make moving through words and using the app faster and more pre
 - **Previous/Next in every tab.** The word detail walks the list of the tab it was opened from: Word list, History or Favorites. History and Favorites keep the order the user saw while the detail is open, so opening a word (which moves it to the top of the history) or unfavoriting it does not make "Next" skip words.
 - **Clear the history** from the History tab, always after a confirmation.
 - **Double tap to favorite**, like a social media post. A double tap anywhere on the word card or its meanings toggles the favorite, just like the heart on the toolbar. Saving shows a heart in the middle of the screen; removing only updates the toolbar heart. Buttons inside the detail (play, "Show more") keep their own taps, and screen reader users keep the toolbar heart.
+- **Swipe sideways to change words.** On the detail, a horizontal swipe goes to the next word (left) or the previous one (right), in the same list as Previous/Next. It triggers with a short swipe and does not move the screen; diagonal drags are ignored, so scrolling the meanings and closing the sheet work as before.
 
 ## Architecture
 
