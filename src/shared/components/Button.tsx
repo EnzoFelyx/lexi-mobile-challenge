@@ -5,6 +5,7 @@ import type { ColorToken } from '@/core/theme/colorVariables';
 import { useTheme } from '@/core/theme/useTheme';
 
 import { AppText, type TextTone } from './AppText';
+import { Spinner } from './Spinner';
 
 export type ButtonVariant = 'primary' | 'secondary';
 
@@ -16,6 +17,8 @@ interface ButtonProps {
   accessibilityHint?: string;
   /** Sem ação no momento (ex.: "Previous" na primeira palavra). O Figma não define o visual. */
   disabled?: boolean;
+  /** Ação em andamento: spinner no lugar do ícone, sem novo toque e sem apagar o botão (Figma). */
+  loading?: boolean;
   className?: string;
 }
 
@@ -42,21 +45,25 @@ export function Button({
   icon: Icon,
   accessibilityHint,
   disabled = false,
+  loading = false,
   className,
 }: ButtonProps) {
   const { colors, sizes } = useTheme();
+  const feedbackClass = disabled ? 'opacity-40' : loading ? '' : 'active:opacity-80';
 
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}
-      accessibilityState={{ disabled }}
-      disabled={disabled}
+      accessibilityState={{ disabled: disabled || loading, busy: loading }}
+      disabled={disabled || loading}
       onPress={onPress}
-      className={`h-button flex-row items-center justify-center gap-sm rounded-md border px-lg ${disabled ? 'opacity-40' : 'active:opacity-80'} ${containerClass[variant]} ${className ?? ''}`}
+      className={`h-button flex-row items-center justify-center gap-sm rounded-md border px-lg ${feedbackClass} ${containerClass[variant]} ${className ?? ''}`}
     >
-      {Icon ? (
+      {loading ? (
+        <Spinner color={iconColor[variant]} size={sizes.icon} />
+      ) : Icon ? (
         <Icon
           size={sizes.icon}
           color={colors[iconColor[variant]]}

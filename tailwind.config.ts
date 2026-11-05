@@ -65,6 +65,7 @@ export default {
     spacing: { 0: '0px', ...mapEntries(spacing, px) },
     borderRadius: { none: '0px', ...mapEntries(radius, px) },
     extend: {
+      borderWidth: { 'field-error': px(sizes.fieldErrorBorder) },
       height: componentSizes,
       width: componentSizes,
       minHeight: componentSizes,

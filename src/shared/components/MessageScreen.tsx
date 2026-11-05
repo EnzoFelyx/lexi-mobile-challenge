@@ -1,7 +1,7 @@
+import { History } from 'lucide-react-native';
 import { View } from 'react-native';
 
-import { AppText } from './AppText';
-import { Button } from './Button';
+import { EmptyState } from './EmptyState';
 
 interface MessageScreenAction {
   label: string;
@@ -14,19 +14,14 @@ interface MessageScreenProps {
   action?: MessageScreenAction;
 }
 
-/** Tela inteira com título, explicação e uma ação opcional (erros e estados de bloqueio). */
+/**
+ * Tela inteira de erro recuperável (Figma "Shared recoverable error content"): um só layout para
+ * as falhas da lista, do banco, do histórico e dos favoritos, igual ao do estado vazio.
+ */
 export function MessageScreen({ title, message, action }: MessageScreenProps) {
   return (
-    <View className="flex-1 justify-center gap-xl bg-background px-xl">
-      <View className="gap-sm">
-        <AppText variant="display" accessibilityRole="header">
-          {title}
-        </AppText>
-        <AppText variant="body" tone="secondary">
-          {message}
-        </AppText>
-      </View>
-      {action ? <Button label={action.label} onPress={action.onPress} /> : null}
+    <View className="flex-1 justify-center bg-background px-xl">
+      <EmptyState icon={History} title={title} message={message} action={action} />
     </View>
   );
 }

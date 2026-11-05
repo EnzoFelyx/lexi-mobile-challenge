@@ -11,14 +11,18 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { SPINNER_ROTATION_MS } from '@/constants/animation';
+import type { ColorToken } from '@/core/theme/colorVariables';
 import { useTheme } from '@/core/theme/useTheme';
 
 interface SpinnerProps {
-  accessibilityLabel: string;
+  /** Sem rótulo, o leitor de tela ignora o spinner (ex.: dentro de um botão, que já diz o estado). */
+  accessibilityLabel?: string;
+  color?: ColorToken;
+  size?: number;
 }
 
 /** Ícone `loader-circle` do Figma girando; fica parado se o sistema pede menos movimento. */
-export function Spinner({ accessibilityLabel }: SpinnerProps) {
+export function Spinner({ accessibilityLabel, color = 'accent', size }: SpinnerProps) {
   const { colors, sizes } = useTheme();
   const reduceMotion = useReducedMotion();
   const rotation = useSharedValue(0);
@@ -39,14 +43,14 @@ export function Spinner({ accessibilityLabel }: SpinnerProps) {
 
   return (
     <Animated.View
-      accessible
-      accessibilityRole="progressbar"
+      accessible={Boolean(accessibilityLabel)}
+      accessibilityRole={accessibilityLabel ? 'progressbar' : undefined}
       accessibilityLabel={accessibilityLabel}
       style={rotationStyle}
     >
       <LoaderCircle
-        size={sizes.spinner}
-        color={colors.accent}
+        size={size ?? sizes.spinner}
+        color={colors[color]}
         strokeWidth={sizes.iconStrokeWidth}
       />
     </Animated.View>

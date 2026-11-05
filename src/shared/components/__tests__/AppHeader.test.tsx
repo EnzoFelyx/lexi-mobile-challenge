@@ -5,6 +5,13 @@ import { en } from '@/i18n/en';
 import { AppHeader } from '../AppHeader';
 
 describe('AppHeader', () => {
+  it('shows the tagline instead of the account button on the auth screens', async () => {
+    await render(<AppHeader showTagline />);
+
+    expect(screen.getByText(en.header.tagline)).toBeOnTheScreen();
+    expect(screen.queryByRole('button')).toBeNull();
+  });
+
   it('shows the app name as the header', async () => {
     await render(<AppHeader onAccountPress={jest.fn()} />);
 

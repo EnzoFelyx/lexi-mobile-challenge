@@ -30,6 +30,10 @@ const textPairs: [Token, Token][] = [
   ['accent', 'surface'],
   ['accent', 'accentSoft'],
   ['onAccent', 'accent'],
+  ['error', 'background'],
+  ['error', 'surface'],
+  ['error', 'errorSoft'],
+  ['textDisabled', 'surfaceDisabled'],
 ];
 
 describe.each(['light', 'dark'] as ThemeMode[])('%s theme contrast', (mode) => {

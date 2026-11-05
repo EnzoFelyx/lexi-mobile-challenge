@@ -3,7 +3,7 @@ import { Text, type TextProps } from 'react-native';
 import type { typography } from '@/core/theme/theme';
 
 export type TextVariant = keyof typeof typography;
-export type TextTone = 'primary' | 'secondary' | 'accent' | 'onAccent';
+export type TextTone = 'primary' | 'secondary' | 'accent' | 'onAccent' | 'error' | 'disabled';
 
 // Classes literais: o NativeWind só gera o CSS das classes que encontra escritas no código.
 export const textVariantClass: Record<TextVariant, string> = {
@@ -27,6 +27,9 @@ export const textVariantClass: Record<TextVariant, string> = {
   meta: 'font-sans-semi-bold text-meta',
   message: 'font-sans-regular text-message',
   hint: 'font-sans-regular text-hint',
+  fieldError: 'font-sans-regular text-field-error',
+  formError: 'font-sans-medium text-form-error',
+  tagline: 'font-sans-semi-bold text-tagline uppercase',
   chip: 'font-sans-semi-bold text-chip',
   caption: 'font-sans-regular text-caption',
   eyebrow: 'font-sans-semi-bold text-eyebrow uppercase',
@@ -38,6 +41,8 @@ const toneClass: Record<TextTone, string> = {
   secondary: 'text-text-secondary',
   accent: 'text-accent',
   onAccent: 'text-on-accent',
+  error: 'text-error',
+  disabled: 'text-text-disabled',
 };
 
 interface AppTextProps extends TextProps {

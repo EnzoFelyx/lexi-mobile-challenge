@@ -22,7 +22,7 @@ export function WordListScreen() {
   if (list.error === 'firstPage') {
     return (
       <MessageScreen
-        title={t.words.errorTitle}
+        title={t.recoverableError.title}
         message={t.words.errorMessage}
         action={{ label: t.words.retry, onPress: list.retry }}
       />

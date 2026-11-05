@@ -50,10 +50,7 @@ export default function RootLayout() {
   if (database.error) {
     return (
       <ThemeProvider>
-        <MessageScreen
-          title={t.database.unavailableTitle}
-          message={t.database.unavailableMessage}
-        />
+        <MessageScreen title={t.recoverableError.title} message={t.database.unavailableMessage} />
       </ThemeProvider>
     );
   }

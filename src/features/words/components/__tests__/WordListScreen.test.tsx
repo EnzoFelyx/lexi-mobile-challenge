@@ -38,7 +38,7 @@ describe('WordListScreen', () => {
 
     await renderScreen();
 
-    expect(await screen.findByText(en.words.errorTitle)).toBeOnTheScreen();
+    expect(await screen.findByText(en.recoverableError.title)).toBeOnTheScreen();
     expect(screen.getByRole('button', { name: en.words.retry })).toBeOnTheScreen();
   });
 

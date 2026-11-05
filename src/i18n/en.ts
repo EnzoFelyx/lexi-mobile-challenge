@@ -8,6 +8,14 @@ export const en = {
     accountLabel: 'Account',
     accountHint: 'Opens your profile and settings',
     back: 'Back',
+    tagline: 'English, every day',
+  },
+  recoverableError: {
+    title: 'A brief pause.',
+  },
+  field: {
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
   },
   tabs: {
     words: 'Word list',
@@ -21,7 +29,6 @@ export const en = {
     loading: 'Loading words',
     openWordHint: 'Opens the meanings and pronunciation',
     loadMoreError: "Couldn't load more words.",
-    errorTitle: "Couldn't load the words",
     errorMessage: 'Something went wrong while reading the dictionary on this device.',
     emptyTitle: 'No words yet',
     emptyMessage: 'The dictionary is empty. Close the app and open it again to download it.',
@@ -35,7 +42,6 @@ export const en = {
     title: 'History',
     subtitle: 'Pick up where your curiosity left off.',
     loading: 'Loading your history',
-    errorTitle: "Couldn't load your history",
     errorMessage: 'Something went wrong while reading the history on this device.',
     summary: (total: number) => `${total} ${total === 1 ? 'word' : 'words'} viewed`,
     clear: 'Clear',
@@ -60,7 +66,6 @@ export const en = {
     title: 'Favorites',
     subtitle: 'Good words are worth keeping.',
     loading: 'Loading your favorites',
-    errorTitle: "Couldn't load your favorites",
     errorMessage: 'Something went wrong while reading the favorites on this device.',
     summary: 'Your collection',
     count: (total: number) => `${total} saved ${total === 1 ? 'word' : 'words'}`,
@@ -135,7 +140,6 @@ export const en = {
     saving: 'Saving 370,000 words on your device…',
     progressLabel: 'Dictionary setup progress',
     percent: (value: number) => `${value}%`,
-    errorTitle: "Couldn't prepare the dictionary",
     errorMessage:
       'Check your internet connection and try again. The word list is downloaded only once.',
     retry: 'Try again',
@@ -155,7 +159,6 @@ export const en = {
     progress: 'Pronunciation progress',
   },
   database: {
-    unavailableTitle: 'Something went wrong',
     unavailableMessage:
       "We couldn't open the dictionary on this device. Close the app and open it again.",
   },

@@ -25,7 +25,7 @@ export function DictionarySetupScreen({ status, progress, onRetry }: DictionaryS
   if (status === 'error') {
     return (
       <MessageScreen
-        title={t.dictionarySetup.errorTitle}
+        title={t.recoverableError.title}
         message={t.dictionarySetup.errorMessage}
         action={{ label: t.dictionarySetup.retry, onPress: onRetry }}
       />

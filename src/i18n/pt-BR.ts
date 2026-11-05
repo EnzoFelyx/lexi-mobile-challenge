@@ -11,6 +11,14 @@ export const ptBR: Texts = {
     accountLabel: 'Conta',
     accountHint: 'Abre o seu perfil e as configurações',
     back: 'Voltar',
+    tagline: 'Inglês todo dia',
+  },
+  recoverableError: {
+    title: 'Uma breve pausa.',
+  },
+  field: {
+    showPassword: 'Mostrar senha',
+    hidePassword: 'Ocultar senha',
   },
   tabs: {
     words: 'Palavras',
@@ -24,7 +32,6 @@ export const ptBR: Texts = {
     loading: 'Carregando as palavras',
     openWordHint: 'Abre os significados e a pronúncia',
     loadMoreError: 'Não foi possível carregar mais palavras.',
-    errorTitle: 'Não foi possível carregar as palavras',
     errorMessage: 'Algo deu errado ao ler o dicionário neste aparelho.',
     emptyTitle: 'Nenhuma palavra ainda',
     emptyMessage: 'O dicionário está vazio. Feche o app e abra de novo para baixá-lo.',
@@ -38,7 +45,6 @@ export const ptBR: Texts = {
     title: 'Histórico',
     subtitle: 'Continue de onde a sua curiosidade parou.',
     loading: 'Carregando o seu histórico',
-    errorTitle: 'Não foi possível carregar o histórico',
     errorMessage: 'Algo deu errado ao ler o histórico neste aparelho.',
     summary: (total: number) => `${total} ${total === 1 ? 'palavra vista' : 'palavras vistas'}`,
     clear: 'Limpar',
@@ -63,7 +69,6 @@ export const ptBR: Texts = {
     title: 'Favoritos',
     subtitle: 'Palavras boas merecem ser guardadas.',
     loading: 'Carregando os seus favoritos',
-    errorTitle: 'Não foi possível carregar os favoritos',
     errorMessage: 'Algo deu errado ao ler os favoritos neste aparelho.',
     summary: 'Sua coleção',
     count: (total: number) => `${total} ${total === 1 ? 'palavra salva' : 'palavras salvas'}`,
@@ -138,7 +143,6 @@ export const ptBR: Texts = {
     saving: 'Salvando 370 mil palavras no seu aparelho…',
     progressLabel: 'Progresso da preparação do dicionário',
     percent: (value: number) => `${value}%`,
-    errorTitle: 'Não foi possível preparar o dicionário',
     errorMessage:
       'Confira a sua conexão com a internet e tente de novo. A lista de palavras é baixada só uma vez.',
     retry: 'Tentar de novo',
@@ -158,7 +162,6 @@ export const ptBR: Texts = {
     progress: 'Progresso da pronúncia',
   },
   database: {
-    unavailableTitle: 'Algo deu errado',
     unavailableMessage:
       'Não foi possível abrir o dicionário neste aparelho. Feche o app e abra de novo.',
   },

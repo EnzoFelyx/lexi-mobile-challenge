@@ -11,6 +11,8 @@ interface AppHeaderProps {
   onAccountPress?: () => void;
   /** Seta de voltar antes do logo, em telas fora das abas (decisão do autor; o Figma não tem). */
   onBack?: () => void;
+  /** Header das telas de login e cadastro: a frase "English, every day" no lugar do botão de conta. */
+  showTagline?: boolean;
 }
 
 const ROUND_BUTTON =
@@ -20,7 +22,7 @@ const ROUND_BUTTON =
 const stayOnAccount = () => undefined;
 
 /** Header do Figma: logo "Lexi" com o ponto da marca e o botão de conta (44pt). */
-export function AppHeader({ onAccountPress, onBack }: AppHeaderProps) {
+export function AppHeader({ onAccountPress, onBack, showTagline = false }: AppHeaderProps) {
   const t = useTexts();
   const { colors, sizes } = useTheme();
   const icon = { color: colors.textPrimary, strokeWidth: sizes.iconStrokeWidth };
@@ -45,7 +47,11 @@ export function AppHeader({ onAccountPress, onBack }: AppHeaderProps) {
           <View className="h-brand-point w-brand-point rounded-pill bg-accent" />
         </View>
       </View>
-      {onAccountPress ? (
+      {showTagline ? (
+        <AppText variant="tagline" tone="secondary">
+          {t.header.tagline}
+        </AppText>
+      ) : onAccountPress ? (
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t.header.accountLabel}
