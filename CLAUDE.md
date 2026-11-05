@@ -177,12 +177,20 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 ### 6.3 Histórico
 
 - Sem duplicados: rever uma palavra atualiza o `viewed_at` e ela sobe para o topo. Ordem: mais recente primeiro.
-- **Gravação (2026-11-04, etapa 3):** `HistoryRepository.recordView(word, userId)` → `SqliteHistoryRepository`: **atualiza e, se não havia linha, insere**. O upsert direto precisaria do índice com a expressão do visitante como alvo, que os tipos do Drizzle não aceitam (só com `as never`). Se dois registros chegarem juntos, o índice único barra o segundo (`onConflictDoNothing`). O hook `useRecordWordView` grava uma vez por palavra aberta; até a etapa 5, sempre como visitante (`userId` nulo). **Só palavras encontradas entram no histórico (decisão do autor, 2026-11-04):** o detalhe passa `null` enquanto carrega e no "Word not found"; se o "Retry" encontrar a palavra, ela é registrada nesse momento. Uma falha ao gravar só gera `console.warn`, sem atrapalhar o detalhe.
+- **Leitura (2026-11-05, etapa 4):** `HistoryRepository.list(userId)` devolve as palavras da visita mais recente para a mais antiga (`viewed_at` e, no empate, o `id`), lida pelo hook `useHistory`.
+- **Gravação (2026-11-04, etapa 3):** `HistoryRepository.recordView(word, userId)` → `SqliteHistoryRepository`: **atualiza e, se não havia linha, insere**. O upsert direto precisaria do índice com a expressão do visitante como alvo, que os tipos do Drizzle não aceitam (só com `as never`). Se dois registros chegarem juntos, o índice único barra o segundo (`onConflictDoNothing`). O hook `useRecordWordView` grava uma vez por palavra aberta e, depois de gravar, invalida a lista da aba History; até a etapa 5, sempre como visitante (`userId` nulo). **Só palavras encontradas entram no histórico (decisão do autor, 2026-11-04):** o detalhe passa `null` enquanto carrega e no "Word not found"; se o "Retry" encontrar a palavra, ela é registrada nesse momento. Uma falha ao gravar só gera `console.warn`, sem atrapalhar o detalhe.
 - **Detalhe pelo React Query:** `useWordDetail(word)` (chave `wordQueryKeys.detail(word)`, `staleTime: Infinity`) devolve `loading`, `found`, `not_found` ou `error`. No `not_found`, o `retry` usa `queryClient.fetchQuery` com `refresh: true`, para passar por cima do 404 guardado; no `error` (rede), só refaz a busca.
 
 ### 6.4 Favoritos
 
 - Favoritar/desfavoritar com **atualização otimista**: o coração muda na hora, sincroniza com o Supabase em segundo plano e reverte (com aviso) se falhar.
+- **Decisões da etapa 4 (autor, 2026-11-05):**
+  - **Otimista pelo React Query, não pelo Zustand:** a lista de favoritos já fica no React Query (aba Favorites), e o `useMutation` faz a atualização otimista com reversão; um store do Zustand duplicaria os dados. O Zustand fica para a sessão (etapa 5).
+  - **Aviso de falha com o `Alert` do sistema** ("Couldn't save the favorite"): o Figma não tem toast nem snackbar, e falha no SQLite local é rara.
+  - **Desfavoritar no detalhe aberto pela aba Favorites não quebra o Previous/Next:** a navegação segue da posição que a palavra ocupava (implementação na parte 4).
+  - **Cards de History e Favorites sem fonética**, iguais aos da Word list (o Figma mostra a fonética nessas abas).
+  - **History e Favorites carregam a lista inteira**, sem paginação: são listas montadas pelo próprio usuário, e mesmo alguns milhares de palavras leem em milissegundos.
+- **Implementação (2026-11-05, etapa 4):** `FavoritesRepository` (`list`, `add`, `remove`) → `SqliteFavoritesRepository`, registrado no container. O `add` usa `onConflictDoNothing` sem alvo (vale para o índice único com a expressão do visitante) e mantém a data do primeiro favorito; remover o que não é favorito não faz nada. O filtro do dono (`ownedBy`, em `src/core/database/ownership.ts`) é o mesmo do histórico: `user_id IS NULL` para o visitante, porque `= NULL` nunca casa no SQL. O visitante é `GUEST_USER_ID` (`src/constants/auth.ts`). `useFavoriteToggle(word)` devolve `isFavorite`, `isReady` (a lista já foi lida) e `toggleFavorite`: o `onMutate` cancela leituras em andamento e aplica `withFavorite` (domínio, nova favorita no topo), o `onError` restaura a lista anterior, registra no `logger` e mostra o alerta, e o `onSettled` confere com o banco. History e Favorites leem a lista inteira pelo mesmo hook (`useSavedWords`, em `src/shared/hooks/`).
 
 ### 6.5 Áudio
 
@@ -284,7 +292,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - **Listas: FlashList** (`@shopify/flash-list`, incluída no Expo Go) (decisão do autor, 2026-11-03).
 - **Ícones:** `lucide-react-native` + `react-native-svg` (os mesmos do Figma).
 - **Requisições e cache:** **TanStack Query** + cache persistente no SQLite.
-- **Estado global leve:** **Zustand** (sessão, favoritos em memória para o coração responder na hora).
+- **Estado global leve:** **Zustand** (sessão). O coração do favorito usa a atualização otimista do React Query (decisão do autor, 2026-11-05, ver seção 6.4).
 - **Back-end e login:** **Supabase** (`@supabase/supabase-js`), Auth com e-mail e senha, tabelas com **RLS** (`user_id = auth.uid()`), tipos gerados pela CLI.
 - **Injeção de dependência:** **tsyringe** (`reflect-metadata` + plugins de decorators no Babel).
 - **Áudio:** `expo-audio` para o mp3 da API e `expo-speech` como fallback.
@@ -389,7 +397,7 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 - **Implementação (2026-11-03, etapa 2):**
   - Schema em `src/core/database/schema.ts`; migrations em `src/core/database/migrations/` (geradas, fora do lint e do Prettier); validação em `validation.ts` (`parseRows` com o nome da tabela no erro).
   - Versões estáveis: `drizzle-orm` 0.45, `drizzle-kit` 0.31, `drizzle-zod` 0.8, `zod` 4 (a doc do Drizzle para Expo já aponta o 1.0 `rc`; não usamos RC).
-  - `sort_key` é inteiro. `favorites` e `history` têm `id` autoincremento e índice único por (usuário, palavra) com `CASE WHEN user_id IS NULL THEN '' ELSE user_id END`: no SQLite NULLs não colidem num índice único (o visitante repetiria a palavra), e o `drizzle-kit` 0.31 quebra `coalesce(...)` porque separa a expressão nas vírgulas. Conferido no `sqlite3`. Na etapa 4, o upsert precisa usar esse mesmo alvo (ou atualizar e depois inserir).
+  - `sort_key` é inteiro. `favorites` e `history` têm `id` autoincremento e índice único por (usuário, palavra) com `CASE WHEN user_id IS NULL THEN '' ELSE user_id END`: no SQLite NULLs não colidem num índice único (o visitante repetiria a palavra), e o `drizzle-kit` 0.31 quebra `coalesce(...)` porque separa a expressão nas vírgulas. Conferido no `sqlite3`. Na etapa 4 (2026-11-05): o histórico atualiza e depois insere, e o favorito insere com `onConflictDoNothing` sem alvo (seção 6.4).
   - A consulta keyset usa o índice de cobertura `words_sort_key_word_idx` (conferido com `EXPLAIN QUERY PLAN`).
   - Banco em WAL. `src/core/di/container.ts` só exporta o container; `registerDependencies.ts` é o único que importa o client (abrir o banco não pode acontecer nos testes).
   - As migrations rodam no layout raiz (`useDatabaseMigrations`); o splash só some quando as fontes e o banco estão prontos.
