@@ -122,7 +122,7 @@ Decididas em 2026-11-03 (decisões do autor):
 **Objetivo:** salvar, remover e rever palavras. Ao fim desta etapa, **todos os obrigatórios do README estão prontos**.
 
 - [x] `FavoritesRepository` e `HistoryRepository` (interfaces + SQLite) registrados no container, funcionando para o visitante (`user_id` nulo)
-- [ ] Favoritar e desfavoritar com atualização otimista (React Query, decisão do autor em 2026-11-05; o hook já existe, falta o coração no detalhe)
+- [x] Favoritar e desfavoritar com atualização otimista (React Query, decisão do autor em 2026-11-05)
 - [ ] Histórico sem duplicados: rever atualiza o `viewed_at` e sobe para o topo
 - [ ] Abas History (`3:15625`) e Favorites (`3:15731`) com a mesma grade, resumo com contagem e nota de rodapé
 - [ ] Estados vazios (`3:15690` e `3:15798`) com o botão para ir à lista

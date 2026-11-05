@@ -13,6 +13,8 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 - Favoritos no SQLite (`FavoritesRepository`, `SqliteFavoritesRepository`) e leitura do histórico, da visita mais recente para a mais antiga, para o visitante. O coração terá atualização otimista pelo React Query (decisão do autor, no lugar do Zustand): muda na hora e, se a gravação falhar, volta ao estado anterior com um alerta do sistema. Gravar uma visita atualiza a aba History. Decisões da etapa registradas no `CLAUDE.md` (alerta do sistema, Previous/Next seguindo a posição ao desfavoritar, cards sem fonética, listas inteiras sem paginação). (`6757c8a`)
 
+- Coração do Figma na barra do detalhe: contorno quando a palavra não é favorita e preenchido quando é, mudando na hora ao tocar. Só aparece com a palavra encontrada. No iOS 26, a folha do detalhe flutua com margem embaixo (visual nativo do sistema para folhas abaixo da altura máxima); o autor decidiu manter. (`25169ea`)
+
 ### Infraestrutura
 
 - O wrapper de testes do React Query não deixa mais um timer aberto nas mutações, que às vezes impedia o Jest de terminar. (`6757c8a`)
