@@ -7,6 +7,30 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-05 — Etapa 4 (favoritos e histórico)
+
+Etapa concluída em 2026-11-05, com **todos os obrigatórios do desafio prontos**: favoritar e desfavoritar, ver o histórico e navegar por History e Favorites funcionam para o visitante, com lint, typecheck e testes passando (conferido no Expo Go no iPhone pelo autor; o Android fica para a etapa 7, decisão do autor).
+
+### Adicionado
+
+- Favoritos no SQLite (`FavoritesRepository`, `SqliteFavoritesRepository`) e leitura do histórico, da visita mais recente para a mais antiga, para o visitante. O coração terá atualização otimista pelo React Query (decisão do autor, no lugar do Zustand): muda na hora e, se a gravação falhar, volta ao estado anterior com um alerta do sistema. Gravar uma visita atualiza a aba History. Decisões da etapa registradas no `CLAUDE.md` (alerta do sistema, Previous/Next seguindo a posição ao desfavoritar, cards sem fonética, listas inteiras sem paginação). (`6757c8a`)
+
+- Coração do Figma na barra do detalhe: contorno quando a palavra não é favorita e preenchido quando é, mudando na hora ao tocar. Só aparece com a palavra encontrada. No iOS 26, a folha do detalhe flutua com margem embaixo (visual nativo do sistema para folhas abaixo da altura máxima); o autor decidiu manter. (`25169ea`)
+
+- Abas History e Favorites do Figma: título, linha de resumo, a mesma grade da Word list e a nota no fim, com os estados vazios (ilustração, texto e "Explore word list", que volta para a Word list), carregamento e erro tratados. Na History, a contagem vai para o rótulo ("3 WORDS VIEWED") e um "Clear" sublinhado apaga o histórico depois de uma confirmação do sistema (pedido do autor). A grade e o card de palavra passam a ser componentes compartilhados. (`766dbf3`)
+
+- Previous/Next também a partir de History e Favorites, para melhorar a navegação (motivação registrada no `CLAUDE.md`, seção 6.8, e na nova seção "Navigation and interaction" dos READMEs). O detalhe anda pela lista da aba como estava ao abrir: abrir uma palavra (que a leva ao topo da History) ou desfavoritá-la não muda a ordem até o detalhe fechar. (`ff5d67e`)
+
+- Toque duplo no card da palavra ou nos significados para favoritar ou desfavoritar, como nas redes sociais (pedido do autor, para agilizar o uso; motivação no `CLAUDE.md`, seção 6.8). Ao favoritar, um coração aparece no centro da área visível e some; ao desfavoritar, só o coração da barra muda. Play e "Show more" continuam com o toque deles. (`6137276`)
+
+- Arrastar para os lados no detalhe troca de palavra, na mesma lista do Previous/Next (pedido do autor, para navegar sem depender só dos botões; motivação no `CLAUDE.md`, seção 6.8). Gatilho sensível (40pt ou um arrasto rápido), sem movimento na tela e só para arrastos horizontais: diagonais são ignoradas, e a rolagem e o fechar da folha continuam iguais. O pulso da folha ao toque no iOS 26 é do sistema e ficou (decisão do autor). (`cd53309`)
+
+### Infraestrutura
+
+- O wrapper de testes do React Query não deixa mais um timer aberto nas mutações, que às vezes impedia o Jest de terminar. (`6757c8a`)
+
+---
+
 ## 2026-11-04 — Etapa 3 (detalhe da palavra)
 
 Etapa concluída em 2026-11-04: qualquer palavra abre com dados ou erro tratado, a segunda abertura vem do cache, o áudio sempre toca algo (mp3 ou voz do aparelho) e o Previous/Next anda pela lista (conferido no Expo Go pelo autor).

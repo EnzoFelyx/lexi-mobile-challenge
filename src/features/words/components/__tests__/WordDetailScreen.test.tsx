@@ -1,7 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import type { FavoritesRepository } from '@/features/favorites/domain/FavoritesRepository';
 import type { HistoryRepository } from '@/features/history/domain/HistoryRepository';
 import { en } from '@/i18n/en';
 import { createQueryClientWrapper } from '@/shared/testing/queryClientWrapper';
@@ -23,8 +24,28 @@ const HELLO: WordLookup = {
   },
 };
 
+/** Favoritos em memória, como o banco: o que o coração grava volta na próxima leitura. */
+const createFavorites = (): FavoritesRepository => {
+  let saved: string[] = [];
+  return {
+    list: jest.fn(async () => [...saved]),
+    add: jest.fn(async (word: string) => {
+      saved = [word, ...saved];
+    }),
+    remove: jest.fn(async (word: string) => {
+      saved = saved.filter((item) => item !== word);
+    }),
+  };
+};
+
+let favorites = createFavorites();
+
 const register = (lookup: WordLookup) => {
-  const history: HistoryRepository = { recordView: jest.fn().mockResolvedValue(undefined) };
+  const history: HistoryRepository = {
+    recordView: jest.fn().mockResolvedValue(undefined),
+    list: async () => [],
+    clear: async () => undefined,
+  };
   container.registerInstance<WordCacheRepository>(TOKENS.WordCacheRepository, {
     get: async () => null,
     save: async () => undefined,
@@ -33,6 +54,8 @@ const register = (lookup: WordLookup) => {
     lookup: async () => lookup,
   });
   container.registerInstance<HistoryRepository>(TOKENS.HistoryRepository, history);
+  favorites = createFavorites();
+  container.registerInstance<FavoritesRepository>(TOKENS.FavoritesRepository, favorites);
   return history;
 };
 
@@ -65,6 +88,21 @@ describe('WordDetailScreen', () => {
     expect(await screen.findByText(en.wordDetail.notFound.title)).toBeOnTheScreen();
     expect(screen.getByRole('button', { name: en.wordDetail.retry })).toBeOnTheScreen();
     expect(history.recordView).not.toHaveBeenCalled();
+    expect(screen.queryByRole('button', { name: en.favorites.save('maucherite') })).toBeNull();
+  });
+
+  it('saves a found word as a favorite from the heart', async () => {
+    register(HELLO);
+
+    await renderDetail('hello');
+    const heart = await screen.findByRole('button', { name: en.favorites.save('hello') });
+    await waitFor(() => expect(heart).toBeEnabled());
+    await fireEvent.press(heart);
+
+    expect(
+      await screen.findByRole('button', { name: en.favorites.remove('hello') }),
+    ).toBeSelected();
+    expect(favorites.add).toHaveBeenCalledWith('hello', null);
   });
 
   it('shows the loading skeleton while the word is looked up', async () => {
@@ -81,6 +119,9 @@ describe('WordDetailScreen', () => {
     const onClose = jest.fn();
 
     await renderDetail('hello', onClose);
+    // Espera o detalhe e o coração ficarem prontos, para nada mudar depois do teste.
+    const heart = await screen.findByRole('button', { name: en.favorites.save('hello') });
+    await waitFor(() => expect(heart).toBeEnabled());
     await fireEvent.press(screen.getByRole('button', { name: en.wordDetail.close }));
 
     expect(onClose).toHaveBeenCalledTimes(1);

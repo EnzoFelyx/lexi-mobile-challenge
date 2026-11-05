@@ -14,6 +14,11 @@ export function openWordDetail(word: string, position?: ListPosition): void {
   router.push({ pathname: '/word/[word]', params });
 }
 
+/** Volta para a aba Word list (botão dos estados vazios). */
+export function openWordList(): void {
+  router.navigate('/');
+}
+
 export function openLogin(): void {
   router.push('/login');
 }

@@ -6,7 +6,7 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 3 are done: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), and opens each word with its phonetic, pronunciation and meanings, cached on the device, with Previous/Next through the list. Favorites, the history screen and login come in the next stages.
+🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 4 are done, covering **every required feature of the challenge**: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), opens each word with its phonetic, pronunciation and meanings, cached on the device, and keeps favorites and a history of viewed words, with Previous/Next in every tab. Login comes in the next stage.
 
 ## Technologies
 
@@ -50,6 +50,15 @@ Scan the QR code with the camera (iOS) or with Expo Go (Android). The phone and 
 ## Design
 
 The screens follow this [Figma file](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (light and dark versions, loading and error states, and a component showcase). The interface follows the challenge wireframe. Where the app differs from the Figma on purpose (for contrast or performance), the reason is recorded in [`CLAUDE.md`](CLAUDE.md).
+
+## Navigation and interaction
+
+Small changes to make moving through words and using the app faster and more predictable. People who study vocabulary go through many words in a row, so the Figma buttons stay as the main (and accessible) path, and a few shortcuts sit on top of them:
+
+- **Previous/Next in every tab.** The word detail walks the list of the tab it was opened from: Word list, History or Favorites. History and Favorites keep the order the user saw while the detail is open, so opening a word (which moves it to the top of the history) or unfavoriting it does not make "Next" skip words.
+- **Clear the history** from the History tab, always after a confirmation.
+- **Double tap to favorite**, like a social media post. A double tap anywhere on the word card or its meanings toggles the favorite, just like the heart on the toolbar. Saving shows a heart in the middle of the screen; removing only updates the toolbar heart. Buttons inside the detail (play, "Show more") keep their own taps, and screen reader users keep the toolbar heart.
+- **Swipe sideways to change words.** On the detail, a horizontal swipe goes to the next word (left) or the previous one (right), in the same list as Previous/Next. It triggers with a short swipe and does not move the screen; diagonal drags are ignored, so scrolling the meanings and closing the sheet work as before.
 
 ## Architecture
 

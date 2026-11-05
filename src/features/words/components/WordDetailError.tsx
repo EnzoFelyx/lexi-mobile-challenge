@@ -13,6 +13,7 @@ import { useTheme } from '@/core/theme/useTheme';
 import { en } from '@/i18n/en';
 import { AppText } from '@/shared/components/AppText';
 import { Button } from '@/shared/components/Button';
+import { Note } from '@/shared/components/Note';
 
 export type WordDetailErrorKind = 'not_found' | 'unavailable' | 'rate_limited';
 
@@ -56,16 +57,7 @@ export function WordDetailError({ kind, onRetry, onNext }: WordDetailErrorProps)
             {message}
           </AppText>
         </View>
-        <View className="w-full flex-row items-center gap-sm rounded-md bg-surface-muted p-lg">
-          <Info
-            size={sizes.icon}
-            color={colors.textSecondary}
-            strokeWidth={sizes.iconStrokeWidth}
-          />
-          <AppText variant="hint" tone="secondary" className="flex-1">
-            {en.wordDetail.reassurance}
-          </AppText>
-        </View>
+        <Note icon={Info} text={en.wordDetail.reassurance} iconSize={sizes.icon} />
       </View>
       <View className="flex-row gap-md pb-xl pt-sm">
         <Button label={en.wordDetail.retry} icon={RotateCw} onPress={onRetry} className="flex-1" />

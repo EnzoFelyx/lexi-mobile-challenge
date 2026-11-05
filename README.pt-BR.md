@@ -6,7 +6,7 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 3 estão prontas: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), e abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, com Previous/Next pela lista. Os favoritos, a tela de histórico e o login vêm nas próximas etapas.
+🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 4 estão prontas, com **todos os obrigatórios do desafio**: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, e guarda favoritos e o histórico de palavras vistas, com Previous/Next em todas as abas. O login vem na próxima etapa.
 
 ## Tecnologias
 
@@ -50,6 +50,14 @@ Escaneie o QR code com a câmera (iOS) ou pelo Expo Go (Android). O celular e o 
 ## Design
 
 As telas seguem este [arquivo do Figma](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (versões clara e escura, estados de carregamento e erro e uma vitrine de componentes). A interface segue o wireframe do desafio. Onde o app difere do Figma de propósito (por contraste ou desempenho), o motivo está registrado no [`CLAUDE.md`](CLAUDE.md).
+
+## Navegação e interação
+
+Pequenas mudanças para deixar a navegação entre palavras e o uso do app mais rápidos e previsíveis. Quem estuda vocabulário passa por muitas palavras seguidas, então os botões do Figma continuam sendo o caminho principal (e acessível), com alguns atalhos por cima:
+
+- **Previous/Next em todas as abas.** O detalhe da palavra anda pela lista da aba de onde foi aberto: Word list, History ou Favorites. Em History e Favorites, a ordem que o usuário viu é mantida enquanto o detalhe está aberto, então abrir uma palavra (que a leva ao topo do histórico) ou desfavoritá-la não faz o "Next" pular palavras.
+- **Toque duplo para favoritar**, como num post de rede social. Toque duplo em qualquer parte do card da palavra ou dos significados alterna o favorito, igual ao coração da barra. Ao favoritar, um coração aparece no meio da tela; ao desfavoritar, só o coração da barra muda. Os botões do detalhe (play, "Show more") continuam com o toque deles, e quem usa leitor de tela segue com o coração da barra.
+- **Arrastar para os lados troca de palavra.** No detalhe, um arrasto horizontal vai para a próxima palavra (para a esquerda) ou para a anterior (para a direita), na mesma lista do Previous/Next. Basta um arrasto curto, e a tela não se mexe; arrastos na diagonal são ignorados, então rolar os significados e fechar a folha continuam iguais.
 
 ## Arquitetura
 

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { logger } from '@/shared/utils/logger';
 
 import { resolveIndex, type WordPosition } from '../domain/wordNavigation';
+import { useSavedListSnapshot } from './useSavedListSnapshot';
 import { useWordList } from './useWordList';
 
 export interface WordNavigation {
@@ -22,8 +23,8 @@ interface UseWordNavigationOptions {
 
 /**
  * Previous/Next dentro da lista de onde o detalhe foi aberto (CLAUDE.md 6.2). Na Word list, o
- * "Next" no fim do que já foi carregado busca a próxima página. Nas pontas, desabilitado.
- * History e Favorites entram na etapa 4; até lá, sem navegação para essas origens.
+ * "Next" no fim do que já foi carregado busca a próxima página. Em History e Favorites, anda pela
+ * lista como estava ao abrir o detalhe (`useSavedListSnapshot`). Nas pontas, desabilitado.
  */
 export function useWordNavigation({
   word,
@@ -32,9 +33,10 @@ export function useWordNavigation({
 }: UseWordNavigationOptions): WordNavigation {
   const fromWordList = position?.source === 'words';
   const list = useWordList({ enabled: fromWordList });
+  const savedWords = useSavedListSnapshot(position?.source);
   const [isLoadingNext, setIsLoadingNext] = useState(false);
 
-  const words = fromWordList ? list.words : [];
+  const words = fromWordList ? list.words : savedWords;
   const index = position ? resolveIndex(words, word, position.index) : null;
   const hasMore = fromWordList && list.hasMore;
 

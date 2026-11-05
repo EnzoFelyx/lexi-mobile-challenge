@@ -64,6 +64,7 @@ export const typography = {
   }, // palavra no card do detalhe
   heading: { fontFamily: fonts.serifSemiBold, fontSize: 24 }, // "Meanings"
   title: { fontFamily: fonts.serifSemiBold, fontSize: 30 }, // título dos estados de erro do detalhe
+  emptyTitle: { fontFamily: fonts.serifSemiBold, fontSize: 27 }, // título dos estados vazios
 
   // Inter
   body: { fontFamily: fonts.sansRegular, fontSize: 14 }, // inputs, definições
@@ -87,6 +88,12 @@ export const typography = {
     letterSpacing: 1.5,
     textTransform: 'uppercase' as const,
   },
+  overline: {
+    fontFamily: fonts.sansSemiBold,
+    fontSize: 10,
+    letterSpacing: 1.3,
+    textTransform: 'uppercase' as const,
+  }, // rótulo do resumo de History e Favorites ("RECENTLY VIEWED")
 } as const;
 
 export const spacing = {
@@ -105,6 +112,8 @@ export const radius = {
   md: 12, // cards, botões, inputs, trilho das abas
   lg: 16, // card da palavra no detalhe
   illustration: 36, // quadrado da ilustração dos estados de erro
+  emptyIllustration: 40, // quadrado da ilustração dos estados vazios
+  wordMark: 2, // traços decorativos da ilustração dos estados vazios
   pill: 100, // play, favorito, progresso
 } as const;
 
@@ -115,8 +124,16 @@ export const sizes = {
   icon: 18, // ícones de botão
   closeIcon: 20, // "X" do detalhe
   playIcon: 20, // play/pause do player
+  favoriteIcon: 21, // coração do detalhe
+  favoriteBurst: 72, // coração do toque duplo ao favoritar, no centro do detalhe (fora do Figma)
   illustration: 112, // quadrado da ilustração dos estados de erro
   illustrationIcon: 44, // ícone dentro da ilustração
+  emptyIllustration: 120, // quadrado da ilustração dos estados vazios
+  wordMarkLong: 24, // traços decorativos ("palavras") abaixo do ícone do estado vazio
+  wordMarkShort: 12,
+  wordMarkThickness: 3,
+  summaryIcon: 12, // coração do resumo de Favorites
+  noteIcon: 16, // ícone da nota no rodapé de History e Favorites
   spinner: 16, // loader-circle do "carregando mais"
   scrollThumb: 4, // barrinha de rolagem rápida (fora do Figma: mesma espessura do trilho de progresso)
   accountIcon: 19,

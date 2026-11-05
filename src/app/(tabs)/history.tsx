@@ -1,6 +1,5 @@
-import { en } from '@/i18n/en';
-import { PlaceholderScreen } from '@/shared/components/PlaceholderScreen';
+import { HistoryScreen } from '@/features/history/components/HistoryScreen';
 
-export default function HistoryScreen() {
-  return <PlaceholderScreen title={en.history.title} />;
+export default function HistoryRoute() {
+  return <HistoryScreen />;
 }
