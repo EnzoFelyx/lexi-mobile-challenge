@@ -5,12 +5,12 @@ import { DictionaryGate } from '@/features/words/components/DictionaryGate';
 import { AppHeader } from '@/shared/components/AppHeader';
 import { SegmentedTabBar } from '@/shared/components/SegmentedTabBar';
 import { en } from '@/i18n/en';
-import { openLogin } from '@/shared/utils/navigation';
+import { openSettings } from '@/shared/utils/navigation';
 
 export default function TabsLayout() {
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-background">
-      <AppHeader onAccountPress={openLogin} />
+      <AppHeader onAccountPress={openSettings} />
       <DictionaryGate>
         <TopTabs tabBar={SegmentedTabBar} screenOptions={{ lazy: true }}>
           <TopTabs.Screen name="index" options={{ title: en.tabs.words }} />

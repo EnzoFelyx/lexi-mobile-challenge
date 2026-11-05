@@ -19,6 +19,11 @@ export function openWordList(): void {
   router.navigate('/');
 }
 
+/** Abre o perfil e as configurações (botão de conta do header). */
+export function openSettings(): void {
+  router.push('/settings');
+}
+
 export function openLogin(): void {
   router.push('/login');
 }

@@ -6,7 +6,8 @@ export const en = {
   appName: 'Lexi',
   header: {
     accountLabel: 'Account',
-    accountHint: 'Opens sign in',
+    accountHint: 'Opens your profile and settings',
+    back: 'Back',
   },
   tabs: {
     words: 'Word list',
@@ -105,6 +106,28 @@ export const en = {
   },
   auth: {
     loginTitle: 'Log in',
+  },
+  settings: {
+    title: 'Settings',
+    profile: 'Profile',
+    preferences: 'Preferences',
+    guest: {
+      title: 'Keep your words.',
+      message: 'Log in to save your favorites and history to your account.',
+      logIn: 'Log in',
+      createAccount: 'Create account',
+    },
+    account: {
+      title: 'Your words, with you.',
+      logOut: 'Log out',
+    },
+    appearance: 'Appearance',
+    themeName: { light: 'Light', dark: 'Dark', system: 'System' },
+    appearanceHint: 'Chooses between light, dark or the phone theme',
+    cancel: 'Cancel',
+    language: 'Language',
+    languageName: 'English',
+    footer: 'Stay curious. One word at a time.',
   },
   dictionarySetup: {
     title: 'Preparing your dictionary',

@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { WORD_DETAIL_SHEET_HEIGHT } from '@/constants/navigation';
 import { useDatabaseMigrations } from '@/core/database/useDatabaseMigrations';
 import { registerDependencies } from '@/core/di/registerDependencies';
+import { useSessionSync } from '@/features/auth/hooks/useSessionSync';
+import { applySavedThemePreference } from '@/features/settings/hooks/themePreference';
 import { createQueryClient } from '@/core/query/queryClient';
 import { createNavigationTheme } from '@/core/theme/navigationTheme';
 import { ThemeProvider } from '@/core/theme/ThemeProvider';
@@ -18,6 +20,7 @@ import { en } from '@/i18n/en';
 import { MessageScreen } from '@/shared/components/MessageScreen';
 
 registerDependencies();
+applySavedThemePreference();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -27,6 +30,9 @@ export default function RootLayout() {
   const database = useDatabaseMigrations();
   const databaseSettled = database.ready || database.error !== undefined;
   const appReady = fontsReady && databaseSettled;
+  useSessionSync();
+  // Ícones claros sobre o tema escuro e escuros sobre o claro.
+  const statusBarStyle = theme.mode === 'dark' ? 'light' : 'dark';
 
   useEffect(() => {
     if (appReady) {
@@ -53,8 +59,12 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <NavigationThemeProvider value={createNavigationTheme(theme)}>
         <ThemeProvider>
-          <StatusBar style="auto" />
-          <Stack screenOptions={{ headerShown: false }}>
+          {/* A barra de status segue o tema do app, não o do celular: com o tema escolhido nas
+              configurações, os dois podem ser diferentes. No iOS, com
+              UIViewControllerBasedStatusBarAppearance ligado (react-native-screens), quem manda
+              é cada tela da Stack (statusBarStyle); o StatusBar vale para o Android. */}
+          <StatusBar style={statusBarStyle} />
+          <Stack screenOptions={{ headerShown: false, statusBarStyle }}>
             <Stack.Screen name="(tabs)" />
             <Stack.Screen
               name="word/[word]"

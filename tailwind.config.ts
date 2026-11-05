@@ -45,6 +45,7 @@ const componentSizes = mapEntries(
     tabs: sizes.tabs,
     tabItem: sizes.tabItem,
     button: sizes.button,
+    row: sizes.row,
     input: sizes.input,
     chip: sizes.chip,
     progressTrack: sizes.progressTrack,
