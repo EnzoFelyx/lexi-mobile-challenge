@@ -124,8 +124,8 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] `FavoritesRepository` e `HistoryRepository` (interfaces + SQLite) registrados no container, funcionando para o visitante (`user_id` nulo)
 - [x] Favoritar e desfavoritar com atualização otimista (React Query, decisão do autor em 2026-11-05)
 - [ ] Histórico sem duplicados: rever atualiza o `viewed_at` e sobe para o topo
-- [ ] Abas History (`3:15625`) e Favorites (`3:15731`) com a mesma grade, resumo com contagem e nota de rodapé
-- [ ] Estados vazios (`3:15690` e `3:15798`) com o botão para ir à lista
+- [x] Abas History (`3:15625`) e Favorites (`3:15731`) com a mesma grade, resumo com contagem e nota de rodapé (History com "Clear" e confirmação, pedido do autor)
+- [x] Estados vazios (`3:15690` e `3:15798`) com o botão para ir à lista
 - [ ] Previous/Next também funcionando a partir de History e Favorites
 - [ ] Testes: merge do histórico, favorito otimista revertendo, telas vazias e cheias
 - [ ] Conferir no Expo Go (Android e iOS)
