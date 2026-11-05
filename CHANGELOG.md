@@ -17,6 +17,8 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 - Abas History e Favorites do Figma: título, linha de resumo, a mesma grade da Word list e a nota no fim, com os estados vazios (ilustração, texto e "Explore word list", que volta para a Word list), carregamento e erro tratados. Na History, a contagem vai para o rótulo ("3 WORDS VIEWED") e um "Clear" sublinhado apaga o histórico depois de uma confirmação do sistema (pedido do autor). A grade e o card de palavra passam a ser componentes compartilhados. (`766dbf3`)
 
+- Previous/Next também a partir de History e Favorites, para melhorar a navegação (motivação registrada no `CLAUDE.md`, seção 6.8, e na nova seção "Navigation and interaction" dos READMEs). O detalhe anda pela lista da aba como estava ao abrir: abrir uma palavra (que a leva ao topo da History) ou desfavoritá-la não muda a ordem até o detalhe fechar. (`ff5d67e`)
+
 ### Infraestrutura
 
 - O wrapper de testes do React Query não deixa mais um timer aberto nas mutações, que às vezes impedia o Jest de terminar. (`6757c8a`)

@@ -51,6 +51,13 @@ Scan the QR code with the camera (iOS) or with Expo Go (Android). The phone and 
 
 The screens follow this [Figma file](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (light and dark versions, loading and error states, and a component showcase). The interface follows the challenge wireframe. Where the app differs from the Figma on purpose (for contrast or performance), the reason is recorded in [`CLAUDE.md`](CLAUDE.md).
 
+## Navigation and interaction
+
+Small changes to make moving through words and using the app faster and more predictable. People who study vocabulary go through many words in a row, so the Figma buttons stay as the main (and accessible) path, and a few shortcuts sit on top of them:
+
+- **Previous/Next in every tab.** The word detail walks the list of the tab it was opened from: Word list, History or Favorites. History and Favorites keep the order the user saw while the detail is open, so opening a word (which moves it to the top of the history) or unfavoriting it does not make "Next" skip words.
+- **Clear the history** from the History tab, always after a confirmation.
+
 ## Architecture
 
 Folders by feature, with layers inside each one. The UI only knows the `domain` interfaces; the DI container picks the implementation.
