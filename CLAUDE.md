@@ -113,6 +113,10 @@ O Figma **não tem variáveis**: os valores foram lidos das camadas (Component s
 | `onAccent` | `#FFFFFF` | `#102B23` | Texto sobre o botão primário |
 | `accentSoft` | `#E5F0EA` | `#213E34` | Fundo do chip de classe gramatical |
 | `playerIdle` | `#E4E7E0` | `#304038` | Botão de play enquanto o áudio carrega |
+| `error` | `#AD302B` | `#FFAAA3` | Texto e borda de erro dos formulários |
+| `errorSoft` | `#FBECEA` | `#382421` | Fundo da mensagem de erro do formulário |
+| `surfaceDisabled` | `#E4E7E0` | `#26322C` | Fundo do campo desabilitado |
+| `textDisabled` | `#56615A` | `#ACB8AF` | Rótulo e valor do campo desabilitado |
 
 ¹ No Figma é `#67716B`. Escurecido para `#636D67` (decisão do autor, 2026-11-03) porque dava 4,37:1 sobre `surfaceMuted` (texto da aba inativa); agora dá 4,64:1.
 
@@ -278,6 +282,8 @@ Estrutura comum: header com o logo "Lexi" (+ ponto da marca) e botão de conta �
 ## 8. Biblioteca de componentes (Figma, Component showcase)
 
 Segmented tabs (3 estados) · Word card · Favorite (contorno / preenchido, 44×44) · Audio player (pronto / carregando) · Part-of-speech chip · Primary e Secondary button · Email field e Password field (com mostrar/ocultar senha) · Skeleton · Empty state · Header com logo e conta.
+
+**Estados reutilizáveis (2026-11-05, frames `46:14665` Light e `46:14791` Dark, etapa 5):** em `src/shared/components/`, `TextField` (estados normal, erro e desabilitado; contorno de erro de 1,5pt, mensagem Inter 11/16), `EmailField` e `PasswordField` (sem o olho quando desabilitado), `FormError` (erro do formulário, anunciado como alerta), `Button` com `loading` (spinner de 18pt no lugar do ícone, sem novo toque e sem apagar) e `AppHeader` com `showTagline` ("English, every day" no lugar do botão de conta). O "Recoverable error" do Figma tem as mesmas medidas do estado vazio, então o `MessageScreen` passou a usar o `EmptyState` com o ícone `history`, nas falhas da lista, do banco, do histórico e dos favoritos e na lista vazia; nas falhas, o título é sempre "A brief pause." / "Uma breve pausa." (`t.recoverableError.title`, decisão do autor) e cada uma mantém a própria explicação. O campo em foco não tem desenho próprio no quadro.
 
 ---
 

@@ -144,6 +144,7 @@ Decididas em 2026-11-03 (decisões do autor):
 ### Parte 1 — Visual (Figma)
 
 - [x] Tela de perfil/configurações aberta pelo botão de conta, em vez do login direto: estados visitante (`46:13683` / `46:13789`) e logado (`46:13739` / `46:13845`), com autenticação de mentira até a parte 3
+- [x] Componentes reutilizáveis do Figma (`46:14665` / `46:14791`): campos com erro e desabilitados, botão carregando, erro do formulário, header de login/cadastro e erro recuperável
 - [ ] Telas de login (`3:16034`) e cadastro (`3:16074`) com mostrar/ocultar senha
 - [ ] Estados de erro no campo, erro do formulário e carregamento do login (`46:13895`, `46:13947`, `46:13999` e escuros) e do cadastro (`46:14205`, `46:14260`, `46:14316` e escuros)
 - [ ] Validação dos campos na tela (e-mail e senha), sem back-end ainda
@@ -164,6 +165,11 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
 - [ ] Testes: fluxo de auth com o serviço mockado pelo container, mescla visitante → conta, sincronização e falha do back-end
 - [ ] Conferir no Expo Go no iOS (o Android fica para a etapa 7)
+
+### Depois do login (lembrete do autor, 2026-11-05)
+
+- [ ] 📝 **Liquid Glass nas abas:** aplicar o efeito de vidro do iOS 26 (Liquid Glass) na barra de abas do topo (Word list, History e Favorites), sem perder o visual do Figma nos outros sistemas. Conferir antes a biblioteca (`expo-glass-effect` / `GlassView`, que vem com o SDK 58, ou os componentes de vidro do `@expo/ui`), se funciona no Expo Go e o que aparece no Android e em iOS mais antigo
+- [ ] 📝 **Liquid Glass no voltar:** usar o mesmo efeito no botão de voltar (a seta do header em Configurações)
 
 **Pronto quando:** o visitante usa o app sem conta, ao entrar os dados dele vão para a conta, dois usuários diferentes veem cada um os próprios favoritos e histórico, e o app continua funcionando offline.
 
