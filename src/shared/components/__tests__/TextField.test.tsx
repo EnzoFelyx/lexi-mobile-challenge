@@ -4,7 +4,7 @@ import { en } from '@/i18n/en';
 
 import { EmailField } from '../EmailField';
 import { PasswordField } from '../PasswordField';
-import { TextField } from '../TextField';
+import { fieldIconColor, fieldStateOf, TextField } from '../TextField';
 
 describe('TextField', () => {
   it('reports what the user types', async () => {
@@ -14,6 +14,18 @@ describe('TextField', () => {
     await fireEvent.changeText(screen.getByLabelText('Name'), 'Alex');
 
     expect(onChangeText).toHaveBeenCalledWith('Alex');
+  });
+
+  it('still tells the caller about focus and blur', async () => {
+    const onFocus = jest.fn();
+    const onBlur = jest.fn();
+    await render(<TextField label="Name" onFocus={onFocus} onBlur={onBlur} />);
+
+    await fireEvent(screen.getByLabelText('Name'), 'focus');
+    await fireEvent(screen.getByLabelText('Name'), 'blur');
+
+    expect(onFocus).toHaveBeenCalledTimes(1);
+    expect(onBlur).toHaveBeenCalledTimes(1);
   });
 
   it('shows the error below the field', async () => {
@@ -27,6 +39,28 @@ describe('TextField', () => {
 
     expect(screen.getByLabelText('Name').props.editable).toBe(false);
     expect(screen.queryByText('Enter your name.')).toBeNull();
+  });
+});
+
+describe('fieldStateOf', () => {
+  it('highlights the field only while it is focused', () => {
+    expect(fieldStateOf(false, false)).toBe('default');
+    expect(fieldStateOf(false, true)).toBe('focused');
+  });
+
+  it('keeps the error visible while focused, and disabled wins over everything', () => {
+    expect(fieldStateOf(false, true, 'Wrong')).toBe('error');
+    expect(fieldStateOf(true, true, 'Wrong')).toBe('disabled');
+  });
+});
+
+describe('fieldIconColor', () => {
+  it('is gray without focus, green with focus and red on an error in focus', () => {
+    expect(fieldIconColor('default', false)).toBe('textSecondary');
+    expect(fieldIconColor('error', false)).toBe('textSecondary');
+    expect(fieldIconColor('focused', true)).toBe('accent');
+    expect(fieldIconColor('error', true)).toBe('error');
+    expect(fieldIconColor('disabled', true)).toBe('textDisabled');
   });
 });
 

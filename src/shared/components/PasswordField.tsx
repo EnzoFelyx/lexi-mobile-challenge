@@ -1,4 +1,4 @@
-import { Eye, EyeOff } from 'lucide-react-native';
+import { Eye, EyeOff, Lock } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable } from 'react-native';
 
@@ -20,6 +20,7 @@ export function PasswordField(props: PasswordFieldProps) {
     <TextField
       autoCapitalize="none"
       autoCorrect={false}
+      icon={Lock}
       {...props}
       secureTextEntry={!isRevealed}
       trailing={

@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { WORD_DETAIL_SHEET_HEIGHT } from '@/constants/navigation';
 import { useDatabaseMigrations } from '@/core/database/useDatabaseMigrations';
 import { registerDependencies } from '@/core/di/registerDependencies';
+import { applySavedGuestEntry } from '@/features/auth/hooks/guestEntry';
+import { useEntryNavigation } from '@/features/auth/hooks/useEntryNavigation';
 import { useSessionSync } from '@/features/auth/hooks/useSessionSync';
 import { applySavedLanguage } from '@/features/settings/hooks/languagePreference';
 import { applySavedThemePreference } from '@/features/settings/hooks/themePreference';
@@ -23,6 +25,7 @@ import { MessageScreen } from '@/shared/components/MessageScreen';
 registerDependencies();
 applySavedThemePreference();
 applySavedLanguage();
+applySavedGuestEntry();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -32,8 +35,10 @@ export default function RootLayout() {
   const fontsReady = useThemeFonts();
   const database = useDatabaseMigrations();
   const databaseSettled = database.ready || database.error !== undefined;
-  const appReady = fontsReady && databaseSettled;
   useSessionSync();
+  const entry = useEntryNavigation();
+  // Espera a sessão salva para o login não piscar antes da lista.
+  const appReady = fontsReady && databaseSettled && entry.isReady;
   // Ícones claros sobre o tema escuro e escuros sobre o claro.
   const statusBarStyle = theme.mode === 'dark' ? 'light' : 'dark';
 
@@ -66,19 +71,20 @@ export default function RootLayout() {
               para os dois se comportarem igual. */}
           <StatusBar style={statusBarStyle} />
           <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen
-              name="word/[word]"
-              options={{
-                presentation: 'formSheet',
-                sheetAllowedDetents: [WORD_DETAIL_SHEET_HEIGHT],
-                sheetGrabberVisible: true,
-              }}
-            />
-            <Stack.Screen
-              name="(auth)/login"
-              options={{ headerShown: true, title: t.auth.loginTitle }}
-            />
+            <Stack.Screen name="(auth)/login" />
+            <Stack.Screen name="(auth)/sign-up" />
+            <Stack.Protected guard={entry.canEnterApp}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen
+                name="word/[word]"
+                options={{
+                  presentation: 'formSheet',
+                  sheetAllowedDetents: [WORD_DETAIL_SHEET_HEIGHT],
+                  sheetGrabberVisible: true,
+                }}
+              />
+              <Stack.Screen name="settings" />
+            </Stack.Protected>
           </Stack>
         </ThemeProvider>
       </NavigationThemeProvider>

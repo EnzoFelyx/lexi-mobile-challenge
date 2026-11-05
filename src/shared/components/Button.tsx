@@ -7,7 +7,7 @@ import { useTheme } from '@/core/theme/useTheme';
 import { AppText, type TextTone } from './AppText';
 import { Spinner } from './Spinner';
 
-export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline';
 
 interface ButtonProps {
   label: string;
@@ -25,19 +25,25 @@ interface ButtonProps {
 const containerClass: Record<ButtonVariant, string> = {
   primary: 'border-accent bg-accent',
   secondary: 'border-border bg-surface',
+  outline: 'border-accent bg-surface',
 };
 
 const labelTone: Record<ButtonVariant, TextTone> = {
   primary: 'onAccent',
   secondary: 'primary',
+  outline: 'accent',
 };
 
 const iconColor: Record<ButtonVariant, ColorToken> = {
   primary: 'onAccent',
   secondary: 'textPrimary',
+  outline: 'accent',
 };
 
-/** Botão do Figma (Primary / Secondary): 52pt de altura, ícone opcional à esquerda do texto. */
+/**
+ * Botão do Figma (Primary / Secondary): 52pt de altura, ícone opcional à esquerda do texto. O
+ * `outline`, com contorno e texto de acento, não está no Figma (pedido do autor).
+ */
 export function Button({
   label,
   onPress,

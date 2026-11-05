@@ -17,6 +17,10 @@ const renderSession = () =>
 
 describe('useSessionSync and useAccount', () => {
   beforeEach(() => {
+    container.registerInstance(TOKENS.AuthEntryStorage, {
+      hasChosenGuest: () => false,
+      saveGuestChoice: async () => undefined,
+    });
     useSessionStore.setState({ status: 'loading', user: null });
   });
 

@@ -1,3 +1,6 @@
+import { PREVIEW_TAKEN_EMAIL, PREVIEW_WRONG_EMAIL } from '@/constants/auth';
+
+import { EmailAlreadyRegisteredError, InvalidCredentialsError } from '../../domain/AuthErrors';
 import { PreviewAuthService } from '../PreviewAuthService';
 
 describe('PreviewAuthService', () => {
@@ -15,6 +18,26 @@ describe('PreviewAuthService', () => {
 
     expect(user.email).toBe('alex@example.com');
     expect(listener.mock.calls).toEqual([[user], [null]]);
+    expect(await auth.getUser()).toBeNull();
+  });
+
+  it('creates the account and enters it', async () => {
+    const auth = new PreviewAuthService();
+
+    const user = await auth.signUp({ email: 'new@example.com', password: '' });
+
+    expect(await auth.getUser()).toEqual(user);
+  });
+
+  it('simulates the form errors with the preview e-mails', async () => {
+    const auth = new PreviewAuthService();
+
+    await expect(auth.signIn({ email: PREVIEW_WRONG_EMAIL, password: '' })).rejects.toThrow(
+      InvalidCredentialsError,
+    );
+    await expect(auth.signUp({ email: PREVIEW_TAKEN_EMAIL, password: '' })).rejects.toThrow(
+      EmailAlreadyRegisteredError,
+    );
     expect(await auth.getUser()).toBeNull();
   });
 

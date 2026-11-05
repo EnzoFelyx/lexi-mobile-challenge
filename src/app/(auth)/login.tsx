@@ -1,7 +1,5 @@
-import { useTexts } from '@/i18n/useTexts';
-import { PlaceholderScreen } from '@/shared/components/PlaceholderScreen';
+import { LoginScreen } from '@/features/auth/components/LoginScreen';
 
-export default function LoginScreen() {
-  const t = useTexts();
-  return <PlaceholderScreen title={t.auth.loginTitle} showSampleWord={false} />;
+export default function LoginRoute() {
+  return <LoginScreen />;
 }

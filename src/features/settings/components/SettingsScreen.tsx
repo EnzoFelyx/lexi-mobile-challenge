@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { PREVIEW_CREDENTIALS } from '@/constants/auth';
 import { AccountProfileCard } from '@/features/auth/components/AccountProfileCard';
 import { GuestProfileCard } from '@/features/auth/components/GuestProfileCard';
 import { useAccount } from '@/features/auth/hooks/useAccount';
 import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 import { SectionHeading } from '@/shared/components/SectionHeading';
+import { openLogin, openSignUp } from '@/shared/utils/navigation';
 
 import { useLanguagePreference } from '../hooks/useLanguagePreference';
 import { useThemePreference } from '../hooks/useThemePreference';
@@ -38,8 +38,6 @@ export function SettingsScreen() {
   const account = useAccount();
   const theme = useThemePreference();
   const language = useLanguagePreference();
-  // Parte 1 da etapa 5: entra direto na conta de mentira, até a tela de login existir.
-  const previewSignIn = () => void account.signIn(PREVIEW_CREDENTIALS);
 
   return (
     <ScrollView
@@ -52,7 +50,7 @@ export function SettingsScreen() {
           {account.user ? (
             <AccountProfileCard email={account.user.email} onLogOut={account.signOut} />
           ) : (
-            <GuestProfileCard onLogIn={previewSignIn} onCreateAccount={previewSignIn} />
+            <GuestProfileCard onLogIn={openLogin} onCreateAccount={openSignUp} />
           )}
         </SettingsSection>
       )}

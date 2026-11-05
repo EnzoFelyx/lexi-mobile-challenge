@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { Appearance } from 'react-native';
 
 import { container } from '@/core/di/container';
@@ -9,11 +9,14 @@ import { useSessionStore } from '@/features/auth/hooks/sessionStore';
 import { useSessionSync } from '@/features/auth/hooks/useSessionSync';
 import { en } from '@/i18n/en';
 import { ptBR } from '@/i18n/pt-BR';
+import { openLogin, openSignUp } from '@/shared/utils/navigation';
 
 import type { PreferenceStorage } from '../../domain/PreferenceStorage';
 import { useThemePreferenceStore } from '../../hooks/themePreferenceStore';
 
 import { SettingsScreen } from '../SettingsScreen';
+
+jest.mock('@/shared/utils/navigation', () => ({ openLogin: jest.fn(), openSignUp: jest.fn() }));
 
 /** A tela com a sessão acompanhando o serviço, como no app. */
 function SettingsWithSession() {
@@ -32,14 +35,18 @@ const registerStorage = () => {
   return storage;
 };
 
-const renderSettings = async () => {
-  container.registerInstance<AuthService>(TOKENS.AuthService, new PreviewAuthService());
+const renderSettings = async (auth: AuthService = new PreviewAuthService()) => {
+  container.registerInstance<AuthService>(TOKENS.AuthService, auth);
   await render(<SettingsWithSession />);
   await screen.findByRole('header', { name: en.settings.profile });
 };
 
 describe('SettingsScreen', () => {
   beforeEach(() => {
+    container.registerInstance(TOKENS.AuthEntryStorage, {
+      hasChosenGuest: () => false,
+      saveGuestChoice: async () => undefined,
+    });
     useSessionStore.setState({ status: 'loading', user: null });
     useThemePreferenceStore.setState({ preference: 'system' });
   });
@@ -55,10 +62,21 @@ describe('SettingsScreen', () => {
     expect(screen.getByRole('button', { name: en.settings.guest.createAccount })).toBeOnTheScreen();
   });
 
-  it('shows the account after logging in and goes back to the guest after logging out', async () => {
+  it('opens the login and the sign up from the guest profile', async () => {
     await renderSettings();
 
     await fireEvent.press(screen.getByRole('button', { name: en.settings.guest.logIn }));
+    await fireEvent.press(screen.getByRole('button', { name: en.settings.guest.createAccount }));
+
+    expect(openLogin).toHaveBeenCalledTimes(1);
+    expect(openSignUp).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows the account after logging in and goes back to the guest after logging out', async () => {
+    const auth = new PreviewAuthService();
+    await renderSettings(auth);
+
+    await act(() => auth.signIn({ email: 'alex@example.com', password: '' }));
 
     expect(
       await screen.findByRole('header', { name: en.settings.account.title }),

@@ -8,7 +8,10 @@ export type SessionStatus = 'loading' | 'guest' | 'signedIn';
 interface SessionState {
   status: SessionStatus;
   user: AuthUser | null;
+  /** Já escolheu entrar como visitante: não vê mais o login ao abrir o app. */
+  hasChosenGuest: boolean;
   setUser: (user: AuthUser | null) => void;
+  setHasChosenGuest: (hasChosenGuest: boolean) => void;
 }
 
 /**
@@ -18,5 +21,7 @@ interface SessionState {
 export const useSessionStore = create<SessionState>()((set) => ({
   status: 'loading',
   user: null,
+  hasChosenGuest: false,
   setUser: (user) => set({ user, status: user ? 'signedIn' : 'guest' }),
+  setHasChosenGuest: (hasChosenGuest) => set({ hasChosenGuest }),
 }));

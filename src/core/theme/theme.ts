@@ -70,6 +70,12 @@ export const typography = {
     lineHeight: 54,
     letterSpacing: -1.4,
   }, // palavra no card do detalhe
+  authTitle: {
+    fontFamily: fonts.serifSemiBold,
+    fontSize: 38,
+    lineHeight: 44,
+    letterSpacing: -1,
+  }, // título do login e do cadastro
   heading: { fontFamily: fonts.serifSemiBold, fontSize: 24 }, // "Meanings"
   title: { fontFamily: fonts.serifSemiBold, fontSize: 30 }, // título dos estados de erro do detalhe
   emptyTitle: { fontFamily: fonts.serifSemiBold, fontSize: 27 }, // título dos estados vazios
@@ -159,9 +165,11 @@ export const sizes = {
   tabItem: 44,
   button: 52,
   input: 56,
-  fieldErrorBorder: 1.5, // contorno do campo com erro
+  fieldActiveBorder: 1.5, // contorno do campo com erro ou em foco
   chip: 26,
   progressTrack: 4,
+  divider: 1, // linha divisória
+  orDivider: 1.5, // traços do "ou" no login (fora do Figma, pedido do autor)
   wordCard: { width: 106, height: 104 },
   gridGap: 12,
   screenWidth: 390, // referência do design (iPhone)

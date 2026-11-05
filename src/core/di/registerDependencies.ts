@@ -1,7 +1,9 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { database, type Database, sqliteConnection } from '@/core/database/client';
+import { KvAuthEntryStorage } from '@/features/auth/data/KvAuthEntryStorage';
 import { PreviewAuthService } from '@/features/auth/data/PreviewAuthService';
+import type { AuthEntryStorage } from '@/features/auth/domain/AuthEntryStorage';
 import type { AuthService } from '@/features/auth/domain/AuthService';
 import { KvPreferenceStorage } from '@/features/settings/data/KvPreferenceStorage';
 import type { PreferenceStorage } from '@/features/settings/domain/PreferenceStorage';
@@ -51,6 +53,7 @@ export function registerDependencies(): void {
   container.registerSingleton<HistoryRepository>(TOKENS.HistoryRepository, SqliteHistoryRepository);
   // Parte 1 da etapa 5: autenticação de mentira, até o Supabase entrar (parte 3).
   container.registerSingleton<AuthService>(TOKENS.AuthService, PreviewAuthService);
+  container.registerSingleton<AuthEntryStorage>(TOKENS.AuthEntryStorage, KvAuthEntryStorage);
   container.registerSingleton<PreferenceStorage>(TOKENS.PreferenceStorage, KvPreferenceStorage);
   container.registerSingleton<FavoritesRepository>(
     TOKENS.FavoritesRepository,

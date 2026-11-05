@@ -1,6 +1,7 @@
 import Storage from 'expo-sqlite/kv-store';
 
 import { PREFERENCE_KEYS } from '@/constants/preferences';
+import { KvAuthEntryStorage } from '@/features/auth/data/KvAuthEntryStorage';
 
 import { KvPreferenceStorage } from '../KvPreferenceStorage';
 
@@ -18,6 +19,17 @@ jest.mock('expo-sqlite/kv-store', () => {
       },
     },
   };
+});
+
+describe('KvAuthEntryStorage', () => {
+  it('has no guest choice until one is saved, then reads it back', async () => {
+    const storage = new KvAuthEntryStorage();
+    expect(storage.hasChosenGuest()).toBe(false);
+
+    await storage.saveGuestChoice();
+
+    expect(storage.hasChosenGuest()).toBe(true);
+  });
 });
 
 describe('KvPreferenceStorage', () => {

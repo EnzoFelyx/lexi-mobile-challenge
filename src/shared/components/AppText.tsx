@@ -10,6 +10,7 @@ export const textVariantClass: Record<TextVariant, string> = {
   display: 'font-serif-semi-bold text-display',
   logo: 'font-serif-semi-bold text-logo',
   headwordLarge: 'font-serif-semi-bold text-headword-large',
+  authTitle: 'font-serif-semi-bold text-auth-title',
   heading: 'font-serif-semi-bold text-heading',
   title: 'font-serif-semi-bold text-title',
   emptyTitle: 'font-serif-semi-bold text-empty-title',

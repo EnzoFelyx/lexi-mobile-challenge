@@ -49,6 +49,8 @@ const componentSizes = mapEntries(
     input: sizes.input,
     chip: sizes.chip,
     progressTrack: sizes.progressTrack,
+    divider: sizes.divider,
+    orDivider: sizes.orDivider,
   },
   px,
 );
@@ -65,7 +67,7 @@ export default {
     spacing: { 0: '0px', ...mapEntries(spacing, px) },
     borderRadius: { none: '0px', ...mapEntries(radius, px) },
     extend: {
-      borderWidth: { 'field-error': px(sizes.fieldErrorBorder) },
+      borderWidth: { 'field-active': px(sizes.fieldActiveBorder) },
       height: componentSizes,
       width: componentSizes,
       minHeight: componentSizes,

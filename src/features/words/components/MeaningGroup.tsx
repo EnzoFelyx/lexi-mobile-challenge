@@ -28,7 +28,7 @@ export function MeaningGroup({ meaning }: MeaningGroupProps) {
     <View className="gap-sm">
       <View className="flex-row items-center gap-md">
         <PartOfSpeechChip label={meaning.partOfSpeech} />
-        <View className="h-px flex-1 bg-border" />
+        <View className="h-divider flex-1 bg-border" />
       </View>
       {visible.map((item, index) => (
         <View key={`${meaning.partOfSpeech}-${index}`} className="gap-xxs">

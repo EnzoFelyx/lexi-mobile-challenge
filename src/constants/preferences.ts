@@ -2,4 +2,5 @@
 export const PREFERENCE_KEYS = {
   theme: 'preferences.theme',
   language: 'preferences.language',
+  guestEntry: 'auth.guestEntry',
 } as const;
