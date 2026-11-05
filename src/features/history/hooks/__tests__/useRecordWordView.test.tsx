@@ -2,12 +2,17 @@ import { renderHook, waitFor } from '@testing-library/react-native';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { createQueryClientWrapper } from '@/shared/testing/queryClientWrapper';
 
 import type { HistoryRepository } from '../../domain/HistoryRepository';
+import { useHistory } from '../useHistory';
 import { useRecordWordView } from '../useRecordWordView';
 
-const registerHistory = (recordView: HistoryRepository['recordView']) => {
-  const repository: HistoryRepository = { recordView: jest.fn(recordView) };
+const registerHistory = (
+  recordView: HistoryRepository['recordView'],
+  list: HistoryRepository['list'] = async () => [],
+) => {
+  const repository: HistoryRepository = { recordView: jest.fn(recordView), list: jest.fn(list) };
   container.registerInstance<HistoryRepository>(TOKENS.HistoryRepository, repository);
   return repository;
 };
@@ -15,6 +20,7 @@ const registerHistory = (recordView: HistoryRepository['recordView']) => {
 const renderRecord = (initialWord: string | null) =>
   renderHook(({ word }: { word: string | null }) => useRecordWordView(word), {
     initialProps: { word: initialWord },
+    wrapper: createQueryClientWrapper(),
   });
 
 describe('useRecordWordView', () => {
@@ -52,6 +58,26 @@ describe('useRecordWordView', () => {
     await rerender({ word: 'today' });
 
     expect(repository.recordView).toHaveBeenLastCalledWith('today', null);
+  });
+
+  it('refreshes the History tab after recording', async () => {
+    const viewed: string[] = [];
+    registerHistory(
+      async (word) => {
+        viewed.unshift(word);
+      },
+      async () => [...viewed],
+    );
+
+    const { result } = await renderHook(
+      () => {
+        useRecordWordView('hello');
+        return useHistory();
+      },
+      { wrapper: createQueryClientWrapper() },
+    );
+
+    await waitFor(() => expect(result.current.words).toEqual(['hello']));
   });
 
   it('only warns when recording fails, without breaking the screen', async () => {

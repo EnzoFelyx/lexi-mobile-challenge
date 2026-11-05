@@ -31,6 +31,8 @@ export const en = {
   },
   favorites: {
     title: 'Favorites',
+    saveErrorTitle: "Couldn't save the favorite",
+    saveErrorMessage: 'Something went wrong on this device. Try again.',
   },
   wordDetail: {
     close: 'Close',

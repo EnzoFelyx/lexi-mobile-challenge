@@ -11,6 +11,7 @@ export const TOKENS = {
   DictionaryService: Symbol('DictionaryService'),
   WordCacheRepository: Symbol('WordCacheRepository'),
   HistoryRepository: Symbol('HistoryRepository'),
+  FavoritesRepository: Symbol('FavoritesRepository'),
   PronunciationAudioFactory: Symbol('PronunciationAudioFactory'),
   PronunciationAudioCache: Symbol('PronunciationAudioCache'),
   SpeechService: Symbol('SpeechService'),

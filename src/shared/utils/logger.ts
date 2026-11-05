@@ -1,4 +1,4 @@
-export type LogScope = 'database' | 'theme' | 'words' | 'history';
+export type LogScope = 'database' | 'theme' | 'words' | 'history' | 'favorites';
 
 const withDetail = (detail: unknown): unknown[] => (detail === undefined ? [] : [detail]);
 
