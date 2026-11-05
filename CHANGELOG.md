@@ -9,6 +9,8 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ## 2026-11-05 — Etapa 4 (favoritos e histórico)
 
+Etapa concluída em 2026-11-05, com **todos os obrigatórios do desafio prontos**: favoritar e desfavoritar, ver o histórico e navegar por History e Favorites funcionam para o visitante, com lint, typecheck e testes passando (conferido no Expo Go no iPhone pelo autor; o Android fica para a etapa 7, decisão do autor).
+
 ### Adicionado
 
 - Favoritos no SQLite (`FavoritesRepository`, `SqliteFavoritesRepository`) e leitura do histórico, da visita mais recente para a mais antiga, para o visitante. O coração terá atualização otimista pelo React Query (decisão do autor, no lugar do Zustand): muda na hora e, se a gravação falhar, volta ao estado anterior com um alerta do sistema. Gravar uma visita atualiza a aba History. Decisões da etapa registradas no `CLAUDE.md` (alerta do sistema, Previous/Next seguindo a posição ao desfavoritar, cards sem fonética, listas inteiras sem paginação). (`6757c8a`)

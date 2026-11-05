@@ -19,7 +19,7 @@
 | 1 | Fundação | ✅ |
 | 2 | Lista de palavras | ✅ |
 | 3 | Detalhe da palavra | ✅ |
-| 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | 🟨 |
+| 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ✅ |
 | 5 | Supabase e login | ⬜ |
 | 6 | Qualidade | ⬜ |
 | 7 | Entrega | ⬜ |
@@ -123,12 +123,12 @@ Decididas em 2026-11-03 (decisões do autor):
 
 - [x] `FavoritesRepository` e `HistoryRepository` (interfaces + SQLite) registrados no container, funcionando para o visitante (`user_id` nulo)
 - [x] Favoritar e desfavoritar com atualização otimista (React Query, decisão do autor em 2026-11-05)
-- [ ] Histórico sem duplicados: rever atualiza o `viewed_at` e sobe para o topo
+- [x] Histórico sem duplicados: rever atualiza o `viewed_at` e sobe para o topo
 - [x] Abas History (`3:15625`) e Favorites (`3:15731`) com a mesma grade, resumo com contagem e nota de rodapé (History com "Clear" e confirmação, pedido do autor)
 - [x] Estados vazios (`3:15690` e `3:15798`) com o botão para ir à lista
 - [x] Previous/Next também funcionando a partir de History e Favorites
-- [ ] Testes: merge do histórico, favorito otimista revertendo, telas vazias e cheias
-- [ ] Conferir no Expo Go (Android e iOS)
+- [x] Testes: merge do histórico, favorito otimista revertendo, telas vazias e cheias
+- [x] Conferir no Expo Go no iOS (o Android fica para a etapa 7, decisão do autor em 2026-11-05)
 - [ ] ✅ **Marco:** commit/tag marcando os obrigatórios prontos
 
 **Pronto quando:** os 5 casos de uso do Obrigatório 1 funcionam, com cache e wireframe atendidos.
@@ -186,6 +186,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
+- [ ] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha)
 - [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
 - [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
 - [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
