@@ -12,7 +12,11 @@ const registerHistory = (
   recordView: HistoryRepository['recordView'],
   list: HistoryRepository['list'] = async () => [],
 ) => {
-  const repository: HistoryRepository = { recordView: jest.fn(recordView), list: jest.fn(list) };
+  const repository: HistoryRepository = {
+    recordView: jest.fn(recordView),
+    list: jest.fn(list),
+    clear: jest.fn(async () => undefined),
+  };
   container.registerInstance<HistoryRepository>(TOKENS.HistoryRepository, repository);
   return repository;
 };

@@ -1,14 +1,12 @@
-import { View } from 'react-native';
-
 import { en } from '@/i18n/en';
+import { LoadingScreen } from '@/shared/components/LoadingScreen';
 import { MessageScreen } from '@/shared/components/MessageScreen';
 import { SectionHeading } from '@/shared/components/SectionHeading';
-import { Spinner } from '@/shared/components/Spinner';
+import { WordGrid } from '@/shared/components/WordGrid';
 import { openWordDetail } from '@/shared/utils/navigation';
 
 import { useWordList } from '../hooks/useWordList';
 import { type LoadMoreStatus, LoadMoreFooter } from './LoadMoreFooter';
-import { WordGrid } from './WordGrid';
 
 const openFromWordList = (word: string, index: number) =>
   openWordDetail(word, { source: 'words', index });
@@ -18,11 +16,7 @@ export function WordListScreen() {
   const list = useWordList();
 
   if (list.isLoading) {
-    return (
-      <View className="flex-1 items-center justify-center bg-background">
-        <Spinner accessibilityLabel={en.words.loading} />
-      </View>
-    );
+    return <LoadingScreen label={en.words.loading} />;
   }
   if (list.error === 'firstPage') {
     return (

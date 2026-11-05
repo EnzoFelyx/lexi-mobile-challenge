@@ -45,4 +45,8 @@ export class SqliteHistoryRepository implements HistoryRepository {
 
     return parseRows('history', historyWordSchema, rows).map((row) => row.word);
   }
+
+  async clear(userId: string | null): Promise<void> {
+    await this.database.delete(history).where(ownedBy(history.userId, userId));
+  }
 }

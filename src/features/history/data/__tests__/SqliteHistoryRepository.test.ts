@@ -80,4 +80,15 @@ describe('SqliteHistoryRepository', () => {
   it('lists nothing before the first view', async () => {
     expect(await repository.list(null)).toEqual([]);
   });
+
+  it('clears the guest history and keeps the other users', async () => {
+    await repository.recordView('hello', null);
+    await repository.recordView('today', null);
+    await repository.recordView('other', 'user-1');
+
+    await repository.clear(null);
+
+    expect(await repository.list(null)).toEqual([]);
+    expect(await repository.list('user-1')).toEqual(['other']);
+  });
 });

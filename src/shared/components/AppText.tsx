@@ -12,6 +12,7 @@ export const textVariantClass: Record<TextVariant, string> = {
   headwordLarge: 'font-serif-semi-bold text-headword-large',
   heading: 'font-serif-semi-bold text-heading',
   title: 'font-serif-semi-bold text-title',
+  emptyTitle: 'font-serif-semi-bold text-empty-title',
   headwordCard: 'font-serif-semi-bold text-headword-card',
   body: 'font-sans-regular text-body',
   button: 'font-sans-semi-bold text-button',
@@ -29,6 +30,7 @@ export const textVariantClass: Record<TextVariant, string> = {
   chip: 'font-sans-semi-bold text-chip',
   caption: 'font-sans-regular text-caption',
   eyebrow: 'font-sans-semi-bold text-eyebrow uppercase',
+  overline: 'font-sans-semi-bold text-overline uppercase',
 };
 
 const toneClass: Record<TextTone, string> = {

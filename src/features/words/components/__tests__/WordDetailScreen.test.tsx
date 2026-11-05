@@ -44,6 +44,7 @@ const register = (lookup: WordLookup) => {
   const history: HistoryRepository = {
     recordView: jest.fn().mockResolvedValue(undefined),
     list: async () => [],
+    clear: async () => undefined,
   };
   container.registerInstance<WordCacheRepository>(TOKENS.WordCacheRepository, {
     get: async () => null,
