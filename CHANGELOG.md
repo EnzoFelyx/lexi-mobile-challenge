@@ -16,13 +16,16 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 - Tela de perfil e configurações, aberta pelo botão de conta: perfil de visitante ("Keep your words.", com Log in e Create account) e de quem está logado (e-mail e Log out), seta de voltar no header e as preferências. Até o Supabase entrar, a conta é de mentira (`alex@example.com`) e a sessão fica no Zustand. Appearance abre um diálogo nativo com Light, Dark e System, aplica na hora, salva no aparelho e é aplicado antes da primeira tela; a barra de status passa a seguir o tema do app. Textos do perfil simplificados pelo autor em relação ao Figma. (`9af9874`)
 - Interface em inglês ou português, escolhida em Configurações e salva no aparelho (pedido do autor). A tradução completa foi revisada pelo autor; tudo o que vem da API continua em inglês. No iOS, Aparência e Idioma abrem o menu do sistema com ✓ na opção atual (entra o `@expo/ui`); no Android, um diálogo no meio da tela. Textos das telas vazias de History e Favorites encurtados a pedido do autor. (`7832985`)
 - Estados reutilizáveis do Figma: campos de texto, e-mail e senha (erro, desabilitado, mostrar/ocultar senha), botão carregando, erro do formulário e header de login e cadastro, com os tokens de cor de erro e de desabilitado no claro e no escuro (contraste AA testado). As telas de login e cadastro, que usarão esses componentes, vêm a seguir. (`1c5b2b4`)
+- Telas de login e cadastro, com e-mail e senha, erros nos campos e no formulário, carregamento, ícones e contorno verde em foco. Em relação ao Figma: textos mais curtos, sem o card "rediscover" e sem os termos; o login ganha "Continue as guest". A autenticação ainda é de mentira (`wrong@example.com` e `taken@example.com` simulam os erros). (`8f38c24`)
 
 ### Alterado
 
+- O login passa a ser a primeira tela do app, com a conta opcional (decisão do autor, substitui a abertura na lista). A escolha do visitante fica salva, e quem tem sessão ou já escolheu abre direto na lista. Em Settings, Log in e Create account abrem as novas telas. Ao sair da conta, a pessoa continua no app como visitante. (`8f38c24`)
 - As telas de falha (lista, banco, histórico, favoritos e preparação do dicionário) passam ao layout "Recoverable error" do Figma, igual ao do estado vazio, sempre com o título "A brief pause." / "Uma breve pausa." e a explicação de cada caso (decisão do autor). (`1c5b2b4`)
 
 ### Corrigido
 
+- A linha ao lado dos chips em Meanings nunca aparecia: a classe `h-px` não existe com o tema do Lexi; agora usa o token `divider`. (`8f38c24`)
 - Erro no Expo Go ao mudar a barra de status pelas telas da Stack: agora só o `StatusBar` controla a barra, e o `app.json` desliga `UIViewControllerBasedStatusBarAppearance` também no build. (`0331b46`)
 
 ---

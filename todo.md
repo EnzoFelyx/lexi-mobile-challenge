@@ -145,9 +145,14 @@ Decididas em 2026-11-03 (decisões do autor):
 
 - [x] Tela de perfil/configurações aberta pelo botão de conta, em vez do login direto: estados visitante (`46:13683` / `46:13789`) e logado (`46:13739` / `46:13845`), com autenticação de mentira até a parte 3
 - [x] Componentes reutilizáveis do Figma (`46:14665` / `46:14791`): campos com erro e desabilitados, botão carregando, erro do formulário, header de login/cadastro e erro recuperável
-- [ ] Telas de login (`3:16034`) e cadastro (`3:16074`) com mostrar/ocultar senha
-- [ ] Estados de erro no campo, erro do formulário e carregamento do login (`46:13895`, `46:13947`, `46:13999` e escuros) e do cadastro (`46:14205`, `46:14260`, `46:14316` e escuros)
-- [ ] Validação dos campos na tela (e-mail e senha), sem back-end ainda
+- [x] Modo temporário do design desligado (`AUTH_DESIGN_PREVIEW = false`, pedido do autor em 2026-11-05)
+- [x] Conferir no aparelho o voltar, o visitante, a abertura seguinte e a entrada na lista (conferido pelo autor em 2026-11-05)
+- [ ] 🐞 **Bug aberto (2026-11-05):** no primeiro arrasto de Word list para History, a página para cerca de 85pt além do limite e fica assim; nos arrastos seguintes fica normal. Parece uma medida errada no paginador. Falta testar na `main`, para saber se é anterior ao login
+- [ ] 🐞 **A conferir:** barra de status com ícones brancos sobre o fundo claro, vista num print de 2026-11-05
+- [x] Login como primeira tela (decisão do autor, 2026-11-05): lembrar o visitante e a sessão, abrir direto na lista nas próximas vezes e manter login e cadastro em Settings
+- [x] Telas de login (`3:16034`) e cadastro (`3:16074`) com mostrar/ocultar senha
+- [x] Estados de erro no campo, erro do formulário e carregamento do login (`46:13895`, `46:13947`, `46:13999` e escuros) e do cadastro (`46:14205`, `46:14260`, `46:14316` e escuros)
+- [x] Validação dos campos na tela (e-mail e senha), sem back-end ainda
 
 ### Parte 2 — Funcional (Supabase)
 
@@ -155,12 +160,13 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Guardar o SQL das tabelas e políticas no repositório (ex.: `supabase/migrations/`)
 - [ ] Client do Supabase em `src/core/supabase/` com sessão persistida
 - [ ] Tipos gerados pela CLI do Supabase
-- [ ] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada (cadastro instantâneo para o avaliador)
+- [x] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada: desligada, sem login social (decisão do autor em 2026-11-05)
+- [ ] Desligar a confirmação de e-mail no painel do Supabase
 - [ ] Definir com o autor o que acontece ao sair (ex.: limpar os dados da conta do aparelho e voltar ao visitante)
 
 ### Parte 3 — Integração
 
-- [ ] Telas ligadas ao Supabase: entrar, cadastrar e sair, com os erros reais nos estados do Figma; o app continua abrindo na lista, sem exigir login
+- [ ] Telas ligadas ao Supabase: entrar, cadastrar e sair, com os erros reais nos estados do Figma; o login é a primeira tela, sem exigir conta (visitante a um toque)
 - [ ] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
 - [ ] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
 - [ ] Testes: fluxo de auth com o serviço mockado pelo container, mescla visitante → conta, sincronização e falha do back-end
