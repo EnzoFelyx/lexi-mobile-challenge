@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { MEANING_PREVIEW_COUNT } from '@/constants/words';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 
 import type { Meaning } from '../domain/WordDetail';
@@ -17,6 +17,7 @@ interface MeaningGroupProps {
  * exemplo em itálico. Mostra até 3 e um "Show more" para o resto (decisão do autor).
  */
 export function MeaningGroup({ meaning }: MeaningGroupProps) {
+  const t = useTexts();
   const [expanded, setExpanded] = useState(false);
   const hiddenCount = meaning.definitions.length - MEANING_PREVIEW_COUNT;
   const visible = expanded
@@ -34,7 +35,7 @@ export function MeaningGroup({ meaning }: MeaningGroupProps) {
           <AppText variant="definition">{item.definition}</AppText>
           {item.example ? (
             <AppText variant="example" tone="secondary">
-              {en.wordDetail.example(item.example)}
+              {t.wordDetail.example(item.example)}
             </AppText>
           ) : null}
         </View>
@@ -47,7 +48,7 @@ export function MeaningGroup({ meaning }: MeaningGroupProps) {
           className="min-h-touch-target justify-center self-start active:opacity-80"
         >
           <AppText variant="labelStrong" tone="accent">
-            {expanded ? en.wordDetail.showLess : en.wordDetail.showMore(hiddenCount)}
+            {expanded ? t.wordDetail.showLess : t.wordDetail.showMore(hiddenCount)}
           </AppText>
         </Pressable>
       ) : null}

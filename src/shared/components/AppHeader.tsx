@@ -2,7 +2,7 @@ import { ArrowLeft, UserRound } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 
 import { AppText } from './AppText';
 
@@ -21,6 +21,7 @@ const stayOnAccount = () => undefined;
 
 /** Header do Figma: logo "Lexi" com o ponto da marca e o botão de conta (44pt). */
 export function AppHeader({ onAccountPress, onBack }: AppHeaderProps) {
+  const t = useTexts();
   const { colors, sizes } = useTheme();
   const icon = { color: colors.textPrimary, strokeWidth: sizes.iconStrokeWidth };
 
@@ -30,7 +31,7 @@ export function AppHeader({ onAccountPress, onBack }: AppHeaderProps) {
         {onBack ? (
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={en.header.back}
+            accessibilityLabel={t.header.back}
             onPress={onBack}
             className={`${ROUND_BUTTON} active:opacity-80`}
           >
@@ -39,7 +40,7 @@ export function AppHeader({ onAccountPress, onBack }: AppHeaderProps) {
         ) : null}
         <View className="flex-row items-baseline gap-sm">
           <AppText variant="logo" accessibilityRole="header">
-            {en.appName}
+            {t.appName}
           </AppText>
           <View className="h-brand-point w-brand-point rounded-pill bg-accent" />
         </View>
@@ -47,8 +48,8 @@ export function AppHeader({ onAccountPress, onBack }: AppHeaderProps) {
       {onAccountPress ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={en.header.accountLabel}
-          accessibilityHint={en.header.accountHint}
+          accessibilityLabel={t.header.accountLabel}
+          accessibilityHint={t.header.accountHint}
           onPress={onAccountPress}
           className={`${ROUND_BUTTON} active:opacity-80`}
         >

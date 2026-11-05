@@ -1,6 +1,7 @@
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { PlaceholderScreen } from '@/shared/components/PlaceholderScreen';
 
 export default function LoginScreen() {
-  return <PlaceholderScreen title={en.auth.loginTitle} showSampleWord={false} />;
+  const t = useTexts();
+  return <PlaceholderScreen title={t.auth.loginTitle} showSampleWord={false} />;
 }

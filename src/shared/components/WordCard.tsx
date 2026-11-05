@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Pressable } from 'react-native';
 
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 
 // Palavras longas quebram em até 2 linhas no tamanho do Figma (cabem quase todas: ~8 letras
@@ -24,13 +24,14 @@ interface WordCardProps {
  * criar uma função por item.
  */
 export const WordCard = memo(function WordCard({ word, index, onPress }: WordCardProps) {
+  const t = useTexts();
   const handlePress = () => onPress(word, index);
 
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={word}
-      accessibilityHint={en.words.openWordHint}
+      accessibilityHint={t.words.openWordHint}
       onPress={handlePress}
       className="h-word-card justify-center rounded-md border border-border bg-surface p-md active:opacity-80"
     >

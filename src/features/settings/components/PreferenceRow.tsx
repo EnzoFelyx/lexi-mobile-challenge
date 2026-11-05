@@ -7,7 +7,7 @@ import { AppText } from '@/shared/components/AppText';
 interface PreferenceRowProps {
   label: string;
   value: string;
-  /** Sem ação, a linha só mostra o valor (ex.: Language, até a tradução entrar). */
+  /** Sem ação, a linha só mostra o valor (ex.: dentro do menu nativo do iOS, que cuida do toque). */
   onPress?: () => void;
   accessibilityHint?: string;
 }

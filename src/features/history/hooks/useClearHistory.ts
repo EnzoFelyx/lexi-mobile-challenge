@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import { GUEST_USER_ID } from '@/constants/auth';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { logger } from '@/shared/utils/logger';
 
 import type { HistoryRepository } from '../domain/HistoryRepository';
@@ -24,6 +24,7 @@ const clearHistory = () =>
  * usuário aceitar, apaga o histórico e a aba mostra o estado vazio. Os favoritos não mudam.
  */
 export function useClearHistory(): ClearHistory {
+  const t = useTexts();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -31,17 +32,17 @@ export function useClearHistory(): ClearHistory {
     onSuccess: () => queryClient.setQueryData<string[]>(historyQueryKeys.list, []),
     onError: (error) => {
       logger.warn('history', 'Could not clear the history.', error);
-      Alert.alert(en.history.clearErrorTitle, en.history.clearErrorMessage);
+      Alert.alert(t.history.clearErrorTitle, t.history.clearErrorMessage);
     },
     // Confere com o banco no fim, certo ou errado.
     onSettled: () => queryClient.invalidateQueries({ queryKey: historyQueryKeys.list }),
   });
 
   const requestClear = () =>
-    Alert.alert(en.history.clearConfirm.title, en.history.clearConfirm.message, [
-      { text: en.history.clearConfirm.cancel, style: 'cancel' },
+    Alert.alert(t.history.clearConfirm.title, t.history.clearConfirm.message, [
+      { text: t.history.clearConfirm.cancel, style: 'cancel' },
       {
-        text: en.history.clearConfirm.confirm,
+        text: t.history.clearConfirm.confirm,
         style: 'destructive',
         onPress: () => mutation.mutate(),
       },

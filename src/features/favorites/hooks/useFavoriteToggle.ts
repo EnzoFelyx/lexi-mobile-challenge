@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import { GUEST_USER_ID } from '@/constants/auth';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { logger } from '@/shared/utils/logger';
 
 import type { FavoritesRepository } from '../domain/FavoritesRepository';
@@ -35,6 +35,7 @@ const saveFavorite = ({ word, favorite }: FavoriteChange) => {
  * avisa (CLAUDE.md 6.4).
  */
 export function useFavoriteToggle(word: string): FavoriteToggle {
+  const t = useTexts();
   const queryClient = useQueryClient();
   const favorites = useFavorites();
   const isFavorite = favorites.words.includes(word);
@@ -53,7 +54,7 @@ export function useFavoriteToggle(word: string): FavoriteToggle {
     onError: (error, change, context) => {
       queryClient.setQueryData(favoriteQueryKeys.list, context?.previous);
       logger.warn('favorites', `Could not save "${change.word}" as a favorite.`, error);
-      Alert.alert(en.favorites.saveErrorTitle, en.favorites.saveErrorMessage);
+      Alert.alert(t.favorites.saveErrorTitle, t.favorites.saveErrorMessage);
     },
     // Confere com o banco no fim, certo ou errado (ex.: dois toques rápidos).
     onSettled: () => queryClient.invalidateQueries({ queryKey: favoriteQueryKeys.list }),

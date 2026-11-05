@@ -10,7 +10,7 @@ import {
 import { View } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 import { Button } from '@/shared/components/Button';
 import { Note } from '@/shared/components/Note';
@@ -24,11 +24,18 @@ interface WordDetailErrorProps {
   onNext?: () => void;
 }
 
-const content: Record<WordDetailErrorKind, { icon: LucideIcon; title: string; message: string }> = {
-  not_found: { icon: BookSearch, ...en.wordDetail.notFound },
-  unavailable: { icon: WifiOff, ...en.wordDetail.unavailable },
-  rate_limited: { icon: Hourglass, ...en.wordDetail.rateLimited },
+const icons: Record<WordDetailErrorKind, LucideIcon> = {
+  not_found: BookSearch,
+  unavailable: WifiOff,
+  rate_limited: Hourglass,
 };
+
+// Chave dos textos de cada tipo de erro em `wordDetail`.
+const textKeys = {
+  not_found: 'notFound',
+  unavailable: 'unavailable',
+  rate_limited: 'rateLimited',
+} as const satisfies Record<WordDetailErrorKind, string>;
 
 /**
  * Estado de erro do detalhe (Figma 3:15979): ilustração, título, texto, a caixa "Your place is
@@ -36,8 +43,10 @@ const content: Record<WordDetailErrorKind, { icon: LucideIcon; title: string; me
  * rede e limite da API (429), cada um com o seu texto e ícone.
  */
 export function WordDetailError({ kind, onRetry, onNext }: WordDetailErrorProps) {
+  const t = useTexts();
   const { colors, sizes } = useTheme();
-  const { icon: Icon, title, message } = content[kind];
+  const Icon = icons[kind];
+  const { title, message } = t.wordDetail[textKeys[kind]];
 
   return (
     <View className="flex-1">
@@ -57,13 +66,13 @@ export function WordDetailError({ kind, onRetry, onNext }: WordDetailErrorProps)
             {message}
           </AppText>
         </View>
-        <Note icon={Info} text={en.wordDetail.reassurance} iconSize={sizes.icon} />
+        <Note icon={Info} text={t.wordDetail.reassurance} iconSize={sizes.icon} />
       </View>
       <View className="flex-row gap-md pb-xl pt-sm">
-        <Button label={en.wordDetail.retry} icon={RotateCw} onPress={onRetry} className="flex-1" />
+        <Button label={t.wordDetail.retry} icon={RotateCw} onPress={onRetry} className="flex-1" />
         {onNext ? (
           <Button
-            label={en.wordDetail.next}
+            label={t.wordDetail.next}
             icon={ArrowRight}
             variant="secondary"
             onPress={onNext}

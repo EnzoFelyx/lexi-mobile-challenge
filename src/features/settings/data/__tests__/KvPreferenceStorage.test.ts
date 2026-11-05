@@ -38,4 +38,19 @@ describe('KvPreferenceStorage', () => {
 
     expect(new KvPreferenceStorage().getTheme()).toBe('system');
   });
+
+  it('keeps English until a language is saved, then reads it back', async () => {
+    const storage = new KvPreferenceStorage();
+    expect(storage.getLanguage()).toBe('en');
+
+    await storage.saveLanguage('pt-BR');
+
+    expect(storage.getLanguage()).toBe('pt-BR');
+  });
+
+  it('treats an unknown saved language as English', () => {
+    Storage.setItemSync(PREFERENCE_KEYS.language, 'fr');
+
+    expect(new KvPreferenceStorage().getLanguage()).toBe('en');
+  });
 });

@@ -11,6 +11,8 @@ const registerStorage = (storage: Partial<PreferenceStorage>) =>
   container.registerInstance<PreferenceStorage>(TOKENS.PreferenceStorage, {
     getTheme: () => 'system',
     saveTheme: async () => undefined,
+    getLanguage: () => 'en',
+    saveLanguage: async () => undefined,
     ...storage,
   });
 

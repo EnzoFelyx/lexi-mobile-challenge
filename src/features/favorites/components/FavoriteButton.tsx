@@ -2,7 +2,7 @@ import { Heart } from 'lucide-react-native';
 import { Pressable } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 
 interface FavoriteButtonProps {
   word: string;
@@ -21,12 +21,13 @@ const backgroundClass: Record<'saved' | 'unsaved', string> = {
  * preenchido sobre `accentSoft` quando salvo. O estado muda a forma, não só a cor.
  */
 export function FavoriteButton({ word, isFavorite, disabled, onPress }: FavoriteButtonProps) {
+  const t = useTexts();
   const { colors, sizes } = useTheme();
 
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={isFavorite ? en.favorites.remove(word) : en.favorites.save(word)}
+      accessibilityLabel={isFavorite ? t.favorites.remove(word) : t.favorites.save(word)}
       accessibilityState={{ selected: isFavorite, disabled }}
       disabled={disabled}
       onPress={onPress}

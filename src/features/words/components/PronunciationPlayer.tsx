@@ -1,4 +1,5 @@
-import { en } from '@/i18n/en';
+import type { Texts } from '@/i18n/types';
+import { useTexts } from '@/i18n/useTexts';
 import { formatDuration } from '@/shared/utils/formatDuration';
 
 import { type PronunciationPlayer as Player, usePronunciation } from '../hooks/usePronunciation';
@@ -9,15 +10,15 @@ interface PronunciationPlayerProps {
   audioUrls: readonly string[];
 }
 
-const labelFor = ({ kind, accent, status }: Player): string => {
+const labelFor = (t: Texts, { kind, accent, status }: Player): string => {
   // A voz do aparelho usa o rótulo genérico (decisão do autor); o leitor de tela diz qual é.
   if (kind === 'voice') {
-    return en.pronunciation.generic;
+    return t.pronunciation.generic;
   }
   if (status === 'loading') {
-    return en.pronunciation.preparing;
+    return t.pronunciation.preparing;
   }
-  return accent ? en.pronunciation.accent[accent] : en.pronunciation.generic;
+  return accent ? t.pronunciation.accent[accent] : t.pronunciation.generic;
 };
 
 // Só mostra a duração quando ela existe: carregando (ou sem duração conhecida) e na voz do
@@ -27,22 +28,23 @@ const durationTextFor = ({ kind, status, duration }: Player): string | null =>
 
 /** Liga a pronúncia da palavra (mp3 ou voz do aparelho) ao player do Figma. */
 export function PronunciationPlayer({ word, audioUrls }: PronunciationPlayerProps) {
+  const t = useTexts();
   const player = usePronunciation(word, audioUrls);
 
   return (
     <AudioPlayer
-      label={labelFor(player)}
+      label={labelFor(t, player)}
       status={player.status}
       progress={player.progress}
       durationText={durationTextFor(player)}
       buttonLabel={
         player.status === 'playing'
-          ? en.pronunciation.pause
+          ? t.pronunciation.pause
           : player.kind === 'voice'
-            ? en.pronunciation.playWithVoice(word)
-            : en.pronunciation.play(word)
+            ? t.pronunciation.playWithVoice(word)
+            : t.pronunciation.play(word)
       }
-      progressLabel={en.pronunciation.progress}
+      progressLabel={t.pronunciation.progress}
       onToggle={player.toggle}
     />
   );

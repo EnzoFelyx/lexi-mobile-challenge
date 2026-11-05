@@ -3,6 +3,7 @@ import { injectable } from 'tsyringe';
 import { z } from 'zod';
 
 import { PREFERENCE_KEYS } from '@/constants/preferences';
+import { DEFAULT_LANGUAGE, type Language, LANGUAGES } from '@/i18n/languages';
 
 import type { PreferenceStorage } from '../domain/PreferenceStorage';
 import {
@@ -12,6 +13,7 @@ import {
 } from '../domain/ThemePreference';
 
 const themeSchema = z.enum(THEME_PREFERENCES);
+const languageSchema = z.enum(LANGUAGES);
 
 /**
  * Preferências no armazenamento chave-valor do `expo-sqlite` (funciona no Expo Go). Valor
@@ -26,5 +28,14 @@ export class KvPreferenceStorage implements PreferenceStorage {
 
   async saveTheme(theme: ThemePreference): Promise<void> {
     await Storage.setItem(PREFERENCE_KEYS.theme, theme);
+  }
+
+  getLanguage(): Language {
+    const parsed = languageSchema.safeParse(Storage.getItemSync(PREFERENCE_KEYS.language));
+    return parsed.success ? parsed.data : DEFAULT_LANGUAGE;
+  }
+
+  async saveLanguage(language: Language): Promise<void> {
+    await Storage.setItem(PREFERENCE_KEYS.language, language);
   }
 }

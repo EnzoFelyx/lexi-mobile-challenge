@@ -10,20 +10,23 @@ import { WORD_DETAIL_SHEET_HEIGHT } from '@/constants/navigation';
 import { useDatabaseMigrations } from '@/core/database/useDatabaseMigrations';
 import { registerDependencies } from '@/core/di/registerDependencies';
 import { useSessionSync } from '@/features/auth/hooks/useSessionSync';
+import { applySavedLanguage } from '@/features/settings/hooks/languagePreference';
 import { applySavedThemePreference } from '@/features/settings/hooks/themePreference';
 import { createQueryClient } from '@/core/query/queryClient';
 import { createNavigationTheme } from '@/core/theme/navigationTheme';
 import { ThemeProvider } from '@/core/theme/ThemeProvider';
 import { useTheme } from '@/core/theme/useTheme';
 import { useThemeFonts } from '@/core/theme/useThemeFonts';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { MessageScreen } from '@/shared/components/MessageScreen';
 
 registerDependencies();
 applySavedThemePreference();
+applySavedLanguage();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const t = useTexts();
   const [queryClient] = useState(createQueryClient);
   const theme = useTheme();
   const fontsReady = useThemeFonts();
@@ -48,8 +51,8 @@ export default function RootLayout() {
     return (
       <ThemeProvider>
         <MessageScreen
-          title={en.database.unavailableTitle}
-          message={en.database.unavailableMessage}
+          title={t.database.unavailableTitle}
+          message={t.database.unavailableMessage}
         />
       </ThemeProvider>
     );
@@ -76,7 +79,7 @@ export default function RootLayout() {
             />
             <Stack.Screen
               name="(auth)/login"
-              options={{ headerShown: true, title: en.auth.loginTitle }}
+              options={{ headerShown: true, title: t.auth.loginTitle }}
             />
           </Stack>
         </ThemeProvider>

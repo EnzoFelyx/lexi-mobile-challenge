@@ -5,12 +5,13 @@ import { PREVIEW_CREDENTIALS } from '@/constants/auth';
 import { AccountProfileCard } from '@/features/auth/components/AccountProfileCard';
 import { GuestProfileCard } from '@/features/auth/components/GuestProfileCard';
 import { useAccount } from '@/features/auth/hooks/useAccount';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 import { SectionHeading } from '@/shared/components/SectionHeading';
 
+import { useLanguagePreference } from '../hooks/useLanguagePreference';
 import { useThemePreference } from '../hooks/useThemePreference';
-import { PreferenceRow } from './PreferenceRow';
+import { PreferenceMenu } from './PreferenceMenu';
 
 interface SettingsSectionProps {
   title: string;
@@ -33,8 +34,10 @@ function SettingsSection({ title, children }: SettingsSectionProps) {
  * o perfil (visitante ou logado), as preferências e a frase do rodapé.
  */
 export function SettingsScreen() {
+  const t = useTexts();
   const account = useAccount();
   const theme = useThemePreference();
+  const language = useLanguagePreference();
   // Parte 1 da etapa 5: entra direto na conta de mentira, até a tela de login existir.
   const previewSignIn = () => void account.signIn(PREVIEW_CREDENTIALS);
 
@@ -43,9 +46,9 @@ export function SettingsScreen() {
       className="flex-1 bg-background"
       contentContainerClassName="grow gap-xl px-xl pb-xl pt-xl"
     >
-      <SectionHeading title={en.settings.title} />
+      <SectionHeading title={t.settings.title} />
       {account.status === 'loading' ? null : (
-        <SettingsSection title={en.settings.profile}>
+        <SettingsSection title={t.settings.profile}>
           {account.user ? (
             <AccountProfileCard email={account.user.email} onLogOut={account.signOut} />
           ) : (
@@ -53,19 +56,22 @@ export function SettingsScreen() {
           )}
         </SettingsSection>
       )}
-      <SettingsSection title={en.settings.preferences}>
+      <SettingsSection title={t.settings.preferences}>
         <View className="overflow-hidden rounded-md border border-border bg-surface">
-          <PreferenceRow
-            label={en.settings.appearance}
-            value={en.settings.themeName[theme.preference]}
-            onPress={theme.openThemeDialog}
-            accessibilityHint={en.settings.appearanceHint}
+          <PreferenceMenu
+            label={t.settings.appearance}
+            choice={theme}
+            accessibilityHint={t.settings.appearanceHint}
           />
-          <PreferenceRow label={en.settings.language} value={en.settings.languageName} />
+          <PreferenceMenu
+            label={t.settings.language}
+            choice={language}
+            accessibilityHint={t.settings.languageHint}
+          />
         </View>
       </SettingsSection>
       <AppText variant="note" tone="secondary" className="mt-auto text-center">
-        {en.settings.footer}
+        {t.settings.footer}
       </AppText>
     </ScrollView>
   );

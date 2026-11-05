@@ -52,7 +52,7 @@ export const en = {
     empty: {
       subtitle: 'Your recent discoveries, all in one place.',
       title: 'A fresh page awaits',
-      message: 'Open a word to explore its meaning.\nYour recently viewed words will appear here.',
+      message: 'Viewed words appear here.',
       footer: 'A new word is a new beginning.',
     },
   },
@@ -66,8 +66,8 @@ export const en = {
     count: (total: number) => `${total} saved ${total === 1 ? 'word' : 'words'}`,
     note: 'A vocabulary that feels like you. Open any word to revisit its meaning.',
     empty: {
-      title: 'Keep the words you love',
-      message: 'Tap the heart on any word to save it.\nBuild a collection that’s uniquely yours.',
+      title: 'Your word list',
+      message: 'Tap the heart on a word to save it.',
       footer: 'Your next favorite is a word away.',
     },
     save: (word: string) => `Save ${word} to favorites`,
@@ -124,9 +124,9 @@ export const en = {
     appearance: 'Appearance',
     themeName: { light: 'Light', dark: 'Dark', system: 'System' },
     appearanceHint: 'Chooses between light, dark or the phone theme',
-    cancel: 'Cancel',
     language: 'Language',
-    languageName: 'English',
+    languageNames: { en: 'English', 'pt-BR': 'Portuguese' },
+    languageHint: 'Chooses the language of the app',
     footer: 'Stay curious. One word at a time.',
   },
   dictionarySetup: {

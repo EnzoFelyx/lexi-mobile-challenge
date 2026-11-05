@@ -1,5 +1,5 @@
-import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { Alert, Appearance, type AlertButton } from 'react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
+import { Appearance } from 'react-native';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
@@ -8,6 +8,7 @@ import type { AuthService } from '@/features/auth/domain/AuthService';
 import { useSessionStore } from '@/features/auth/hooks/sessionStore';
 import { useSessionSync } from '@/features/auth/hooks/useSessionSync';
 import { en } from '@/i18n/en';
+import { ptBR } from '@/i18n/pt-BR';
 
 import type { PreferenceStorage } from '../../domain/PreferenceStorage';
 import { useThemePreferenceStore } from '../../hooks/themePreferenceStore';
@@ -24,6 +25,8 @@ const registerStorage = () => {
   const storage: PreferenceStorage = {
     getTheme: () => 'system',
     saveTheme: jest.fn(async () => undefined),
+    getLanguage: () => 'en',
+    saveLanguage: jest.fn(async () => undefined),
   };
   container.registerInstance<PreferenceStorage>(TOKENS.PreferenceStorage, storage);
   return storage;
@@ -67,43 +70,45 @@ describe('SettingsScreen', () => {
     expect(await screen.findByRole('header', { name: en.settings.guest.title })).toBeOnTheScreen();
   });
 
-  it('shows the current appearance and language', async () => {
+  it('shows the current appearance and language, checked in the native menu', async () => {
     await renderSettings();
 
     expect(
-      screen.getByRole('button', {
-        name: `${en.settings.appearance}, ${en.settings.themeName.system}`,
-      }),
+      screen.getByLabelText(`${en.settings.appearance}, ${en.settings.themeName.system}`),
     ).toBeOnTheScreen();
     expect(
-      screen.getByLabelText(`${en.settings.language}, ${en.settings.languageName}`),
+      screen.getByLabelText(`${en.settings.language}, ${en.settings.languageNames.en}`),
     ).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: en.settings.themeName.system })).toBeSelected();
+    expect(screen.getByRole('button', { name: en.settings.languageNames.en })).toBeSelected();
     expect(screen.getByText(en.settings.footer)).toBeOnTheScreen();
   });
 
-  it('chooses the theme in a native dialog, applies it at once and saves it', async () => {
+  it('chooses the theme in the native menu, applies it at once and saves it', async () => {
     const storage = registerStorage();
-    const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
     const setColorScheme = jest.spyOn(Appearance, 'setColorScheme').mockImplementation(() => {});
     await renderSettings();
 
-    await fireEvent.press(
-      screen.getByRole('button', {
-        name: `${en.settings.appearance}, ${en.settings.themeName.system}`,
-      }),
-    );
-    const buttons = alert.mock.calls[0]?.[2] as AlertButton[];
-    expect(buttons.map((button) => button.text)).toEqual(
-      expect.arrayContaining(['Light', 'Dark', 'System']),
-    );
-    await act(async () => buttons.find((button) => button.text === 'Dark')?.onPress?.());
+    await fireEvent.press(screen.getByRole('button', { name: en.settings.themeName.dark }));
 
     expect(setColorScheme).toHaveBeenCalledWith('dark');
     expect(storage.saveTheme).toHaveBeenCalledWith('dark');
+    expect(screen.getByRole('button', { name: en.settings.themeName.dark })).toBeSelected();
     expect(
-      screen.getByRole('button', {
-        name: `${en.settings.appearance}, ${en.settings.themeName.dark}`,
-      }),
+      screen.getByLabelText(`${en.settings.appearance}, ${en.settings.themeName.dark}`),
     ).toBeOnTheScreen();
+  });
+
+  it('switches the whole interface to Portuguese from the native menu and saves it', async () => {
+    const storage = registerStorage();
+    await renderSettings();
+
+    await fireEvent.press(screen.getByRole('button', { name: en.settings.languageNames['pt-BR'] }));
+
+    expect(storage.saveLanguage).toHaveBeenCalledWith('pt-BR');
+    expect(screen.getByRole('header', { name: ptBR.settings.title })).toBeOnTheScreen();
+    expect(
+      screen.getByRole('button', { name: ptBR.settings.languageNames['pt-BR'] }),
+    ).toBeSelected();
   });
 });

@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { SAMPLE_WORD } from '@/constants/words';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { openWordDetail } from '@/shared/utils/navigation';
 
 import { AppText } from './AppText';
@@ -16,6 +16,7 @@ const openSampleWord = () => openWordDetail(SAMPLE_WORD);
 
 /** Tela provisória da fundação (etapa 1): some quando cada rota ganhar a tela real. */
 export function PlaceholderScreen({ title, showSampleWord = true }: PlaceholderScreenProps) {
+  const t = useTexts();
   return (
     <View className="flex-1 gap-xl bg-background px-xl pt-xl">
       <View className="gap-xxs">
@@ -23,15 +24,11 @@ export function PlaceholderScreen({ title, showSampleWord = true }: PlaceholderS
           {title}
         </AppText>
         <AppText variant="description" tone="secondary">
-          {en.placeholder.note}
+          {t.placeholder.note}
         </AppText>
       </View>
       {showSampleWord ? (
-        <Button
-          label={en.placeholder.openSampleWord}
-          variant="secondary"
-          onPress={openSampleWord}
-        />
+        <Button label={t.placeholder.openSampleWord} variant="secondary" onPress={openSampleWord} />
       ) : null}
     </View>
   );

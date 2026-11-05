@@ -1,40 +1,18 @@
-import { Alert, type AlertButton, Platform } from 'react-native';
-
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 
 import { THEME_PREFERENCES, type ThemePreference } from '../domain/ThemePreference';
+import type { PreferenceChoice } from './preferenceChoice';
 import { chooseThemePreference } from './themePreference';
 import { useThemePreferenceStore } from './themePreferenceStore';
 
-export interface ThemePreferenceChoice {
-  preference: ThemePreference;
-  /** Abre o diálogo nativo para escolher entre Light, Dark e System. */
-  openThemeDialog: () => void;
-}
-
-const themeButtons: AlertButton[] = THEME_PREFERENCES.map((preference) => ({
-  text: en.settings.themeName[preference],
-  onPress: () => chooseThemePreference(preference),
-}));
-
-/**
- * Appearance das configurações (pedido do autor, 2026-11-05): diálogo nativo no meio da tela com
- * Light, Dark e System. No iOS ganha "Cancel"; o Android aceita até 3 botões, então lá cancela
- * tocando fora do diálogo.
- */
-export function useThemePreference(): ThemePreferenceChoice {
-  const preference = useThemePreferenceStore((state) => state.preference);
+/** Appearance das configurações: Light, Dark e System, com o texto no idioma atual. */
+export function useThemePreference(): PreferenceChoice<ThemePreference> {
+  const t = useTexts();
+  const selected = useThemePreferenceStore((state) => state.preference);
 
   return {
-    preference,
-    openThemeDialog: () =>
-      Alert.alert(
-        en.settings.appearance,
-        undefined,
-        Platform.OS === 'ios'
-          ? [...themeButtons, { text: en.settings.cancel, style: 'cancel' }]
-          : themeButtons,
-        { cancelable: true },
-      ),
+    selected,
+    options: THEME_PREFERENCES.map((value) => ({ value, label: t.settings.themeName[value] })),
+    choose: chooseThemePreference,
   };
 }

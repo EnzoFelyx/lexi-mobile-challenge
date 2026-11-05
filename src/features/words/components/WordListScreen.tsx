@@ -1,4 +1,4 @@
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { LoadingScreen } from '@/shared/components/LoadingScreen';
 import { MessageScreen } from '@/shared/components/MessageScreen';
 import { SectionHeading } from '@/shared/components/SectionHeading';
@@ -13,22 +13,23 @@ const openFromWordList = (word: string, index: number) =>
 
 /** Aba Word list: grade com rolagem infinita, com carregamento, erro e lista vazia tratados. */
 export function WordListScreen() {
+  const t = useTexts();
   const list = useWordList();
 
   if (list.isLoading) {
-    return <LoadingScreen label={en.words.loading} />;
+    return <LoadingScreen label={t.words.loading} />;
   }
   if (list.error === 'firstPage') {
     return (
       <MessageScreen
-        title={en.words.errorTitle}
-        message={en.words.errorMessage}
-        action={{ label: en.words.retry, onPress: list.retry }}
+        title={t.words.errorTitle}
+        message={t.words.errorMessage}
+        action={{ label: t.words.retry, onPress: list.retry }}
       />
     );
   }
   if (list.words.length === 0) {
-    return <MessageScreen title={en.words.emptyTitle} message={en.words.emptyMessage} />;
+    return <MessageScreen title={t.words.emptyTitle} message={t.words.emptyMessage} />;
   }
 
   const footerStatus: LoadMoreStatus =
@@ -39,7 +40,7 @@ export function WordListScreen() {
       words={list.words}
       onWordPress={openFromWordList}
       onEndReached={list.loadNextPage}
-      header={<SectionHeading title={en.words.title} subtitle={en.words.subtitle} />}
+      header={<SectionHeading title={t.words.title} subtitle={t.words.subtitle} />}
       footer={<LoadMoreFooter status={footerStatus} onRetry={list.retry} />}
     />
   );
