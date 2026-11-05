@@ -7,6 +7,18 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-05 — Etapa 6 (qualidade, itens adiantados)
+
+### Adicionado
+
+- Splash do Figma (pedido do autor): a marca "Lexi" sobre o fundo do tema, em claro e escuro, no `expo-splash-screen`; sai o ícone do template. Só aparece no app compilado (conferido pelo autor com `npx expo run:ios`); no Expo Go, a tela de abertura é a do próprio Expo Go. (`8c52762`)
+
+### Corrigido
+
+- Some o aviso amarelo "ImageBackground is deprecated", que vinha do NativeWind (o Lexi não usa `ImageBackground`): um ponto de entrada próprio (`index.ts`) esconde só esse aviso, em desenvolvimento, na tela e no terminal, antes de qualquer componente carregar. (`187f1e3`)
+
+---
+
 ## 2026-11-05 — Etapa 4 (favoritos e histórico)
 
 Etapa concluída em 2026-11-05, com **todos os obrigatórios do desafio prontos**: favoritar e desfavoritar, ver o histórico e navegar por History e Favorites funcionam para o visitante, com lint, typecheck e testes passando (conferido no Expo Go no iPhone pelo autor; o Android fica para a etapa 7, decisão do autor).
