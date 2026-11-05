@@ -10,7 +10,10 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.enzo-felyx.Lexi",
-      "appleTeamId": "8T52SZS49C"
+      "appleTeamId": "8T52SZS49C",
+      "infoPlist": {
+        "UIViewControllerBasedStatusBarAppearance": false
+      }
     },
     "android": {
       "adaptiveIcon": {

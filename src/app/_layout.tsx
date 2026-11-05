@@ -63,11 +63,12 @@ export default function RootLayout() {
       <NavigationThemeProvider value={createNavigationTheme(theme)}>
         <ThemeProvider>
           {/* A barra de status segue o tema do app, não o do celular: com o tema escolhido nas
-              configurações, os dois podem ser diferentes. No iOS, com
-              UIViewControllerBasedStatusBarAppearance ligado (react-native-screens), quem manda
-              é cada tela da Stack (statusBarStyle); o StatusBar vale para o Android. */}
+              configurações, os dois podem ser diferentes. Só pelo StatusBar: o Expo Go tem
+              UIViewControllerBasedStatusBarAppearance desligado e acusa erro se as telas da Stack
+              tentarem mudar a barra (statusBarStyle); o app.json desliga a chave também no build,
+              para os dois se comportarem igual. */}
           <StatusBar style={statusBarStyle} />
-          <Stack screenOptions={{ headerShown: false, statusBarStyle }}>
+          <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
             <Stack.Screen
               name="word/[word]"
