@@ -125,6 +125,7 @@ export const sizes = {
   closeIcon: 20, // "X" do detalhe
   playIcon: 20, // play/pause do player
   favoriteIcon: 21, // coração do detalhe
+  favoriteBurst: 72, // coração do toque duplo ao favoritar, no centro do detalhe (fora do Figma)
   illustration: 112, // quadrado da ilustração dos estados de erro
   illustrationIcon: 44, // ícone dentro da ilustração
   emptyIllustration: 120, // quadrado da ilustração dos estados vazios
