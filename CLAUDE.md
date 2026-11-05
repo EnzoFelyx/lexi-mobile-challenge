@@ -218,7 +218,7 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 
 ### 6.8 Experiência de navegação e uso (decisões do autor, 2026-11-05)
 
-**Motivação:** melhorar a experiência do usuário ao navegar e usar o app. Quem estuda vocabulário passa por muitas palavras seguidas, então andar entre elas, salvar e organizar precisa ser rápido, previsível e possível com uma mão só. Os botões do Figma continuam sendo o caminho principal (e o acessível); os gestos são atalhos para quem os descobre. Também registrado no README ("Navigation and interaction").
+**Motivação:** melhorar a experiência do usuário ao navegar e usar o app. Quem estuda vocabulário passa por muitas palavras seguidas, então andar entre elas, salvar e organizar precisa ser rápido, previsível e possível com uma mão só. Os botões do Figma continuam sendo o caminho principal (e o acessível); os gestos são atalhos para quem os descobre. Também registrado nos READMEs ("Navegação e interação" / "Navigation and interaction").
 
 - **Previous/Next nas três abas.** O detalhe anda pela lista da aba de onde foi aberto: Word list, History ou Favorites. Para History e Favorites, a lista é **congelada** quando o detalhe abre (`useSavedListSnapshot`, em `features/words/hooks/`): abrir uma palavra a leva ao topo da History, e desfavoritar no detalhe a tira de Favorites; com a lista viva, a posição mudaria a cada passo e o Next pularia palavras. Assim, a navegação segue a ordem que o usuário viu, e desfavoritar não tira a palavra da sequência até o detalhe fechar (decisão do autor no início da etapa). A aba se atualiza ao voltar. `useHistory`, `useFavorites` e `useSavedWords` aceitam `enabled`, para o detalhe ler só a lista da origem.
 - **Limpar o histórico** com o "Clear" da aba History, sempre com confirmação (seção 6.3).
@@ -323,7 +323,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 ### Repositório e documentação (decisão do autor, 2026-11-03)
 
 - GitHub: **`EnzoFelyx/lexi-mobile-challenge`**, **público**.
-- **README bilíngue:** `README.md` em inglês e `README.pt-BR.md` em português, com link de um para o outro. Os docs de processo (`CLAUDE.md`, `REGRAS.md`, `todo.md`, `CHANGELOG.md`) ficam em português.
+- **README bilíngue:** `README.md` em português (o principal) e `README.en.md` em inglês, com link de um para o outro. **Principal em português (decisão do autor, 2026-11-05):** antes era o inglês no `README.md` e o português no `README.pt-BR.md`; o desafio é de um processo seletivo brasileiro (o enunciado da Coodesh, em `CHALLENGE.md`, é em português), então a página que abre no GitHub passa a ser a em português. Os docs de processo (`CLAUDE.md`, `REGRAS.md`, `todo.md`, `CHANGELOG.md`) ficam em português.
 
 ### Compatibilidade conferida (2026-11-03, etapa 1)
 
@@ -458,7 +458,7 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 
 ## 14. Entrega
 
-- **README bilíngue** (`README.md` em inglês e `README.pt-BR.md` em português), com os itens da seção 2, as decisões técnicas, a arquitetura, instruções do **Expo Go** (`npm install`, `npx expo start`, escanear o QR) e um **GIF ou vídeo curto** do fluxo (lista, detalhe, áudio, favoritar, histórico, login).
+- **README bilíngue** (`README.md` em português e `README.en.md` em inglês), com os itens da seção 2, as decisões técnicas, a arquitetura, instruções do **Expo Go** (`npm install`, `npx expo start`, escanear o QR) e um **GIF ou vídeo curto** do fluxo (lista, detalhe, áudio, favoritar, histórico, login).
 - **APK** gerado com EAS Build (`eas build -p android --profile preview`) anexado a uma release **`v1.0.0`** no GitHub.
 - Como reativar o projeto Supabase ou usar o próprio (`.env.example`). Entrar no painel perto da avaliação para o projeto não pausar.
 
