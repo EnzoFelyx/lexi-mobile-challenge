@@ -115,6 +115,7 @@ export const sizes = {
   icon: 18, // ícones de botão
   closeIcon: 20, // "X" do detalhe
   playIcon: 20, // play/pause do player
+  favoriteIcon: 21, // coração do detalhe
   illustration: 112, // quadrado da ilustração dos estados de erro
   illustrationIcon: 44, // ícone dentro da ilustração
   spinner: 16, // loader-circle do "carregando mais"

@@ -1,4 +1,5 @@
 import { X } from 'lucide-react-native';
+import type { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
@@ -7,13 +8,12 @@ import { AppText } from '@/shared/components/AppText';
 
 interface DetailToolbarProps {
   onClose: () => void;
+  /** Ação à direita (o coração); sem ela, um espaço do mesmo tamanho mantém o título no centro. */
+  action?: ReactNode;
 }
 
-/**
- * Barra do detalhe (Figma): "X" à esquerda e o título "Word explorer" centralizado. O coração
- * entra à direita na etapa 4; até lá, um espaço do mesmo tamanho mantém o título no centro.
- */
-export function DetailToolbar({ onClose }: DetailToolbarProps) {
+/** Barra do detalhe (Figma): "X" à esquerda, o título "Word explorer" no centro e o coração à direita. */
+export function DetailToolbar({ onClose, action }: DetailToolbarProps) {
   const { colors, sizes } = useTheme();
 
   return (
@@ -29,7 +29,7 @@ export function DetailToolbar({ onClose }: DetailToolbarProps) {
       <AppText variant="eyebrow" tone="secondary">
         {en.wordDetail.title}
       </AppText>
-      <View className="w-touch-target" />
+      {action ?? <View className="w-touch-target" />}
     </View>
   );
 }

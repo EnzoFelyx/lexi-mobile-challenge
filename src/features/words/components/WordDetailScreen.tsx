@@ -1,5 +1,6 @@
 import { ScrollView, View } from 'react-native';
 
+import { WordFavoriteButton } from '@/features/favorites/components/WordFavoriteButton';
 import { useRecordWordView } from '@/features/history/hooks/useRecordWordView';
 
 import type { WordPosition } from '../domain/wordNavigation';
@@ -37,7 +38,13 @@ export function WordDetailScreen({ word, position, onClose, onNavigate }: WordDe
     // para o tamanho dela, a partir do topo. Se o Fabric achatar esta View (no primeiro instante
     // ela pode ficar só com layout), o ScrollView vira filho direto e cobre a barra, sem margem.
     <View collapsable={false} className="flex-1 gap-sm bg-background px-xl pt-lg">
-      <DetailToolbar onClose={onClose} />
+      <DetailToolbar
+        onClose={onClose}
+        // Só palavras encontradas podem ser favoritas, como no histórico.
+        action={
+          state.status === 'found' ? <WordFavoriteButton word={state.detail.word} /> : undefined
+        }
+      />
       {state.status === 'loading' ? (
         <WordDetailSkeleton withNavigation={position !== null} />
       ) : null}

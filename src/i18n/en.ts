@@ -31,6 +31,8 @@ export const en = {
   },
   favorites: {
     title: 'Favorites',
+    save: (word: string) => `Save ${word} to favorites`,
+    remove: (word: string) => `Remove ${word} from favorites`,
     saveErrorTitle: "Couldn't save the favorite",
     saveErrorMessage: 'Something went wrong on this device. Try again.',
   },
