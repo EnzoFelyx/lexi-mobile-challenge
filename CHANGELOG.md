@@ -7,6 +7,16 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-05 — Etapa 5 (Supabase e login)
+
+Reorganizada pelo autor em três partes: visual do Figma, Supabase e integração.
+
+### Adicionado
+
+- Tela de perfil e configurações, aberta pelo botão de conta: perfil de visitante ("Keep your words.", com Log in e Create account) e de quem está logado (e-mail e Log out), seta de voltar no header e as preferências. Até o Supabase entrar, a conta é de mentira (`alex@example.com`) e a sessão fica no Zustand. Appearance abre um diálogo nativo com Light, Dark e System, aplica na hora, salva no aparelho e é aplicado antes da primeira tela; a barra de status passa a seguir o tema do app. Textos do perfil simplificados pelo autor em relação ao Figma. (`9af9874`)
+
+---
+
 ## 2026-11-05 — Etapa 6 (qualidade, itens adiantados)
 
 ### Adicionado

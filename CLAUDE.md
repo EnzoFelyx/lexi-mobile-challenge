@@ -118,7 +118,7 @@ O Figma **não tem variáveis**: os valores foram lidos das camadas (Component s
 
 - **Contraste AA conferido (2026-11-03):** todos os pares de texto (principal, secundário e acento sobre `background`, `surface`, `surfaceMuted` e `accentSoft`; `onAccent` sobre `accent`) passam de 4,5:1 nos dois temas. O teste `src/core/theme/__tests__/contrast.test.ts` garante isso a cada mudança de cor.
 - As cores viram variáveis CSS `--color-<token-em-kebab>` em canais RGB (`src/core/theme/colorVariables.ts`); o hook `useTheme()` (`src/core/theme/useTheme.ts`) entrega os tokens do tema ativo para o que não aceita `className`.
-- Tema segue o sistema (`userInterfaceStyle: automatic`).
+- Tema segue o sistema (`userInterfaceStyle: automatic`) por padrão; desde 2026-11-05 o usuário pode fixar claro ou escuro em Settings (seção 6.9).
 
 ### Tipografia ✅
 
@@ -215,6 +215,13 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 - **Ao entrar:** os dados do visitante são mesclados na conta e sincronizados. Favoritos por união; no histórico, vale o `viewed_at` mais recente de cada palavra.
 - ⏳ **Ao sair:** comportamento a definir na etapa 5 (ex.: limpar os dados da conta do aparelho e voltar ao visitante).
 - **Local-first:** lista, cache, favoritos e histórico funcionam pelo SQLite; o Supabase sincroniza por `user_id`. Se o back-end estiver fora (ex.: projeto pausado no plano gratuito), o app continua usável.
+- **Ordem da etapa 5 (decisão do autor, 2026-11-05):** primeiro o visual do Figma, com dados de mentira; depois o Supabase; por fim, a integração (`todo.md`).
+- **Perfil e configurações (2026-11-05, etapa 5 parte 1, frames 46:13683 a 46:13845):** o botão de conta do header abre `Settings` (`src/app/settings.tsx`, rota fora das abas), não mais o login. `SettingsScreen` (`features/settings/`): título "Settings" (sem o texto de apoio do Figma, "A little more you.", retirado pelo autor; o `SectionHeading` passou a aceitar texto de apoio opcional), a seção **Profile** e a seção **Preferences**, e a frase do rodapé. Profile:
+  - **Visitante** (`GuestProfileCard`, card `surfaceMuted` raio 16): título **"Keep your words."** e texto **"Log in to save your favorites and history to your account."** (o Figma dizia "Make yourself at home." e um texto mais longo; o autor pediu algo mais direto), com **Log in** (primário) e **Create account** (secundário).
+  - **Logado** (`AccountProfileCard`): "Your words, with you.", o e-mail e **Log out** (secundário).
+  - **Header:** seta de voltar (`arrow-left`, 44pt) antes do logo nessa tela (decisão do autor; o Figma não tem botão de voltar). O botão de conta continua visível, como no Figma, e responde ao toque como os outros (`active:opacity-80`, pedido do autor), mas sem ação e fora do leitor de tela, porque a tela já é a da conta.
+  - **Aproximações do print** (a cota do Figma MCP acabou; o autor mandou prints): título dos cards com o token `heading` (Fraunces 24), valor das preferências em Inter 13 regular, sem divisória entre as linhas de preferência; linha de 56pt (token `row`).
+  - **Autenticação de mentira até a parte 3 (decisão do autor):** `AuthService` (domínio: `getUser`, `signIn`, `signOut`, `onUserChange`) com a `PreviewAuthService` no container, que entra com qualquer e-mail e guarda a sessão só na memória. Até a tela de login existir, **Log in** e **Create account** entram direto como `alex@example.com` (`PREVIEW_CREDENTIALS`). Na parte 3, o container passa a usar o Supabase sem mexer nas telas. A sessão fica no **Zustand** (`sessionStore`, status `loading` → `guest` | `signedIn`): `useSessionSync` (no layout raiz) acompanha o serviço, e as telas leem pelo `useAccount`.
 
 ### 6.8 Experiência de navegação e uso (decisões do autor, 2026-11-05)
 
@@ -231,6 +238,14 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
   - **Implementação:** `useHorizontalSwipe` (`shared/hooks/`) com as props de responder do React Native (`onStartShouldSetResponderCapture` só anota o início e devolve `false`, para os toques e a rolagem seguirem com os filhos; `onMoveShouldSetResponderCapture` toma o gesto só quando é horizontal). Não usa o `PanResponder`: ele é criado no render, e o lint do React Compiler não deixa ele ler as opções mais novas por ref. Regras puras em `shared/utils/swipe.ts` (`isHorizontalDirection`, `isHorizontalSwipe`, `swipeDirectionFor`). `HorizontalSwipeArea` envolve os estados do detalhe no `WordDetailScreen`; a barra de cima e o Previous/Next ficam fora.
   - **Limites conhecidos:** não há nada na tela que mostre o gesto (os botões continuam lá). No Android com navegação por gestos, arrastar a partir da borda da tela é o "voltar" do sistema e fecha a folha; começando no meio do conteúdo, troca de palavra.
 - **Folha do iOS 26 pulsando ao toque (aceito pelo autor, 2026-11-05):** a folha do detalhe cresce ~1% e volta quando é tocada. É comportamento do `UISheetPresentationController` no iOS 26, sem opção para desligar (nem no UIKit nem no react-native-screens); a chave `UIDesignRequiresCompatibility` do `Info.plist`, que tira o visual novo, não vale no Expo Go. **Testado e descartado:** `sheetExpandsWhenScrolledToEdge: false` não era a causa e ainda tirava o gesto de puxar os significados para baixo para fechar. A altura máxima (1.0) talvez evitasse o efeito, sem garantia, e mudaria o visual que o autor escolheu manter.
+
+
+### 6.9 Tema escolhido pelo usuário (decisões do autor, 2026-11-05)
+
+- **Appearance em Settings** abre um **diálogo nativo no meio da tela** (`Alert`) com **Light**, **Dark** e **System** (o autor pediu Light e Dark; System entrou para poder voltar a seguir o celular, e continua o padrão). No iOS há também "Cancel"; o Android aceita no máximo 3 botões, então lá se cancela tocando fora. A linha mostra a escolha atual.
+- **Implementação:** `ThemePreference` e `PreferenceStorage` (domínio de `settings`), `KvPreferenceStorage` no container (armazenamento chave-valor do `expo-sqlite`, `expo-sqlite/kv-store`, que funciona no Expo Go; o valor lido passa pelo Zod e, se for desconhecido, vale o padrão). `chooseThemePreference` aplica na hora com `Appearance.setColorScheme` (`auto` = seguir o celular), guarda num store do Zustand e salva; se salvar falhar, a escolha vale até fechar o app. `applySavedThemePreference` roda no layout raiz antes da primeira tela, com leitura síncrona (`getItemSync`), para o app não abrir no tema errado. O `useTheme`/`ThemeProvider` não mudaram: o `useColorScheme` já reflete a escolha.
+- **Barra de status:** passa a seguir o tema do app, não o do celular. No iOS, com `UIViewControllerBasedStatusBarAppearance` ligado (o modo do react-native-screens e do Expo Go), o componente `StatusBar` é ignorado: quem manda é cada tela da `Stack` (`statusBarStyle` nas `screenOptions`). O `StatusBar` do `expo-status-bar` continua para o Android, com o mesmo valor.
+- **Limite aceito pelo autor:** com o celular no claro e o app fixo em Dark, a splash começa branca e escurece antes do app abrir. A tela de lançamento do iOS é desenhada pelo sistema, com o tema do celular, antes de qualquer código do app rodar; não há como seguir a preferência do app ali. Um fade na saída da splash (`SplashScreen.setOptions({ fade: true })`) suavizaria a troca; o autor preferiu deixar como está.
 
 ---
 
@@ -311,7 +326,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - **Listas: FlashList** (`@shopify/flash-list`, incluída no Expo Go) (decisão do autor, 2026-11-03).
 - **Ícones:** `lucide-react-native` + `react-native-svg` (os mesmos do Figma).
 - **Requisições e cache:** **TanStack Query** + cache persistente no SQLite.
-- **Estado global leve:** **Zustand** (sessão). O coração do favorito usa a atualização otimista do React Query (decisão do autor, 2026-11-05, ver seção 6.4).
+- **Estado global leve:** **Zustand** (sessão e tema escolhido; instalado na etapa 5). O coração do favorito usa a atualização otimista do React Query (decisão do autor, 2026-11-05, ver seção 6.4).
 - **Back-end e login:** **Supabase** (`@supabase/supabase-js`), Auth com e-mail e senha, tabelas com **RLS** (`user_id = auth.uid()`), tipos gerados pela CLI.
 - **Injeção de dependência:** **tsyringe** (`reflect-metadata` + plugins de decorators no Babel).
 - **Áudio:** `expo-audio` para o mp3 da API e `expo-speech` como fallback.
@@ -349,12 +364,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 
 ### ⏳ A decidir
 
-- **Tela de perfil / configurações (lembrete do autor, 2026-11-03; detalhes a discutir):** o botão de conta no header passaria a abrir uma tela de perfil/configurações em vez de ir direto ao login. Ideias até agora:
-  - **Tema:** escolha manual (claro, escuro ou seguir o sistema). Muda a decisão atual de só seguir o sistema; o `useThemeMode` passaria a ler a preferência salva.
-  - **Idioma:** a chave PT/EN da interface (ver seção 1).
-  - **Conta:** "Log in" para o visitante; dados da conta e "sair" para quem está logado (liga com o comportamento ao sair, ainda ⏳ na seção 6.7).
-  - Outras opções a combinar depois.
-  - Não há frame no Figma para essa tela: definir o layout com o autor (ou desenhar no Figma) antes de implementar. Entra na etapa 5 (parte de conta) e na etapa 6 (tema e idioma).
+- **Idioma PT/EN da interface:** pedido pelo autor em 2026-11-05, logo depois do tema (seção 6.9). Próxima entrega: tradução completa para `pt-BR.ts`, hook de textos e o diálogo de idioma em Settings.
 
 Nada bloqueando no momento. Decisões novas: proponha e confirme com o autor antes de seguir.
 

@@ -20,7 +20,7 @@
 | 2 | Lista de palavras | ✅ |
 | 3 | Detalhe da palavra | ✅ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ✅ |
-| 5 | Supabase e login | ⬜ |
+| 5 | Supabase e login | 🟨 |
 | 6 | Qualidade | ⬜ |
 | 7 | Entrega | ⬜ |
 
@@ -139,19 +139,31 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** login com e-mail e senha e favoritos/histórico associados ao ID do usuário (diferencial 4).
 
+**Ordem (decisão do autor, 2026-11-05):** primeiro o visual, do Figma, com dados de mentira; depois a parte funcional com o Supabase; por fim, a integração das duas.
+
+### Parte 1 — Visual (Figma)
+
+- [x] Tela de perfil/configurações aberta pelo botão de conta, em vez do login direto: estados visitante (`46:13683` / `46:13789`) e logado (`46:13739` / `46:13845`), com autenticação de mentira até a parte 3
+- [ ] Telas de login (`3:16034`) e cadastro (`3:16074`) com mostrar/ocultar senha
+- [ ] Estados de erro no campo, erro do formulário e carregamento do login (`46:13895`, `46:13947`, `46:13999` e escuros) e do cadastro (`46:14205`, `46:14260`, `46:14316` e escuros)
+- [ ] Validação dos campos na tela (e-mail e senha), sem back-end ainda
+
+### Parte 2 — Funcional (Supabase)
+
 - [ ] Projeto no Supabase: tabelas `favorites` e `history`, chave única em (`user_id`, `word`) e RLS (`user_id = auth.uid()`)
 - [ ] Guardar o SQL das tabelas e políticas no repositório (ex.: `supabase/migrations/`)
 - [ ] Client do Supabase em `src/core/supabase/` com sessão persistida
-- [ ] Telas de login (`3:16034`) e cadastro (`3:16074`) com validação dos campos e mostrar/ocultar senha
-- [ ] Botão de conta no header (entrar, sair); o app continua abrindo na lista, sem exigir login
-- [ ] 📝 **Lembrete do autor (a discutir):** tela de perfil/configurações aberta pelo botão de conta, em vez do login direto. Parte desta etapa: "Log in" para o visitante; dados da conta e "sair" para quem está logado. Antes: combinar o layout (não há frame no Figma) e as demais opções
-- [ ] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
-- [ ] Definir com o autor o que acontece ao sair (ex.: limpar os dados da conta do aparelho e voltar ao visitante)
-- [ ] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada (cadastro instantâneo para o avaliador)
-- [ ] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
 - [ ] Tipos gerados pela CLI do Supabase
+- [ ] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada (cadastro instantâneo para o avaliador)
+- [ ] Definir com o autor o que acontece ao sair (ex.: limpar os dados da conta do aparelho e voltar ao visitante)
+
+### Parte 3 — Integração
+
+- [ ] Telas ligadas ao Supabase: entrar, cadastrar e sair, com os erros reais nos estados do Figma; o app continua abrindo na lista, sem exigir login
+- [ ] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
+- [ ] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
 - [ ] Testes: fluxo de auth com o serviço mockado pelo container, mescla visitante → conta, sincronização e falha do back-end
-- [ ] Conferir no Expo Go (Android e iOS)
+- [ ] Conferir no Expo Go no iOS (o Android fica para a etapa 7)
 
 **Pronto quando:** o visitante usa o app sem conta, ao entrar os dados dele vão para a conta, dois usuários diferentes veem cada um os próprios favoritos e histórico, e o app continua funcionando offline.
 
@@ -167,8 +179,8 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Feito em 2026-11-05 (frames 46:14617 e 46:14622), conferido no app compilado pelo `npx expo run:ios`; no Expo Go a splash do projeto não aparece
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
 - [ ] (Opcional) Card levemente apagado para palavra com "Word not found" conhecido, sem tirá-la da lista
-- [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
-- [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
+- [x] 📝 **Lembrete do autor:** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema). Feito em 2026-11-05, adiantado da etapa 6 (`CLAUDE.md`, seção 6.9); o idioma vem a seguir
+- [ ] (Pedido pelo autor em 2026-11-05, em andamento) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [ ] Teste completo em Android e iOS
 - [ ] (Opcional) Script que valida as ~9 mil palavras comuns na API (devagar, dentro do limite) e tira das camadas as que dão 404 e os nomes próprios
