@@ -8,11 +8,20 @@ export interface SavedWords {
   retry: () => void;
 }
 
+export interface UseSavedWordsOptions {
+  /** Desligado quando quem usa não precisa da lista (ex.: detalhe aberto de outra aba). */
+  enabled?: boolean;
+}
+
 const NO_WORDS: readonly string[] = [];
 
 /** Lê a lista inteira pelo React Query; ela muda só quando o app grava (e invalida a chave). */
-export function useSavedWords(queryKey: QueryKey, load: () => Promise<string[]>): SavedWords {
-  const query = useQuery({ queryKey, queryFn: load, staleTime: Infinity });
+export function useSavedWords(
+  queryKey: QueryKey,
+  load: () => Promise<string[]>,
+  { enabled = true }: UseSavedWordsOptions = {},
+): SavedWords {
+  const query = useQuery({ queryKey, queryFn: load, staleTime: Infinity, enabled });
 
   return {
     words: query.data ?? NO_WORDS,
