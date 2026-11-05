@@ -2,6 +2,7 @@ import { View } from 'react-native';
 
 import { WordFavoriteButton } from '@/features/favorites/components/WordFavoriteButton';
 import { useRecordWordView } from '@/features/history/hooks/useRecordWordView';
+import { HorizontalSwipeArea } from '@/shared/components/HorizontalSwipeArea';
 
 import type { WordPosition } from '../domain/wordNavigation';
 import { useWordDetail } from '../hooks/useWordDetail';
@@ -43,16 +44,24 @@ export function WordDetailScreen({ word, position, onClose, onNavigate }: WordDe
           state.status === 'found' ? <WordFavoriteButton word={state.detail.word} /> : undefined
         }
       />
-      {state.status === 'loading' ? (
-        <WordDetailSkeleton withNavigation={position !== null} />
-      ) : null}
-      {state.status === 'not_found' ? (
-        <WordDetailError kind="not_found" onRetry={retry} onNext={nextWhenAvailable} />
-      ) : null}
-      {state.status === 'error' ? (
-        <WordDetailError kind={state.reason} onRetry={retry} onNext={nextWhenAvailable} />
-      ) : null}
-      {state.status === 'found' ? <WordDetailContent detail={state.detail} /> : null}
+      {/* Arrastar para os lados troca de palavra, em qualquer estado (pedido do autor). */}
+      <HorizontalSwipeArea
+        onSwipeLeft={navigation.goToNext}
+        onSwipeRight={navigation.goToPrevious}
+        canSwipeLeft={navigation.canGoNext && !navigation.isLoadingNext}
+        canSwipeRight={navigation.canGoPrevious}
+      >
+        {state.status === 'loading' ? (
+          <WordDetailSkeleton withNavigation={position !== null} />
+        ) : null}
+        {state.status === 'not_found' ? (
+          <WordDetailError kind="not_found" onRetry={retry} onNext={nextWhenAvailable} />
+        ) : null}
+        {state.status === 'error' ? (
+          <WordDetailError kind={state.reason} onRetry={retry} onNext={nextWhenAvailable} />
+        ) : null}
+        {state.status === 'found' ? <WordDetailContent detail={state.detail} /> : null}
+      </HorizontalSwipeArea>
       {state.status === 'found' && position !== null ? (
         <DetailNavigation navigation={navigation} />
       ) : null}
