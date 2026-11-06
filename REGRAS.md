@@ -106,7 +106,9 @@ Cada feature (`words`, `favorites`, `history`, `auth`) tem as mesmas camadas:
 
 ## Textos centralizados
 
-- Todo texto da interface fica em `src/i18n/en.ts` (objeto por feature, funções para plurais e labels de acessibilidade). Nada escrito direto no JSX.
+- Todo texto da interface fica em `src/i18n/en.ts` e `src/i18n/pt-BR.ts` (mesma forma, garantida pelo tipo `Texts`; objeto por feature, funções para plurais e labels de acessibilidade). Nada escrito direto no JSX.
+- Telas e hooks leem os textos com `const t = useTexts()`, nunca importando `en` direto: o idioma muda com o app aberto. Texto novo entra nos dois arquivos.
+- O que vem da API (palavras, definições, exemplos, fonética, classes gramaticais) não é traduzido.
 
 ## Sem números mágicos
 
@@ -169,7 +171,7 @@ Cada feature (`words`, `favorites`, `history`, `auth`) tem as mesmas camadas:
 - [ ] Estilizou com `className`, deixando `StyleSheet`/`style` só para animação, valores dinâmicos ou bibliotecas sem `className`?
 - [ ] Chamadas assíncronas com loading, erro e vazio, resposta validada com Zod e sem travar a UI?
 - [ ] Procurou componentes existentes antes de criar? Nada duplicado?
-- [ ] Textos vindos de `src/i18n/en.ts`?
+- [ ] Textos vindos de `useTexts()`, com a chave nos dois idiomas (`en.ts` e `pt-BR.ts`)?
 - [ ] Tipado sem `any`?
 - [ ] Acessibilidade aplicada (labels, roles, área de toque)?
 - [ ] Testes criados ou atualizados?

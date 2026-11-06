@@ -18,6 +18,10 @@ export const palette = {
     onAccent: '#FFFFFF', // texto sobre o botão primário
     accentSoft: '#E5F0EA', // fundo do chip de classe gramatical
     playerIdle: '#E4E7E0', // botão de play enquanto o áudio carrega
+    error: '#AD302B', // texto e borda de erro dos formulários
+    errorSoft: '#FBECEA', // fundo da mensagem de erro do formulário
+    surfaceDisabled: '#E4E7E0', // fundo do campo desabilitado
+    textDisabled: '#56615A', // rótulo e valor do campo desabilitado
   },
   dark: {
     background: '#111715',
@@ -30,6 +34,10 @@ export const palette = {
     onAccent: '#102B23',
     accentSoft: '#213E34',
     playerIdle: '#304038',
+    error: '#FFAAA3',
+    errorSoft: '#382421',
+    surfaceDisabled: '#26322C',
+    textDisabled: '#ACB8AF',
   },
 } as const;
 
@@ -62,6 +70,12 @@ export const typography = {
     lineHeight: 54,
     letterSpacing: -1.4,
   }, // palavra no card do detalhe
+  authTitle: {
+    fontFamily: fonts.serifSemiBold,
+    fontSize: 38,
+    lineHeight: 44,
+    letterSpacing: -1,
+  }, // título do login e do cadastro
   heading: { fontFamily: fonts.serifSemiBold, fontSize: 24 }, // "Meanings"
   title: { fontFamily: fonts.serifSemiBold, fontSize: 30 }, // título dos estados de erro do detalhe
   emptyTitle: { fontFamily: fonts.serifSemiBold, fontSize: 27 }, // título dos estados vazios
@@ -79,6 +93,14 @@ export const typography = {
   note: { fontFamily: fonts.sansRegular, fontSize: 11 }, // "Finding more words…"
   message: { fontFamily: fonts.sansRegular, fontSize: 14, lineHeight: 22 }, // texto dos estados de erro
   hint: { fontFamily: fonts.sansRegular, fontSize: 11, lineHeight: 18 }, // caixa "Your place is saved…"
+  fieldError: { fontFamily: fonts.sansRegular, fontSize: 11, lineHeight: 16 }, // erro abaixo do campo
+  formError: { fontFamily: fonts.sansMedium, fontSize: 13, lineHeight: 20 }, // erro do formulário
+  tagline: {
+    fontFamily: fonts.sansSemiBold,
+    fontSize: 11,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase' as const,
+  }, // "ENGLISH, EVERY DAY" no header das telas de login e cadastro
   meta: { fontFamily: fonts.sansSemiBold, fontSize: 10 }, // rótulo do player ("British pronunciation")
   chip: { fontFamily: fonts.sansSemiBold, fontSize: 11 },
   caption: { fontFamily: fonts.sansRegular, fontSize: 10, lineHeight: 14 }, // fonética no card
@@ -125,6 +147,7 @@ export const sizes = {
   closeIcon: 20, // "X" do detalhe
   playIcon: 20, // play/pause do player
   favoriteIcon: 21, // coração do detalhe
+  row: 56, // linha das preferências nas configurações
   favoriteBurst: 72, // coração do toque duplo ao favoritar, no centro do detalhe (fora do Figma)
   illustration: 112, // quadrado da ilustração dos estados de erro
   illustrationIcon: 44, // ícone dentro da ilustração
@@ -142,8 +165,11 @@ export const sizes = {
   tabItem: 44,
   button: 52,
   input: 56,
+  fieldActiveBorder: 1.5, // contorno do campo com erro ou em foco
   chip: 26,
   progressTrack: 4,
+  divider: 1, // linha divisória
+  orDivider: 1.5, // traços do "ou" no login (fora do Figma, pedido do autor)
   wordCard: { width: 106, height: 104 },
   gridGap: 12,
   screenWidth: 390, // referência do design (iPhone)

@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import type { ReactElement } from 'react';
 import { ScrollView, View } from 'react-native';
 
+import { useTexts } from '@/i18n/useTexts';
 import type { SavedWords } from '@/shared/hooks/useSavedWords';
 
 import { AppText } from './AppText';
@@ -26,7 +27,6 @@ interface SavedWordsTexts {
   title: string;
   subtitle: string;
   loading: string;
-  errorTitle: string;
   errorMessage: string;
   retry: string;
 }
@@ -55,13 +55,15 @@ export function SavedWordsScreen({
   empty,
   onWordPress,
 }: SavedWordsScreenProps) {
+  const t = useTexts();
+
   if (saved.isLoading) {
     return <LoadingScreen label={texts.loading} />;
   }
   if (saved.isError) {
     return (
       <MessageScreen
-        title={texts.errorTitle}
+        title={t.recoverableError.title}
         message={texts.errorMessage}
         action={{ label: texts.retry, onPress: saved.retry }}
       />

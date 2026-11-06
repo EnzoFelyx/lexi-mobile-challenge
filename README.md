@@ -6,7 +6,7 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 4 estão prontas, com **todos os obrigatórios do desafio**: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, e guarda favoritos e o histórico de palavras vistas, com Previous/Next em todas as abas. O login vem na próxima etapa.
+🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 5 estão prontas, com **todos os obrigatórios do desafio**: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, e guarda favoritos e o histórico de palavras vistas, com Previous/Next em todas as abas. O login é por e-mail e senha, com Supabase: os dados ficam associados à conta e sincronizados, e tudo também funciona sem conta e sem conexão.
 
 ## Tecnologias
 
@@ -22,7 +22,7 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 | Dados locais | SQLite (`expo-sqlite`) + Drizzle ORM, linhas validadas com Zod, TanStack Query |
 | Listas | FlashList (grade de 3 colunas com rolagem infinita e barra de rolagem rápida) |
 | Pronúncia | `expo-audio` (mp3 da API, guardado com `expo-file-system`) e `expo-speech` (voz do aparelho quando não há mp3) |
-| Previsto | Zustand, Supabase (login e sincronização) |
+| Conta | Zustand, Supabase (login e sincronização) |
 
 ## Como rodar
 
@@ -85,7 +85,7 @@ O desafio pede que o processo de investigação e as decisões fiquem documentad
 Algumas decisões até aqui:
 
 - **Palavras comuns primeiro, em ordem aleatória e estável.** Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, e o arquivo do dwyl tem muitas palavras raras, sem resultado na API. Como no wireframe (hello, today, great…), a lista abre com o Basic English de Ogden, depois as palavras mais frequentes do inglês e por fim o resto. Cada palavra recebe uma chave aleatória dentro do seu grupo ao ser gravada, então a ordem é variada, mas não muda entre as sessões.
-- **Local-first com login opcional.** O app abre direto na lista. Sem conta, favoritos e histórico ficam no aparelho; ao entrar, eles são mesclados na conta e associados ao ID do usuário.
+- **Local-first com login opcional.** A primeira tela é o login, que apresenta o diferencial da conta, com a opção de continuar como visitante em um toque: a conta não é obrigatória para nenhum caso de uso. A escolha fica salva, e nas próximas aberturas o app vai direto para a lista. Sem conta, favoritos e histórico ficam no aparelho; ao entrar, eles são mesclados na conta e associados ao ID do usuário.
 - **Roda no Expo Go.** Sem código nativo próprio, para o avaliador testar no iOS sem conta paga da Apple. Também haverá um APK para Android.
 - **Interface em inglês.** O wireframe do desafio mistura idiomas (abas e "Meanings" em inglês, "Voltar/Próximo" em português). Como todas as definições, exemplos e classes gramaticais da Free Dictionary API vêm em inglês, a interface inteira ficou em inglês por consistência; "Previous/Next" mantêm a função do wireframe. Uma chave de idioma português/inglês dentro do app está prevista como extra.
 - **Acessibilidade.** O contraste AA da WCAG é conferido por um teste em cada par de cores. O texto secundário do tema claro foi escurecido um pouco em relação ao Figma para passar no trilho das abas.

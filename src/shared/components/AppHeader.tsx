@@ -2,39 +2,68 @@ import { UserRound } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 
 import { AppText } from './AppText';
+import { BackButton } from './BackButton';
+import { ROUND_BUTTON_CLASS } from './PlainBackButton';
 
 interface AppHeaderProps {
-  onAccountPress: () => void;
+  /** Sem ação: a tela atual já é a da conta; o botão fica como no Figma, só com o retorno do toque. */
+  onAccountPress?: () => void;
+  /** Seta de voltar antes do logo, em telas fora das abas (decisão do autor; o Figma não tem). */
+  onBack?: () => void;
+  /** Header das telas de login e cadastro: a frase "English, every day" no lugar do botão de conta. */
+  showTagline?: boolean;
 }
 
+// O botão de conta na própria tela da conta: só o retorno visual do toque.
+const stayOnAccount = () => undefined;
+
 /** Header do Figma: logo "Lexi" com o ponto da marca e o botão de conta (44pt). */
-export function AppHeader({ onAccountPress }: AppHeaderProps) {
+export function AppHeader({ onAccountPress, onBack, showTagline = false }: AppHeaderProps) {
+  const t = useTexts();
   const { colors, sizes } = useTheme();
+  const icon = { color: colors.textPrimary, strokeWidth: sizes.iconStrokeWidth };
 
   return (
     <View className="h-header flex-row items-center justify-between px-xl">
-      <View className="flex-row items-baseline gap-sm">
-        <AppText variant="logo" accessibilityRole="header">
-          {en.appName}
-        </AppText>
-        <View className="h-brand-point w-brand-point rounded-pill bg-accent" />
+      <View className="flex-row items-center gap-md">
+        {onBack ? <BackButton onPress={onBack} /> : null}
+        <View className="flex-row items-baseline gap-sm">
+          <AppText variant="logo" accessibilityRole="header">
+            {t.appName}
+          </AppText>
+          <View className="h-brand-point w-brand-point rounded-pill bg-accent" />
+        </View>
       </View>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={en.header.accountLabel}
-        accessibilityHint={en.header.accountHint}
-        onPress={onAccountPress}
-        className="h-touch-target w-touch-target items-center justify-center rounded-pill bg-surface-muted active:opacity-80"
-      >
-        <UserRound
-          size={sizes.accountIcon}
-          color={colors.textPrimary}
-          strokeWidth={sizes.iconStrokeWidth}
-        />
-      </Pressable>
+      {showTagline ? (
+        <AppText variant="tagline" tone="secondary">
+          {t.header.tagline}
+        </AppText>
+      ) : onAccountPress ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t.header.accountLabel}
+          accessibilityHint={t.header.accountHint}
+          onPress={onAccountPress}
+          className={`${ROUND_BUTTON_CLASS} active:opacity-80`}
+        >
+          <UserRound size={sizes.accountIcon} {...icon} />
+        </Pressable>
+      ) : (
+        // Já na conta: responde ao toque como os outros botões (pedido do autor), sem ação.
+        // Fora do leitor de tela, para não anunciar um botão que não faz nada.
+        <Pressable
+          accessible={false}
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          onPress={stayOnAccount}
+          className={`${ROUND_BUTTON_CLASS} active:opacity-80`}
+        >
+          <UserRound size={sizes.accountIcon} {...icon} />
+        </Pressable>
+      )}
     </View>
   );
 }

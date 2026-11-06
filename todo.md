@@ -20,7 +20,7 @@
 | 2 | Lista de palavras | ✅ |
 | 3 | Detalhe da palavra | ✅ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ✅ |
-| 5 | Supabase e login | ⬜ |
+| 5 | Supabase e login | ✅ |
 | 6 | Qualidade | ⬜ |
 | 7 | Entrega | ⬜ |
 
@@ -139,19 +139,43 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** login com e-mail e senha e favoritos/histórico associados ao ID do usuário (diferencial 4).
 
-- [ ] Projeto no Supabase: tabelas `favorites` e `history`, chave única em (`user_id`, `word`) e RLS (`user_id = auth.uid()`)
-- [ ] Guardar o SQL das tabelas e políticas no repositório (ex.: `supabase/migrations/`)
-- [ ] Client do Supabase em `src/core/supabase/` com sessão persistida
-- [ ] Telas de login (`3:16034`) e cadastro (`3:16074`) com validação dos campos e mostrar/ocultar senha
-- [ ] Botão de conta no header (entrar, sair); o app continua abrindo na lista, sem exigir login
-- [ ] 📝 **Lembrete do autor (a discutir):** tela de perfil/configurações aberta pelo botão de conta, em vez do login direto. Parte desta etapa: "Log in" para o visitante; dados da conta e "sair" para quem está logado. Antes: combinar o layout (não há frame no Figma) e as demais opções
-- [ ] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
-- [ ] Definir com o autor o que acontece ao sair (ex.: limpar os dados da conta do aparelho e voltar ao visitante)
-- [ ] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada (cadastro instantâneo para o avaliador)
-- [ ] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
-- [ ] Tipos gerados pela CLI do Supabase
-- [ ] Testes: fluxo de auth com o serviço mockado pelo container, mescla visitante → conta, sincronização e falha do back-end
-- [ ] Conferir no Expo Go (Android e iOS)
+**Ordem (decisão do autor, 2026-11-05):** primeiro o visual, do Figma, com dados de mentira; depois a parte funcional com o Supabase; por fim, a integração das duas.
+
+### Parte 1 — Visual (Figma)
+
+- [x] Tela de perfil/configurações aberta pelo botão de conta, em vez do login direto: estados visitante (`46:13683` / `46:13789`) e logado (`46:13739` / `46:13845`), com autenticação de mentira até a parte 3
+- [x] Componentes reutilizáveis do Figma (`46:14665` / `46:14791`): campos com erro e desabilitados, botão carregando, erro do formulário, header de login/cadastro e erro recuperável
+- [x] Modo temporário do design desligado (`AUTH_DESIGN_PREVIEW = false`, pedido do autor em 2026-11-05)
+- [x] Conferir no aparelho o voltar, o visitante, a abertura seguinte e a entrada na lista (conferido pelo autor em 2026-11-05)
+- [x] Primeiro arrasto de Word list para History parando fora do lugar no iOS: corrigido ao deixar o `TopTabs` sem `screenOptions`, conferido pelo autor no aparelho em 2026-11-05 (`CLAUDE.md`, seção 10)
+- [x] Login como primeira tela (decisão do autor, 2026-11-05): lembrar o visitante e a sessão, abrir direto na lista nas próximas vezes e manter login e cadastro em Settings
+- [x] Telas de login (`3:16034`) e cadastro (`3:16074`) com mostrar/ocultar senha
+- [x] Estados de erro no campo, erro do formulário e carregamento do login (`46:13895`, `46:13947`, `46:13999` e escuros) e do cadastro (`46:14205`, `46:14260`, `46:14316` e escuros)
+- [x] Validação dos campos na tela (e-mail e senha), sem back-end ainda
+
+### Parte 2 — Funcional (Supabase)
+
+- [x] Projeto no Supabase: tabelas `favorites` e `history`, chave primária em (`user_id`, `word`) e RLS (`user_id = auth.uid()`). Acesso anônimo conferido: negado (HTTP 401)
+- [x] Guardar o SQL das tabelas e políticas no repositório (`supabase/migrations/`)
+- [x] Client do Supabase em `src/core/supabase/` com sessão persistida (ainda sem uso; entra no container na parte 3)
+- [x] Tipos gerados pela CLI do Supabase (`src/core/supabase/database.types.ts`)
+- [x] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada: desligada, sem login social (decisão do autor em 2026-11-05)
+- [x] Desligar a confirmação de e-mail no painel do Supabase
+- [x] Definir com o autor o que acontece com os dados da conta no aparelho ao sair: são apagados do aparelho, e a pessoa continua como visitante (decisão do autor, 2026-11-06; implementação na parte 3)
+
+### Parte 3 — Integração
+
+- [x] Telas ligadas ao Supabase: entrar, cadastrar e sair, com os erros reais nos estados do Figma; o login é a primeira tela, sem exigir conta (visitante a um toque)
+- [x] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
+- [x] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
+- [x] Testes: fluxo de auth com o serviço mockado pelo container, mescla visitante → conta, sincronização e falha do back-end
+- [x] Conferir no iOS (conferido pelo autor em 2026-11-06; o Android fica para a etapa 7)
+- [x] Testar o RLS direto no servidor com dois usuários (2026-11-06): 28 de 28 verificações passaram, em `favorites` e `history`, com a chave publishable e um script temporário fora do repositório
+
+### Depois do login (lembrete do autor, 2026-11-05)
+
+- [x] 📝 **Liquid Glass nas abas:** retirado da lista (decisão do autor, 2026-11-06); a barra continua como no Figma
+- [x] 📝 **Liquid Glass no voltar:** seta do header (Configurações, login e cadastro) com o `GlassView` no iOS 26; em iOS antigo e no Android, o botão comum (2026-11-06)
 
 **Pronto quando:** o visitante usa o app sem conta, ao entrar os dados dele vão para a conta, dois usuários diferentes veem cada um os próprios favoritos e histórico, e o app continua funcionando offline.
 
@@ -167,8 +191,8 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Feito em 2026-11-05 (frames 46:14617 e 46:14622), conferido no app compilado pelo `npx expo run:ios`; no Expo Go a splash do projeto não aparece
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
 - [ ] (Opcional) Card levemente apagado para palavra com "Word not found" conhecido, sem tirá-la da lista
-- [ ] 📝 **Lembrete do autor (a discutir):** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema) e de idioma, além de outras opções a combinar (ver `CLAUDE.md`, seção 10, "A decidir")
-- [ ] (Opcional) Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (decisão do autor, 2026-11-03)
+- [x] 📝 **Lembrete do autor:** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema). Feito em 2026-11-05, adiantado da etapa 6 (`CLAUDE.md`, seção 6.9); o idioma vem a seguir
+- [x] Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (feito em 2026-11-05, pedido do autor; `CLAUDE.md`, seção 6.9)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [ ] Teste completo em Android e iOS
 - [ ] (Opcional) Script que valida as ~9 mil palavras comuns na API (devagar, dentro do limite) e tira das camadas as que dão 404 e os nomes próprios
@@ -186,8 +210,13 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
-- [ ] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha)
+- [ ] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações (avaliar trocar por um menu com check, como no iOS)
 - [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
+- [ ] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
+- [ ] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco
+- [x] Apagar em **Authentication → Users** as duas contas do teste de RLS (feito pelo autor em 2026-11-06)
+- [ ] Conferir em **Authentication → Rate Limits** os limites contra cadastros em massa
+- [ ] Depois da avaliação: apagar ou pausar o projeto Supabase, ou trocar a chave
 - [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
 - [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
 - [ ] Commit final, link do repositório na plataforma da Coodesh e envio

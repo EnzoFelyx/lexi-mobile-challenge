@@ -15,7 +15,7 @@ interface EmptyStateProps {
   icon: LucideIcon;
   title: string;
   message: string;
-  action: EmptyStateAction;
+  action?: EmptyStateAction;
 }
 
 /**
@@ -50,7 +50,14 @@ export function EmptyState({ icon: Icon, title, message, action }: EmptyStatePro
           {message}
         </AppText>
       </View>
-      <Button label={action.label} icon={ArrowRight} onPress={action.onPress} className="w-full" />
+      {action ? (
+        <Button
+          label={action.label}
+          icon={ArrowRight}
+          onPress={action.onPress}
+          className="w-full"
+        />
+      ) : null}
     </View>
   );
 }

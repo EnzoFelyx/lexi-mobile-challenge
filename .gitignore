@@ -47,3 +47,6 @@ coverage/
 
 # Claude Code / ECC: instalação local, fora do git.
 /.claude/
+
+# Supabase CLI
+supabase/.temp/

@@ -7,6 +7,46 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-05 — Etapa 5 (Supabase e login)
+
+Reorganizada pelo autor em três partes: visual do Figma, Supabase e integração.
+
+### Adicionado
+
+- Tela de perfil e configurações, aberta pelo botão de conta: perfil de visitante ("Keep your words.", com Log in e Create account) e de quem está logado (e-mail e Log out), seta de voltar no header e as preferências. Até o Supabase entrar, a conta é de mentira (`alex@example.com`) e a sessão fica no Zustand. Appearance abre um diálogo nativo com Light, Dark e System, aplica na hora, salva no aparelho e é aplicado antes da primeira tela; a barra de status passa a seguir o tema do app. Textos do perfil simplificados pelo autor em relação ao Figma. (`9af9874`)
+- Interface em inglês ou português, escolhida em Configurações e salva no aparelho (pedido do autor). A tradução completa foi revisada pelo autor; tudo o que vem da API continua em inglês. No iOS, Aparência e Idioma abrem o menu do sistema com ✓ na opção atual (entra o `@expo/ui`); no Android, um diálogo no meio da tela. Textos das telas vazias de History e Favorites encurtados a pedido do autor. (`7832985`)
+- Estados reutilizáveis do Figma: campos de texto, e-mail e senha (erro, desabilitado, mostrar/ocultar senha), botão carregando, erro do formulário e header de login e cadastro, com os tokens de cor de erro e de desabilitado no claro e no escuro (contraste AA testado). As telas de login e cadastro, que usarão esses componentes, vêm a seguir. (`1c5b2b4`)
+- Telas de login e cadastro, com e-mail e senha, erros nos campos e no formulário, carregamento, ícones e contorno verde em foco. Em relação ao Figma: textos mais curtos, sem o card "rediscover" e sem os termos; o login ganha "Continue as guest". A autenticação ainda é de mentira (`wrong@example.com` e `taken@example.com` simulam os erros). (`8f38c24`)
+
+- Supabase: tabelas `favorites` e `history` com RLS (SQL em `supabase/migrations/`), client com a sessão salva no aparelho e tipos gerados. O client fica nulo sem o `.env` e ainda não é usado pelo app; acesso anônimo conferido como negado. Confirmação de e-mail desligada no painel. (`8a9b9b3`)
+- Login real com o Supabase e favoritos e histórico por conta: entrar, cadastrar e sair com os erros reais nas telas. Ao entrar, os dados do visitante passam para a conta, nova ou existente; cada mudança entra numa fila local e é enviada quando houver conexão; ao sair, os dados da conta são apagados do aparelho e voltam ao entrar de novo. Sem o `.env`, o app segue como visitante. Conferido pelo autor no aparelho. (`fd3eaad`)
+- Seta de voltar do header com o Liquid Glass no iOS 26 (pedido do autor), com `expo-glass-effect`; em iOS antigo e no Android, o botão comum. (`781431c`)
+
+### Documentação
+
+- Teste do RLS direto no servidor com dois usuários: 28 de 28 verificações passaram, em `favorites` e `history`.
+
+### Removido
+
+- A autenticação de mentira da parte 1. (`fd3eaad`)
+
+### Alterado
+
+- Senha mínima de 6 caracteres, igual ao padrão do painel do Supabase, no lugar dos 8 do Figma (decisão do autor). (`7ad75f0`)
+- O login passa a ser a primeira tela do app, com a conta opcional (decisão do autor, substitui a abertura na lista). A escolha do visitante fica salva, e quem tem sessão ou já escolheu abre direto na lista. Em Settings, Log in e Create account abrem as novas telas. Ao sair da conta, a pessoa continua no app como visitante. (`8f38c24`)
+- As telas de falha (lista, banco, histórico, favoritos e preparação do dicionário) passam ao layout "Recoverable error" do Figma, igual ao do estado vazio, sempre com o título "A brief pause." / "Uma breve pausa." e a explicação de cada caso (decisão do autor). (`1c5b2b4`)
+
+### Corrigido
+
+- Sair da conta sem conseguir enviar não perde mais as mudanças: os dados e a fila ficam no aparelho, sem aparecer para ninguém, e são enviados no próximo login dessa conta (decisão do autor). (`2df692c`)
+- No iOS, o primeiro arrasto para uma aba ainda não exibida parava cerca de 85pt fora do lugar. Com o `TopTabs` sem `screenOptions`, o erro some, conferido pelo autor no aparelho; a causa exata não foi identificada. (`68c7caa`)
+- Some o aviso `onAnimatedValueUpdate` a cada arrasto entre abas (pedido do autor): vai para a lista de avisos de bibliotecas, só em desenvolvimento. (`763eb3f`)
+- O aviso `onAnimatedValueUpdate` também some do terminal, com um filtro no envio dos logs, em desenvolvimento (pedido do autor). (`5399d1f`)
+- A linha ao lado dos chips em Meanings nunca aparecia: a classe `h-px` não existe com o tema do Lexi; agora usa o token `divider`. (`8f38c24`)
+- Erro no Expo Go ao mudar a barra de status pelas telas da Stack: agora só o `StatusBar` controla a barra, e o `app.json` desliga `UIViewControllerBasedStatusBarAppearance` também no build. (`0331b46`)
+
+---
+
 ## 2026-11-05 — Etapa 6 (qualidade, itens adiantados)
 
 ### Adicionado
@@ -104,7 +144,7 @@ Etapa concluída: o app abre no Expo Go em Android e iOS, nos temas claro e escu
 - Fontes Fraunces SemiBold e Inter Regular/Medium/SemiBold (`@expo-google-fonts/*`, licença SIL OFL 1.1) carregadas com `useFonts` antes de esconder o splash, importando só os pesos usados. Se falharem, o app segue com a fonte do sistema. (`fab7f10`)
 - `src/i18n/en.ts` com os textos da interface por área (header, abas, Word list, History, Favorites, detalhe, login), lidos do Figma, e `src/constants/` com a grade de 3 colunas, a página de 60 palavras e a altura da folha do detalhe. (`9f11953`)
 - Componentes compartilhados do Figma (Component showcase e Word list): `AppText` (tipografia por variante e tom), `Button` (primary/secondary, 52pt, ícone Lucide opcional) e `AppHeader` (logo com o ponto da marca e botão de conta de 44pt). Tokens novos lidos do Figma no `theme.ts`: tipografia `logo` (30, tracking -1,4), entrelinha 38 e tracking -0,7 do `display`, header 64, ponto da marca 6, ícones 18/19 com traço 1,7. Entram `lucide-react-native`, `react-native-svg` e `react-native-pager-view`. (`db18f1f`)
-- Rotas da seção 11 com telas provisórias: abas superiores com o `TopTabs` do expo-router 58 (o `material-top-tabs` embutido no router) e `tabBar` própria (`SegmentedTabBar` → `SegmentedTabs` do Figma, com papel `tab` e estado `selected`), carregamento preguiçoso e deslizar entre abas; header com logo e botão de conta abrindo o login; detalhe `word/[word]` como `formSheet` (92% da tela, puxador do sistema) com botão "X"; tema da navegação a partir dos tokens. Entra `react-native-tab-view`. (`7a0ee22`)
+- Rotas da seção 11 com telas provisórias: abas superiores com o `TopTabs` do expo-router 58 (o `material-top-tabs` embutido no router) e `tabBar` própria (`SegmentedTabBar` → `SegmentedTabs` do Figma, com papel `tab` e estado `selected`), e deslizar entre abas; header com logo e botão de conta abrindo o login; detalhe `word/[word]` como `formSheet` (92% da tela, puxador do sistema) com botão "X"; tema da navegação a partir dos tokens. Entra `react-native-tab-view`. (`7a0ee22`)
 
 ### Documentação
 

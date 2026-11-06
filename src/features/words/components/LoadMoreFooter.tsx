@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 import { Button } from '@/shared/components/Button';
 import { Spinner } from '@/shared/components/Spinner';
@@ -14,12 +14,13 @@ interface LoadMoreFooterProps {
 
 /** Fim da grade: "Finding more words…" enquanto carrega, ou o aviso de erro com "Try again". */
 export function LoadMoreFooter({ status, onRetry }: LoadMoreFooterProps) {
+  const t = useTexts();
   if (status === 'loading') {
     return (
       <View className="h-xxl flex-row items-center justify-center gap-sm">
-        <Spinner accessibilityLabel={en.words.loadingMore} />
+        <Spinner accessibilityLabel={t.words.loadingMore} />
         <AppText variant="note" tone="secondary">
-          {en.words.loadingMore}
+          {t.words.loadingMore}
         </AppText>
       </View>
     );
@@ -28,9 +29,9 @@ export function LoadMoreFooter({ status, onRetry }: LoadMoreFooterProps) {
     return (
       <View className="items-center gap-sm">
         <AppText variant="note" tone="secondary">
-          {en.words.loadMoreError}
+          {t.words.loadMoreError}
         </AppText>
-        <Button label={en.words.retry} variant="secondary" onPress={onRetry} className="w-full" />
+        <Button label={t.words.retry} variant="secondary" onPress={onRetry} className="w-full" />
       </View>
     );
   }

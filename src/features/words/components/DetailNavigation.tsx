@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react-native';
 import { View } from 'react-native';
 
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { Button } from '@/shared/components/Button';
 
 import type { WordNavigation } from '../hooks/useWordNavigation';
@@ -12,21 +12,22 @@ interface DetailNavigationProps {
 
 /** Rodapé do detalhe (Figma): "Previous" secundário e "Next" primário, desabilitados nas pontas. */
 export function DetailNavigation({ navigation }: DetailNavigationProps) {
+  const t = useTexts();
   return (
     <View className="flex-row gap-md pb-xl pt-sm">
       <Button
-        label={en.wordDetail.previous}
+        label={t.wordDetail.previous}
         icon={ArrowLeft}
         variant="secondary"
-        accessibilityHint={en.wordDetail.previousHint}
+        accessibilityHint={t.wordDetail.previousHint}
         disabled={!navigation.canGoPrevious}
         onPress={navigation.goToPrevious}
         className="flex-1"
       />
       <Button
-        label={en.wordDetail.next}
+        label={t.wordDetail.next}
         icon={ArrowRight}
-        accessibilityHint={en.wordDetail.nextHint}
+        accessibilityHint={t.wordDetail.nextHint}
         disabled={!navigation.canGoNext || navigation.isLoadingNext}
         onPress={navigation.goToNext}
         className="flex-1"

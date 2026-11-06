@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import type { Database } from '@/core/database/client';
 import { ownedBy } from '@/core/database/ownership';
+import { recordPendingChange } from '@/core/database/pendingSync';
 import { favorites } from '@/core/database/schema';
 import { favoriteRowSchema, parseRows } from '@/core/database/validation';
 import { TOKENS } from '@/core/di/tokens';
@@ -32,15 +33,23 @@ export class SqliteFavoritesRepository implements FavoritesRepository {
    * a data do primeiro favorito.
    */
   async add(word: string, userId: string | null): Promise<void> {
-    await this.database
-      .insert(favorites)
-      .values({ userId, word, createdAt: new Date() })
-      .onConflictDoNothing();
+    this.database.transaction((transaction) => {
+      transaction
+        .insert(favorites)
+        .values({ userId, word, createdAt: new Date() })
+        .onConflictDoNothing()
+        .run();
+      recordPendingChange(transaction, userId, 'favorite', word, 'upsert');
+    });
   }
 
   async remove(word: string, userId: string | null): Promise<void> {
-    await this.database
-      .delete(favorites)
-      .where(and(ownedBy(favorites.userId, userId), eq(favorites.word, word)));
+    this.database.transaction((transaction) => {
+      transaction
+        .delete(favorites)
+        .where(and(ownedBy(favorites.userId, userId), eq(favorites.word, word)))
+        .run();
+      recordPendingChange(transaction, userId, 'favorite', word, 'delete');
+    });
   }
 }

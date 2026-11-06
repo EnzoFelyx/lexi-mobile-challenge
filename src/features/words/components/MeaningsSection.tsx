@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 
 import type { Meaning } from '../domain/WordDetail';
@@ -12,10 +12,11 @@ interface MeaningsSectionProps {
 
 /** Seção "Meanings" do Figma: um grupo por classe gramatical. */
 export function MeaningsSection({ meanings }: MeaningsSectionProps) {
+  const t = useTexts();
   return (
     <View className="gap-lg">
       <AppText variant="heading" accessibilityRole="header">
-        {en.wordDetail.meanings}
+        {t.wordDetail.meanings}
       </AppText>
       {meanings.map((meaning) => (
         <MeaningGroup key={meaning.partOfSpeech} meaning={meaning} />

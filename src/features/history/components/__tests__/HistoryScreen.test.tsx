@@ -158,6 +158,6 @@ describe('HistoryScreen', () => {
     await fireEvent.press(await screen.findByRole('button', { name: en.savedWords.retry }));
 
     expect(await screen.findByRole('button', { name: 'wonder' })).toBeOnTheScreen();
-    expect(screen.queryByText(en.history.errorTitle)).toBeNull();
+    expect(screen.queryByText(en.recoverableError.title)).toBeNull();
   });
 });

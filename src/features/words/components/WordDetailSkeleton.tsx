@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 
 import { sizes } from '@/core/theme/theme';
-import { en } from '@/i18n/en';
+import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 import { Skeleton } from '@/shared/components/Skeleton';
 
@@ -32,10 +32,11 @@ const noop = () => undefined;
 
 /** Skeleton do detalhe enquanto a palavra carrega (Figma 3:15914). */
 export function WordDetailSkeleton({ withNavigation }: WordDetailSkeletonProps) {
+  const t = useTexts();
   return (
     <View
       accessible
-      accessibilityLabel={en.wordDetail.loading}
+      accessibilityLabel={t.wordDetail.loading}
       accessibilityState={{ busy: true }}
       className="flex-1 gap-lg-plus pt-sm"
     >
@@ -45,12 +46,12 @@ export function WordDetailSkeleton({ withNavigation }: WordDetailSkeletonProps) 
         </View>
         <Skeleton {...PLACEHOLDER.phonetic} />
         <AudioPlayer
-          label={en.pronunciation.preparing}
+          label={t.pronunciation.preparing}
           status="loading"
           progress={0}
           durationText={null}
-          buttonLabel={en.pronunciation.preparing}
-          progressLabel={en.pronunciation.progress}
+          buttonLabel={t.pronunciation.preparing}
+          progressLabel={t.pronunciation.progress}
           onToggle={noop}
         />
       </View>
@@ -65,7 +66,7 @@ export function WordDetailSkeleton({ withNavigation }: WordDetailSkeletonProps) 
         ))}
       </View>
       <AppText variant="note" tone="secondary">
-        {en.wordDetail.lookingUp}
+        {t.wordDetail.lookingUp}
       </AppText>
       {withNavigation ? (
         <View className="mt-auto flex-row gap-md pb-xl pt-sm">

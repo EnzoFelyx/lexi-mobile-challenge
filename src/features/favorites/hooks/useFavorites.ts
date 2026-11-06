@@ -1,6 +1,6 @@
-import { GUEST_USER_ID } from '@/constants/auth';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { useOwnerId } from '@/features/auth/hooks/useOwnerId';
 import {
   type SavedWords,
   useSavedWords,
@@ -10,10 +10,11 @@ import {
 import type { FavoritesRepository } from '../domain/FavoritesRepository';
 import { favoriteQueryKeys } from './queryKeys';
 
-const loadFavorites = () =>
-  container.resolve<FavoritesRepository>(TOKENS.FavoritesRepository).list(GUEST_USER_ID);
-
 /** Palavras favoritas, da mais recente para a mais antiga. */
 export function useFavorites(options?: UseSavedWordsOptions): SavedWords {
-  return useSavedWords(favoriteQueryKeys.list, loadFavorites, options);
+  const ownerId = useOwnerId();
+  const loadFavorites = () =>
+    container.resolve<FavoritesRepository>(TOKENS.FavoritesRepository).list(ownerId);
+
+  return useSavedWords(favoriteQueryKeys.list(ownerId), loadFavorites, options);
 }

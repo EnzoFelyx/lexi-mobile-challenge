@@ -6,7 +6,7 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 4 are done, covering **every required feature of the challenge**: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), opens each word with its phonetic, pronunciation and meanings, cached on the device, and keeps favorites and a history of viewed words, with Previous/Next in every tab. Login comes in the next stage.
+🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 5 are done, covering **every required feature of the challenge**: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), opens each word with its phonetic, pronunciation and meanings, cached on the device, and keeps favorites and a history of viewed words, with Previous/Next in every tab. Login uses email and password with Supabase: data is linked to the account and synced, and everything also works without an account or a connection.
 
 ## Technologies
 
@@ -22,7 +22,7 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 | Local data | SQLite (`expo-sqlite`) + Drizzle ORM, rows validated with Zod, TanStack Query |
 | Lists | FlashList (3-column grid with infinite scroll and a fast scrollbar) |
 | Pronunciation | `expo-audio` (API mp3, cached with `expo-file-system`) and `expo-speech` (device voice as fallback) |
-| Planned | Zustand, Supabase (auth and sync) |
+| Account | Zustand, Supabase (auth and sync) |
 
 ## How to run
 
@@ -86,7 +86,7 @@ The challenge asks for the investigation process and the decisions to be documen
 Some decisions so far:
 
 - **Common words first, in a random but stable order.** In alphabetical order the list would start with "a", "aa", "aaa"…, and the dwyl file is full of rare words missing from the API. Like the wireframe (hello, today, great…), the list opens with Ogden's Basic English, then the most frequent English words, then the rest. Each word gets a random sort key inside its group when the list is stored, so the order varies but stays the same between sessions.
-- **Local-first with an optional login.** The app opens straight on the list. Without an account, favorites and history stay on the device; when the user logs in, they are merged into the account and linked to the user ID.
+- **Local-first with an optional login.** The first screen is the login, which presents the account feature, with the option to continue as a guest in one tap: no use case requires an account. The choice is saved, and the app goes straight to the list on later openings. Without an account, favorites and history stay on the device; when the user logs in, they are merged into the account and linked to the user ID.
 - **Runs on Expo Go.** No custom native code, so the evaluator can test on iOS without a paid Apple account. An Android APK will also be published.
 - **English interface.** The challenge wireframe mixes languages (tabs and "Meanings" in English, "Voltar/Próximo" in Portuguese). Since every definition, example and part of speech from the Free Dictionary API is in English, the whole interface is in English for consistency; "Previous/Next" keep the wireframe's function. A Portuguese/English switch inside the app is planned as an extra.
 - **Accessibility.** WCAG AA contrast is checked by a test on every color pair. The light secondary text was slightly darkened from the Figma value to pass on the tab rail.

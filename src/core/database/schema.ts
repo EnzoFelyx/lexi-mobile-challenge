@@ -65,3 +65,25 @@ export const history = sqliteTable(
     index('history_viewed_at_idx').on(table.viewedAt),
   ],
 );
+
+export const PENDING_SYNC_KINDS = ['favorite', 'history'] as const;
+export const PENDING_SYNC_OPERATIONS = ['upsert', 'delete'] as const;
+
+/**
+ * Fila das mudanças da conta ainda não enviadas ao Supabase: uma linha por palavra, com a última
+ * mudança. Só para quem tem conta; é o que mantém o app usável offline (CLAUDE.md 6.7).
+ */
+export const pendingSync = sqliteTable(
+  'pending_sync',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    userId: text('user_id').notNull(),
+    kind: text('kind', { enum: PENDING_SYNC_KINDS }).notNull(),
+    word: text('word').notNull(),
+    operation: text('operation', { enum: PENDING_SYNC_OPERATIONS }).notNull(),
+    changedAt: integer('changed_at', { mode: 'timestamp_ms' }).notNull(),
+  },
+  (table) => [
+    uniqueIndex('pending_sync_user_kind_word_idx').on(table.userId, table.kind, table.word),
+  ],
+);

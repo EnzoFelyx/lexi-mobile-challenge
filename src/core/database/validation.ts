@@ -1,13 +1,14 @@
 import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-import { favorites, history, wordCache, words } from './schema';
+import { favorites, history, pendingSync, wordCache, words } from './schema';
 
 /** Schemas Zod derivados do schema do Drizzle: toda leitura passa por eles antes do domínio. */
 export const wordRowSchema = createSelectSchema(words);
 export const wordCacheRowSchema = createSelectSchema(wordCache);
 export const favoriteRowSchema = createSelectSchema(favorites);
 export const historyRowSchema = createSelectSchema(history);
+export const pendingSyncRowSchema = createSelectSchema(pendingSync);
 
 export type WordRow = z.infer<typeof wordRowSchema>;
 export type WordCacheRow = z.infer<typeof wordCacheRowSchema>;

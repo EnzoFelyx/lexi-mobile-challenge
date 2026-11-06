@@ -23,6 +23,7 @@ module.exports = defineConfig([
       'nativewind-env.d.ts',
       'expo-env.d.ts',
       'src/core/database/migrations/*',
+      'src/core/supabase/database.types.ts',
     ],
   },
   {

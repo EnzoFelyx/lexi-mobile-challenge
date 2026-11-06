@@ -5,8 +5,9 @@ import type { ColorToken } from '@/core/theme/colorVariables';
 import { useTheme } from '@/core/theme/useTheme';
 
 import { AppText, type TextTone } from './AppText';
+import { Spinner } from './Spinner';
 
-export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline';
 
 interface ButtonProps {
   label: string;
@@ -16,25 +17,33 @@ interface ButtonProps {
   accessibilityHint?: string;
   /** Sem ação no momento (ex.: "Previous" na primeira palavra). O Figma não define o visual. */
   disabled?: boolean;
+  /** Ação em andamento: spinner no lugar do ícone, sem novo toque e sem apagar o botão (Figma). */
+  loading?: boolean;
   className?: string;
 }
 
 const containerClass: Record<ButtonVariant, string> = {
   primary: 'border-accent bg-accent',
   secondary: 'border-border bg-surface',
+  outline: 'border-accent bg-surface',
 };
 
 const labelTone: Record<ButtonVariant, TextTone> = {
   primary: 'onAccent',
   secondary: 'primary',
+  outline: 'accent',
 };
 
 const iconColor: Record<ButtonVariant, ColorToken> = {
   primary: 'onAccent',
   secondary: 'textPrimary',
+  outline: 'accent',
 };
 
-/** Botão do Figma (Primary / Secondary): 52pt de altura, ícone opcional à esquerda do texto. */
+/**
+ * Botão do Figma (Primary / Secondary): 52pt de altura, ícone opcional à esquerda do texto. O
+ * `outline`, com contorno e texto de acento, não está no Figma (pedido do autor).
+ */
 export function Button({
   label,
   onPress,
@@ -42,21 +51,25 @@ export function Button({
   icon: Icon,
   accessibilityHint,
   disabled = false,
+  loading = false,
   className,
 }: ButtonProps) {
   const { colors, sizes } = useTheme();
+  const feedbackClass = disabled ? 'opacity-40' : loading ? '' : 'active:opacity-80';
 
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}
-      accessibilityState={{ disabled }}
-      disabled={disabled}
+      accessibilityState={{ disabled: disabled || loading, busy: loading }}
+      disabled={disabled || loading}
       onPress={onPress}
-      className={`h-button flex-row items-center justify-center gap-sm rounded-md border px-lg ${disabled ? 'opacity-40' : 'active:opacity-80'} ${containerClass[variant]} ${className ?? ''}`}
+      className={`h-button flex-row items-center justify-center gap-sm rounded-md border px-lg ${feedbackClass} ${containerClass[variant]} ${className ?? ''}`}
     >
-      {Icon ? (
+      {loading ? (
+        <Spinner color={iconColor[variant]} size={sizes.icon} />
+      ) : Icon ? (
         <Icon
           size={sizes.icon}
           color={colors[iconColor[variant]]}

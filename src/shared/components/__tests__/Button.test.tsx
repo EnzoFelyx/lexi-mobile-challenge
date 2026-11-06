@@ -18,4 +18,14 @@ describe('Button', () => {
 
     expect(onPress).toHaveBeenCalledTimes(1);
   });
+
+  it('stays busy and ignores presses while loading', async () => {
+    const onPress = jest.fn();
+    await render(<Button label="Logging in…" onPress={onPress} loading />);
+
+    const button = screen.getByRole('button', { name: 'Logging in…', busy: true });
+    await fireEvent.press(button);
+
+    expect(onPress).not.toHaveBeenCalled();
+  });
 });

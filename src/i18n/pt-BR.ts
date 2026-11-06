@@ -1,0 +1,205 @@
+import type { Texts } from './types';
+
+/**
+ * Textos da interface em português do Brasil, com a mesma forma do `en.ts` (o tipo `Texts` acusa
+ * chave faltando ou sobrando). O conteúdo do dicionário (definições, exemplos, classes gramaticais)
+ * continua em inglês: a Free Dictionary API só tem inglês.
+ */
+export const ptBR: Texts = {
+  appName: 'Lexi',
+  header: {
+    accountLabel: 'Conta',
+    accountHint: 'Abre o seu perfil e as configurações',
+    back: 'Voltar',
+    tagline: 'Inglês todo dia',
+  },
+  recoverableError: {
+    title: 'Uma breve pausa.',
+  },
+  field: {
+    showPassword: 'Mostrar senha',
+    hidePassword: 'Ocultar senha',
+  },
+  tabs: {
+    words: 'Palavras',
+    history: 'Histórico',
+    favorites: 'Favoritos',
+  },
+  words: {
+    title: 'Palavras',
+    subtitle: 'Um pouco de curiosidade, todo dia.',
+    loadingMore: 'Buscando mais palavras…',
+    loading: 'Carregando as palavras',
+    openWordHint: 'Abre os significados e a pronúncia',
+    loadMoreError: 'Não foi possível carregar mais palavras.',
+    errorMessage: 'Algo deu errado ao ler o dicionário neste aparelho.',
+    emptyTitle: 'Nenhuma palavra ainda',
+    emptyMessage: 'O dicionário está vazio. Feche o app e abra de novo para baixá-lo.',
+    retry: 'Tentar de novo',
+  },
+  savedWords: {
+    exploreWordList: 'Explorar palavras',
+    retry: 'Tentar de novo',
+  },
+  history: {
+    title: 'Histórico',
+    subtitle: 'Continue de onde a sua curiosidade parou.',
+    loading: 'Carregando o seu histórico',
+    errorMessage: 'Algo deu errado ao ler o histórico neste aparelho.',
+    summary: (total: number) => `${total} ${total === 1 ? 'palavra vista' : 'palavras vistas'}`,
+    clear: 'Limpar',
+    clearHint: 'Remove todas as palavras do seu histórico',
+    clearConfirm: {
+      title: 'Limpar o histórico?',
+      message: 'Todas as palavras vistas serão removidas.',
+      cancel: 'Cancelar',
+      confirm: 'Limpar',
+    },
+    clearErrorTitle: 'Não foi possível limpar o histórico',
+    clearErrorMessage: 'Algo deu errado neste aparelho. Tente de novo.',
+    note: 'As mais recentes primeiro. Suas descobertas ficam aqui, prontas para outra olhada.',
+    empty: {
+      subtitle: 'Suas descobertas recentes, todas num só lugar.',
+      title: 'Uma página em branco',
+      message: 'As palavras vistas aparecem aqui.',
+      footer: 'Cada palavra nova é um novo começo.',
+    },
+  },
+  favorites: {
+    title: 'Favoritos',
+    subtitle: 'Palavras boas merecem ser guardadas.',
+    loading: 'Carregando os seus favoritos',
+    errorMessage: 'Algo deu errado ao ler os favoritos neste aparelho.',
+    summary: 'Sua coleção',
+    count: (total: number) => `${total} ${total === 1 ? 'palavra salva' : 'palavras salvas'}`,
+    note: 'Um vocabulário com a sua cara. Abra qualquer palavra para rever o significado.',
+    empty: {
+      title: 'Sua lista de palavras',
+      message: 'Toque no coração de uma palavra para salvar.',
+      footer: 'O seu próximo favorito está a uma palavra de distância.',
+    },
+    save: (word: string) => `Salvar ${word} nos favoritos`,
+    remove: (word: string) => `Remover ${word} dos favoritos`,
+    saveErrorTitle: 'Não foi possível salvar o favorito',
+    saveErrorMessage: 'Algo deu errado neste aparelho. Tente de novo.',
+  },
+  wordDetail: {
+    close: 'Fechar',
+    title: 'Explorador de palavras',
+    meanings: 'Significados',
+    showMore: (count: number) => `Mostrar mais ${count}`,
+    showLess: 'Mostrar menos',
+    example: (text: string) => `“${text}”`,
+    loading: 'Carregando a palavra',
+    lookingUp: 'Buscando um pouco mais de significado…',
+    notFound: {
+      title: 'Palavra não encontrada',
+      message:
+        'Não encontramos uma definição para esta palavra. Tente de novo ou descubra a próxima palavra da sua lista.',
+    },
+    unavailable: {
+      title: 'Não foi possível carregar a palavra',
+      message: 'Confira a sua conexão com a internet e tente de novo.',
+    },
+    rateLimited: {
+      title: 'Muitas buscas',
+      message: 'Muitas buscas agora. Espere um pouco e tente de novo.',
+    },
+    reassurance: 'Seu lugar está guardado. Sempre há outra palavra para explorar.',
+    retry: 'Tentar de novo',
+    next: 'Próxima',
+    previous: 'Anterior',
+    previousHint: 'Abre a palavra anterior desta lista',
+    nextHint: 'Abre a próxima palavra desta lista',
+  },
+  auth: {
+    email: 'E-mail',
+    emailPlaceholder: 'Digite seu e-mail',
+    password: 'Senha',
+    invalidEmail: 'Digite um e-mail válido.',
+    passwordRule: 'Use pelo menos 6 caracteres.',
+    wrongCredentials: 'E-mail ou senha incorretos',
+    emailTaken: 'Este e-mail já está cadastrado',
+    unavailable: 'Não foi possível acessar sua conta. Tente de novo.',
+    logIn: {
+      intro: {
+        eyebrow: 'Sua conta',
+        title: 'Entrar.',
+      },
+      passwordPlaceholder: 'Digite sua senha',
+      submit: 'Entrar',
+      submitting: 'Entrando…',
+      guest: 'Continuar como visitante',
+      switchPrompt: 'Novo no Lexi?',
+      switchAction: 'Cadastre-se',
+    },
+    signUp: {
+      intro: {
+        eyebrow: 'Nova conta',
+        title: 'Crie sua conta.',
+        message: 'Salve seus favoritos e seu histórico.',
+      },
+      passwordPlaceholder: 'Crie uma senha',
+      submit: 'Criar conta',
+      submitting: 'Criando conta…',
+      switchPrompt: 'Já tem uma conta?',
+      switchAction: 'Entrar',
+    },
+    or: 'ou',
+    footer: 'Mantenha-se curioso. Uma palavra por vez.',
+  },
+  settings: {
+    title: 'Configurações',
+    profile: 'Perfil',
+    preferences: 'Preferências',
+    guest: {
+      title: 'Guarde suas palavras.',
+      message: 'Entre para salvar seus favoritos e o histórico na sua conta.',
+      logIn: 'Entrar',
+      createAccount: 'Criar conta',
+    },
+    account: {
+      title: 'Suas palavras, com você.',
+      logOut: 'Sair',
+    },
+    appearance: 'Aparência',
+    themeName: { light: 'Claro', dark: 'Escuro', system: 'Sistema' },
+    appearanceHint: 'Escolhe entre claro, escuro ou o tema do celular',
+    language: 'Idioma',
+    languageNames: { en: 'Inglês', 'pt-BR': 'Português' },
+    languageHint: 'Escolhe o idioma do app',
+    footer: 'Mantenha-se curioso. Uma palavra por vez.',
+  },
+  dictionarySetup: {
+    title: 'Preparando o seu dicionário',
+    downloading: 'Baixando a lista de palavras. Isso só acontece uma vez.',
+    saving: 'Salvando 370 mil palavras no seu aparelho…',
+    progressLabel: 'Progresso da preparação do dicionário',
+    percent: (value: number) => `${value}%`,
+    errorMessage:
+      'Confira a sua conexão com a internet e tente de novo. A lista de palavras é baixada só uma vez.',
+    retry: 'Tentar de novo',
+  },
+  pronunciation: {
+    accent: {
+      uk: 'Pronúncia britânica',
+      us: 'Pronúncia americana',
+      au: 'Pronúncia australiana',
+      ca: 'Pronúncia canadense',
+    },
+    generic: 'Pronúncia',
+    preparing: 'Preparando o áudio',
+    play: (word: string) => `Tocar a pronúncia de ${word}`,
+    playWithVoice: (word: string) => `Tocar a pronúncia de ${word} com a voz do aparelho`,
+    pause: 'Pausar a pronúncia',
+    progress: 'Progresso da pronúncia',
+  },
+  database: {
+    unavailableMessage:
+      'Não foi possível abrir o dicionário neste aparelho. Feche o app e abra de novo.',
+  },
+  placeholder: {
+    note: 'Esta tela é provisória, para as próximas etapas.',
+    openSampleWord: 'Abrir uma palavra de exemplo',
+  },
+};
