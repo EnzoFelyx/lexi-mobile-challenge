@@ -6,27 +6,35 @@ import { logger } from '@/shared/utils/logger';
 
 import type { AccountSync, LocalAccountData } from '../domain/AccountSync';
 
-const syncBeforeLeaving = async (userId: string): Promise<void> => {
+/** Tenta enviar o que falta, sem travar a saída; diz se o servidor ficou em dia. */
+const syncBeforeLeaving = async (userId: string): Promise<boolean> => {
   let timer: ReturnType<typeof setTimeout> | undefined;
-  const timeout = new Promise<void>((resolve) => {
-    timer = setTimeout(resolve, SIGN_OUT_SYNC_TIMEOUT_MS);
+  const timeout = new Promise<boolean>((resolve) => {
+    timer = setTimeout(() => resolve(false), SIGN_OUT_SYNC_TIMEOUT_MS);
   });
   try {
-    await Promise.race([container.resolve<AccountSync>(TOKENS.AccountSync).sync(userId), timeout]);
+    const sync = container
+      .resolve<AccountSync>(TOKENS.AccountSync)
+      .sync(userId)
+      .then(() => true);
+    return await Promise.race([sync, timeout]);
   } catch (error: unknown) {
     logger.debug('sync', 'Could not send the last changes before logging out.', error);
+    return false;
   } finally {
     clearTimeout(timer);
   }
 };
 
 /**
- * Sai da conta (decisão do autor, 2026-11-06): tenta enviar o que falta, encerra a sessão e apaga
- * do aparelho os dados dela, que voltam ao entrar de novo. Sem conexão, o que ainda não foi
- * enviado se perde junto.
+ * Sai da conta (decisões do autor, 2026-11-06): tenta enviar o que falta, encerra a sessão e apaga
+ * do aparelho os dados dela, que voltam ao entrar de novo. Se o envio não terminar, os dados e a
+ * fila ficam guardados, sem aparecer para ninguém, e são enviados no próximo login dessa conta.
  */
 export async function leaveAccount(userId: string): Promise<void> {
-  await syncBeforeLeaving(userId);
+  const isServerUpToDate = await syncBeforeLeaving(userId);
   await container.resolve<AuthService>(TOKENS.AuthService).signOut();
-  await container.resolve<LocalAccountData>(TOKENS.LocalAccountData).deleteAccountData(userId);
+  if (isServerUpToDate) {
+    await container.resolve<LocalAccountData>(TOKENS.LocalAccountData).deleteAccountData(userId);
+  }
 }

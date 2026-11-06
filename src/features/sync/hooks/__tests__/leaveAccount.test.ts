@@ -37,17 +37,18 @@ describe('leaveAccount', () => {
     expect(local.deleteAccountData).toHaveBeenCalledWith('alex');
   });
 
-  it('still logs out when the sync fails', async () => {
-    const { order } = setUp(async () => {
+  it('logs out but keeps the unsent data on the device when the sync fails', async () => {
+    const { order, local } = setUp(async () => {
       throw new Error('offline');
     });
 
     await leaveAccount('alex');
 
-    expect(order).toEqual(['sync', 'signOut', 'delete']);
+    expect(order).toEqual(['sync', 'signOut']);
+    expect(local.deleteAccountData).not.toHaveBeenCalled();
   });
 
-  it('does not wait forever for a slow connection', async () => {
+  it('does not wait forever for a slow connection, and keeps the unsent data', async () => {
     jest.useFakeTimers();
     const { order } = setUp(() => new Promise<void>(() => undefined));
 
@@ -55,7 +56,7 @@ describe('leaveAccount', () => {
     await jest.advanceTimersByTimeAsync(SIGN_OUT_SYNC_TIMEOUT_MS);
     await leaving;
 
-    expect(order).toEqual(['sync', 'signOut', 'delete']);
+    expect(order).toEqual(['sync', 'signOut']);
     jest.useRealTimers();
   });
 });
