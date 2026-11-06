@@ -49,6 +49,10 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 
 ## 2026-11-06 — Etapa 6 (qualidade)
 
+### Adicionado
+
+- Testes dos serviços de autenticação, inclusive o modo sem `.env`. Cobertura medida: `domain` 99,0%, `data` 91,9% e 87,0% no projeto. (`2569f82`)
+
 ### Infraestrutura
 
 - GitHub Actions com lint, typecheck e testes a cada push, e badge nos READMEs. (`11b81ac`)
