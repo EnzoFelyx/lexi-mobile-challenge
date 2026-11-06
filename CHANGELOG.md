@@ -47,6 +47,14 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 
 ---
 
+## 2026-11-06 — Etapa 6 (qualidade)
+
+### Infraestrutura
+
+- GitHub Actions com lint, typecheck e testes a cada push, e badge nos READMEs. (`11b81ac`)
+
+---
+
 ## 2026-11-05 — Etapa 6 (qualidade, itens adiantados)
 
 ### Adicionado
