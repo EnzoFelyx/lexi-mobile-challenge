@@ -1,5 +1,7 @@
 # Lexi
 
+[![CI](https://github.com/EnzoFelyx/lexi-mobile-challenge/actions/workflows/ci.yml/badge.svg)](https://github.com/EnzoFelyx/lexi-mobile-challenge/actions/workflows/ci.yml)
+
 [Português](README.md) · **English**
 
 An English dictionary for Android and iOS: browse words with infinite scroll, see meanings and phonetics, listen to the pronunciation, and keep favorites and a viewing history.

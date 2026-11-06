@@ -186,7 +186,7 @@ Decididas em 2026-11-03 (decisões do autor):
 **Objetivo:** testes, CI e acabamento.
 
 - [ ] Completar os testes unitários e de componente (meta ~70% em `domain` e `data`)
-- [ ] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
+- [x] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
 - [ ] Polimento visual fiel ao Figma, em light e dark
 - [x] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Feito em 2026-11-05 (frames 46:14617 e 46:14622), conferido no app compilado pelo `npx expo run:ios`; no Expo Go a splash do projeto não aparece
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"

@@ -346,7 +346,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - **Injeção de dependência:** **tsyringe** (`reflect-metadata` + plugins de decorators no Babel).
 - **Áudio:** `expo-audio` para o mp3 da API e `expo-speech` como fallback.
 - **Testes:** Jest (`jest-expo`) + React Native Testing Library, mocks registrados no container da tsyringe. **Maestro** para E2E é opcional (primeiro a cortar).
-- **CI:** GitHub Actions com lint, `tsc` e testes, badge no README.
+- **CI:** GitHub Actions (`.github/workflows/ci.yml`, Node 22) com lint, `tsc` e testes a cada push, badge no README. Conferido num clone limpo, sem `.env` e sem os tipos gerados de `.expo/`.
 - **Lint e formatação:** ESLint + Prettier no padrão do autor (ver `REGRAS.md`).
 - **Bibliotecas:** instale cada uma **na etapa em que for usada** (`npx expo install`).
 

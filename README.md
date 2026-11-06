@@ -1,5 +1,7 @@
 # Lexi
 
+[![CI](https://github.com/EnzoFelyx/lexi-mobile-challenge/actions/workflows/ci.yml/badge.svg)](https://github.com/EnzoFelyx/lexi-mobile-challenge/actions/workflows/ci.yml)
+
 **Português** · [English](README.en.md)
 
 Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem infinita, veja significados e fonética, ouça a pronúncia e guarde favoritos e o histórico de palavras vistas.
