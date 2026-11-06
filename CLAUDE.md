@@ -476,7 +476,7 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 
 - **Unitários na camada de dados e nas regras:** paginação keyset, fluxo de cache (SQLite → API → grava; 404 cacheado não chama a API), histórico sem duplicados, fallback do áudio, favorito otimista revertendo.
 - **Componentes e telas:** grade renderiza, detalhe com loading/erro/sucesso, coração alterna, Previous/Next desabilitados nas pontas.
-- Meta: ~70% de cobertura em `domain` e `data`, citada no README. (O 80% e o TDD obrigatório do ECC são só recomendação aqui.)
+- Meta: ~70% de cobertura em `domain` e `data`, citada no README. **Medido em 2026-11-06 (`npx jest --coverage`):** `domain` 99,0%, `data` 91,9% e 87,0% no projeto, em instruções. Os adaptadores finos de módulos nativos (áudio e voz) ficaram sem teste de propósito. (O 80% e o TDD obrigatório do ECC são só recomendação aqui.)
 - GitHub Actions rodando lint, `tsc` e testes a cada push.
 
 ---
