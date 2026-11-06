@@ -1,10 +1,12 @@
-import { ArrowLeft, UserRound } from 'lucide-react-native';
+import { UserRound } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
 import { useTexts } from '@/i18n/useTexts';
 
 import { AppText } from './AppText';
+import { BackButton } from './BackButton';
+import { ROUND_BUTTON_CLASS } from './PlainBackButton';
 
 interface AppHeaderProps {
   /** Sem ação: a tela atual já é a da conta; o botão fica como no Figma, só com o retorno do toque. */
@@ -14,9 +16,6 @@ interface AppHeaderProps {
   /** Header das telas de login e cadastro: a frase "English, every day" no lugar do botão de conta. */
   showTagline?: boolean;
 }
-
-const ROUND_BUTTON =
-  'h-touch-target w-touch-target items-center justify-center rounded-pill bg-surface-muted';
 
 // O botão de conta na própria tela da conta: só o retorno visual do toque.
 const stayOnAccount = () => undefined;
@@ -30,16 +29,7 @@ export function AppHeader({ onAccountPress, onBack, showTagline = false }: AppHe
   return (
     <View className="h-header flex-row items-center justify-between px-xl">
       <View className="flex-row items-center gap-md">
-        {onBack ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.header.back}
-            onPress={onBack}
-            className={`${ROUND_BUTTON} active:opacity-80`}
-          >
-            <ArrowLeft size={sizes.closeIcon} {...icon} />
-          </Pressable>
-        ) : null}
+        {onBack ? <BackButton onPress={onBack} /> : null}
         <View className="flex-row items-baseline gap-sm">
           <AppText variant="logo" accessibilityRole="header">
             {t.appName}
@@ -57,7 +47,7 @@ export function AppHeader({ onAccountPress, onBack, showTagline = false }: AppHe
           accessibilityLabel={t.header.accountLabel}
           accessibilityHint={t.header.accountHint}
           onPress={onAccountPress}
-          className={`${ROUND_BUTTON} active:opacity-80`}
+          className={`${ROUND_BUTTON_CLASS} active:opacity-80`}
         >
           <UserRound size={sizes.accountIcon} {...icon} />
         </Pressable>
@@ -69,7 +59,7 @@ export function AppHeader({ onAccountPress, onBack, showTagline = false }: AppHe
           accessibilityElementsHidden
           importantForAccessibility="no-hide-descendants"
           onPress={stayOnAccount}
-          className={`${ROUND_BUTTON} active:opacity-80`}
+          className={`${ROUND_BUTTON_CLASS} active:opacity-80`}
         >
           <UserRound size={sizes.accountIcon} {...icon} />
         </Pressable>
