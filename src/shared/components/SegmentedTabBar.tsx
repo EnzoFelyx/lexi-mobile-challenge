@@ -1,5 +1,5 @@
 import type { MaterialTopTabBarProps } from 'expo-router/js-top-tabs';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import { SegmentedTabs } from './SegmentedTabs';
 
@@ -9,6 +9,7 @@ export function SegmentedTabBar({
   descriptors,
   emitter,
   navigateToTab,
+  position,
 }: MaterialTopTabBarProps) {
   const tabs = state.routes.map((route) => ({
     key: route.key,
@@ -26,7 +27,13 @@ export function SegmentedTabBar({
 
   return (
     <View className="px-xl">
-      <SegmentedTabs tabs={tabs} activeKey={activeKey} onTabPress={handleTabPress} />
+      <SegmentedTabs
+        tabs={tabs}
+        activeKey={activeKey}
+        onTabPress={handleTabPress}
+        // O Android só confirma a troca de aba depois do movimento; sem isto, o destaque atrasa.
+        position={Platform.OS === 'android' ? position : undefined}
+      />
     </View>
   );
 }
