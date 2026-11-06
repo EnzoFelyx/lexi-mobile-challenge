@@ -488,7 +488,7 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 ## 14. Entrega
 
 - **README bilíngue** (`README.md` em português e `README.en.md` em inglês), com os itens da seção 2, as decisões técnicas, a arquitetura, instruções do **Expo Go** (`npm install`, `npx expo start`, escanear o QR) e um **GIF ou vídeo curto** do fluxo (lista, detalhe, áudio, favoritar, histórico, login).
-- **APK** gerado com EAS Build (`eas build -p android --profile preview`) anexado a uma release **`v1.0.0`** no GitHub.
+- **APK** gerado com EAS Build (`eas build -p android --profile preview`) anexado a uma release **`v1.0.0`** no GitHub. Fica para depois da etapa 7 (decisão do autor, 2026-11-06).
 - **Login no APK (decisão do autor, 2026-11-06):** a URL e a chave publishable vão no build, para o avaliador entrar sem configurar nada. **No Expo Go:** os mesmos valores vão no README, para copiar para o `.env`, com a nota de que a chave é pública e protegida pelo RLS. O risco é abuso do cadastro, não acesso aos dados: conferir os limites do painel e, depois da avaliação, apagar ou pausar o projeto ou trocar a chave.
 - Como reativar o projeto Supabase ou usar o próprio (`.env.example`). Entrar no painel perto da avaliação para o projeto não pausar.
 
