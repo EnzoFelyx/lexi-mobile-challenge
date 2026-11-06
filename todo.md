@@ -211,6 +211,10 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
 - [ ] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações (avaliar trocar por um menu com check, como no iOS)
 - [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
+- [ ] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
+- [ ] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco
+- [ ] Conferir em **Authentication → Rate Limits** os limites contra cadastros em massa
+- [ ] Depois da avaliação: apagar ou pausar o projeto Supabase, ou trocar a chave
 - [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
 - [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
 - [ ] Commit final, link do repositório na plataforma da Coodesh e envio
