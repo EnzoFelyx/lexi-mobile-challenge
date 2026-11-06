@@ -20,7 +20,7 @@
 | 2 | Lista de palavras | ✅ |
 | 3 | Detalhe da palavra | ✅ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ✅ |
-| 5 | Supabase e login | 🟨 |
+| 5 | Supabase e login | ✅ |
 | 6 | Qualidade | ⬜ |
 | 7 | Entrega | ⬜ |
 
@@ -174,7 +174,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 ### Depois do login (lembrete do autor, 2026-11-05)
 
-- [ ] 📝 **Liquid Glass nas abas:** aplicar o efeito de vidro do iOS 26 (Liquid Glass) na barra de abas do topo (Word list, History e Favorites), sem perder o visual do Figma nos outros sistemas. Conferir antes a biblioteca (`expo-glass-effect` / `GlassView`, que vem com o SDK 58, ou os componentes de vidro do `@expo/ui`), se funciona no Expo Go e o que aparece no Android e em iOS mais antigo
+- [x] 📝 **Liquid Glass nas abas:** retirado da lista (decisão do autor, 2026-11-06); a barra continua como no Figma
 - [x] 📝 **Liquid Glass no voltar:** seta do header (Configurações, login e cadastro) com o `GlassView` no iOS 26; em iOS antigo e no Android, o botão comum (2026-11-06)
 
 **Pronto quando:** o visitante usa o app sem conta, ao entrar os dados dele vão para a conta, dois usuários diferentes veem cada um os próprios favoritos e histórico, e o app continua funcionando offline.
@@ -214,7 +214,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
 - [ ] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
 - [ ] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco
-- [ ] Apagar em **Authentication → Users** as duas contas `lexi-rls-*@example.com` do teste de RLS
+- [x] Apagar em **Authentication → Users** as duas contas do teste de RLS (feito pelo autor em 2026-11-06)
 - [ ] Conferir em **Authentication → Rate Limits** os limites contra cadastros em massa
 - [ ] Depois da avaliação: apagar ou pausar o projeto Supabase, ou trocar a chave
 - [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)

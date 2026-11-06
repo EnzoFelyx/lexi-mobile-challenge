@@ -6,7 +6,7 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 4 estão prontas, com **todos os obrigatórios do desafio**: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, e guarda favoritos e o histórico de palavras vistas, com Previous/Next em todas as abas. O login vem na próxima etapa.
+🚧 **Em desenvolvimento.** O projeto é construído em etapas (ver [`todo.md`](todo.md)). As etapas 1 a 5 estão prontas, com **todos os obrigatórios do desafio**: o app roda no Expo Go com tema claro e escuro, baixa uma única vez a lista de 370 mil palavras e a mostra numa grade de 3 colunas com rolagem infinita (começando pelas palavras comuns), abre cada palavra com a fonética, a pronúncia e os significados, guardados no aparelho, e guarda favoritos e o histórico de palavras vistas, com Previous/Next em todas as abas. O login é por e-mail e senha, com Supabase: os dados ficam associados à conta e sincronizados, e tudo também funciona sem conta e sem conexão.
 
 ## Tecnologias
 
@@ -22,7 +22,7 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 | Dados locais | SQLite (`expo-sqlite`) + Drizzle ORM, linhas validadas com Zod, TanStack Query |
 | Listas | FlashList (grade de 3 colunas com rolagem infinita e barra de rolagem rápida) |
 | Pronúncia | `expo-audio` (mp3 da API, guardado com `expo-file-system`) e `expo-speech` (voz do aparelho quando não há mp3) |
-| Previsto | Zustand, Supabase (login e sincronização) |
+| Conta | Zustand, Supabase (login e sincronização) |
 
 ## Como rodar
 

@@ -6,7 +6,7 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
-🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 4 are done, covering **every required feature of the challenge**: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), opens each word with its phonetic, pronunciation and meanings, cached on the device, and keeps favorites and a history of viewed words, with Previous/Next in every tab. Login comes in the next stage.
+🚧 **In progress.** The project is built in stages (see [`todo.md`](todo.md)). Stages 1 to 5 are done, covering **every required feature of the challenge**: the app runs on Expo Go with light and dark themes, downloads the 370,000-word list once and shows it as an infinite 3-column grid (opening with common words), opens each word with its phonetic, pronunciation and meanings, cached on the device, and keeps favorites and a history of viewed words, with Previous/Next in every tab. Login uses email and password with Supabase: data is linked to the account and synced, and everything also works without an account or a connection.
 
 ## Technologies
 
@@ -22,7 +22,7 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 | Local data | SQLite (`expo-sqlite`) + Drizzle ORM, rows validated with Zod, TanStack Query |
 | Lists | FlashList (3-column grid with infinite scroll and a fast scrollbar) |
 | Pronunciation | `expo-audio` (API mp3, cached with `expo-file-system`) and `expo-speech` (device voice as fallback) |
-| Planned | Zustand, Supabase (auth and sync) |
+| Account | Zustand, Supabase (auth and sync) |
 
 ## How to run
 
