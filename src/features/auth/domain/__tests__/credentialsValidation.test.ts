@@ -1,8 +1,8 @@
 import { hasCredentialIssues, validateCredentials } from '../credentialsValidation';
 
 describe('validateCredentials', () => {
-  it('accepts a valid email, even with spaces around it, and an 8 character password', () => {
-    const issues = validateCredentials({ email: ' alex@example.com ', password: '12345678' });
+  it('accepts a valid email, even with spaces around it, and a 6 character password', () => {
+    const issues = validateCredentials({ email: ' alex@example.com ', password: '123456' });
 
     expect(hasCredentialIssues(issues)).toBe(false);
   });
@@ -14,8 +14,8 @@ describe('validateCredentials', () => {
     },
   );
 
-  it('rejects a password shorter than 8 characters', () => {
-    expect(validateCredentials({ email: 'alex@example.com', password: '1234567' })).toEqual({
+  it('rejects a password shorter than 6 characters', () => {
+    expect(validateCredentials({ email: 'alex@example.com', password: '12345' })).toEqual({
       password: 'tooShort',
     });
   });

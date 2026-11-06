@@ -117,7 +117,7 @@ export const ptBR: Texts = {
     emailPlaceholder: 'Digite seu e-mail',
     password: 'Senha',
     invalidEmail: 'Digite um e-mail válido.',
-    passwordRule: 'Use pelo menos 8 caracteres.',
+    passwordRule: 'Use pelo menos 6 caracteres.',
     wrongCredentials: 'E-mail ou senha incorretos',
     emailTaken: 'Este e-mail já está cadastrado',
     unavailable: 'Não foi possível acessar sua conta. Tente de novo.',

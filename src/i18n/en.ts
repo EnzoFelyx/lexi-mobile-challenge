@@ -114,7 +114,7 @@ export const en = {
     emailPlaceholder: 'Enter your email',
     password: 'Password',
     invalidEmail: 'Enter a valid email address.',
-    passwordRule: 'Use at least 8 characters.',
+    passwordRule: 'Use at least 6 characters.',
     wrongCredentials: 'Wrong email or password',
     emailTaken: 'This email is already registered',
     unavailable: 'We couldn’t reach your account. Please try again.',
