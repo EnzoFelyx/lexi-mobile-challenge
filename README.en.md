@@ -10,17 +10,17 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 ## Demo
 
-🎬 **Demo video:** [watch the video](COLE_AQUI_O_LINK_DO_VIDEO)
+🎬 **Demo video:** click the image to watch.
 
 <p align="center">
-  <img src="img/demo.gif" alt="Full Lexi flow" width="280" />
-  <br />
-  <em>Full flow: list, detail, audio, favorite, history and login.</em>
+  <a href="https://www.youtube.com/watch?v=3GnNPClID0k">
+    <img src="https://img.youtube.com/vi/3GnNPClID0k/hqdefault.jpg" alt="Lexi demo video" width="360" />
+  </a>
 </p>
 
 | | | | |
 | --- | --- | --- | --- |
-| <img src="img/login.png" alt="Login" width="180" /><br />**Login:** email and password, or guest | <img src="img/word-list.png" alt="Word list" width="180" /><br />**Word list:** infinite scroll grid | <img src="img/word-detail.png" alt="Word detail" width="180" /><br />**Detail:** phonetics, audio and meanings | <img src="img/word-not-found.png" alt="Word without a result" width="180" /><br />**No result:** Retry and Next |
+| <img src="img/login.gif" alt="Login and sign up" width="180" /><br />**Login and sign up:** field validation, or guest | <img src="img/word-list.gif" alt="Word list" width="180" /><br />**Word list:** infinite scroll grid | <img src="img/word-detail.gif" alt="Word detail" width="180" /><br />**Detail:** phonetics, audio and meanings | <img src="img/word-not-found.png" alt="Word without a result" width="180" /><br />**No result:** Retry and Next |
 | <img src="img/history.png" alt="History" width="180" /><br />**History:** viewed words | <img src="img/favorites.png" alt="Favorites" width="180" /><br />**Favorites:** saved words | <img src="img/settings.png" alt="Settings" width="180" /><br />**Settings:** account, theme and language | <img src="img/word-detail-dark.png" alt="Detail in the dark theme" width="180" /><br />**Dark theme:** word detail |
 
 ## What the app does
@@ -64,7 +64,9 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 ## How to run
 
-Requirements: [Node.js](https://nodejs.org/) 22.13 or newer and the **Expo Go** app (SDK 58) on an Android or iOS device.
+**On Android, the fastest way is the APK:** download [`lexi-v1.0.0.apk`](https://github.com/EnzoFelyx/lexi-mobile-challenge/releases/download/v1.0.0/lexi-v1.0.0.apk) from the [v1.0.0 release](https://github.com/EnzoFelyx/lexi-mobile-challenge/releases/tag/v1.0.0) and install it. Login is already configured; Android may ask for permission to install an app from outside the store.
+
+**On iOS, or to run the code, use Expo Go.** Requirements: [Node.js](https://nodejs.org/) 22.13 or newer and the **Expo Go** app (SDK 58) on an Android or iOS device.
 
 **1. Install the project:**
 
@@ -115,8 +117,8 @@ The project above is on the free plan, which can be paused for inactivity. If th
 
 ## Tests and verification
 
-- **Tests:** 423 tests in 89 suites, run by CI on every push, along with lint and type checking. The repositories use real SQL, on an in-memory SQLite database.
-- **Statement coverage:** `domain` 99.0%, `data` 93.7% and 87.6% for the project. The thin native module adapters (audio and voice) are left untested on purpose.
+- **Tests:** 425 tests in 89 suites, run by CI on every push, along with lint and type checking. The repositories use real SQL, on an in-memory SQLite database.
+- **Statement coverage:** `domain` 99.0%, `data` 93.7% and 87.7% for the project. The thin native module adapters (audio and voice) are left untested on purpose.
 - **RLS:** tested directly on the server with two users, on `favorites` and `history`: all 28 checks passed.
 - **Devices:** checked on an iPhone with iOS 26, a current Android emulator and a physical Android 12 device.
 - **No E2E tests:** the challenge asks for unit or E2E tests, and the deadline went to unit and component tests.
@@ -167,7 +169,7 @@ The main decisions:
 - **Email and password instead of "username and password".** The email plays the role of the username, and it is what Supabase Auth offers. There is no social login, because the challenge does not ask for it and the login redirect differs between Expo Go and the compiled app. There is no email confirmation either, so the evaluator can create an account and log in right away.
 - **Local-first with sync.** Favorites and history always go through SQLite. On login, the guest data is merged into the account: favorites by union and, in the history, the latest visit of each word wins. Each change enters a local queue and is sent when there is a connection, so the app stays usable offline.
 - **When logging out,** the person stays in the app as a guest, and the account data leaves the device once it has been sent. It comes back on the next login, and someone else on the same phone cannot see it.
-- **Runs on Expo Go.** No custom native code, so the evaluator can test on iOS without a paid Apple account.
+- **Runs on Expo Go.** No custom native code, so the evaluator can test on iOS without a paid Apple account. On Android, there is also an APK.
 - **English interface by default, with a Portuguese option.** The challenge wireframe mixes languages (tabs and "Meanings" in English, "Voltar/Próximo" in Portuguese). Since every definition, example and part of speech from the Free Dictionary API is in English, the default is English, for consistency; "Previous/Next" keep the wireframe's function. Settings can switch the app's own texts to Portuguese; the API content stays in English.
 - **Full-screen detail below Android 13.** The native sheet did not open on a real Android 12 device, so below Android 13 the detail opens as a modal.
 - **Accessibility.** WCAG AA contrast is checked by a test on every color pair, and the light secondary text was slightly darkened from the Figma value to pass on the tab rail. The system font scales up to 200% (130% in the header, tabs and detail toolbar), and the app respects "Reduce motion".
@@ -175,10 +177,8 @@ The main decisions:
 ## Known limits
 
 - **Free Dictionary API:** it limits requests per IP. When the limit is reached, the app shows its own message and does not retry by itself. The audio server can also be down; in that case, the device voice takes over.
-- **Android 12:** the reason the native sheet does not open was not identified; the full-screen detail works around it.
 - **Logging out with no connection:** the app tries to send the data for up to 3 seconds. If it cannot, the data stays on the device, hidden from everyone, and is sent on that account's next login.
 - **Fast scrollbar:** it only covers the words already loaded; dragging to the end loads the next page as normal scrolling does.
-- **Android with gesture navigation:** swiping from the screen edge is the system "back" and closes the detail; starting in the middle of the content changes the word.
 - **iOS 26:** the detail sheet grows a little when touched. This is system behavior, with no option to turn it off.
 - **Splash:** Expo Go shows its own loading screen; the Lexi splash only appears in the compiled app.
 - **Touch target:** the minimum is 44pt, as in the Figma, below the 48dp recommended on Android.

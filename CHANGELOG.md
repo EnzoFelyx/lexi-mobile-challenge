@@ -9,10 +9,18 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ## 2026-11-06 — Etapa 7 (entrega)
 
+### Corrigido
+
+- O aviso do limite da API (429) fica só no terminal, sem aviso amarelo no celular (pedido do autor); a tela própria não muda, e as outras falhas de busca continuam avisando. (`2b804ea`)
+
+### Infraestrutura
+
+- APK para Android pelo EAS Build (`com.enzofelyx.lexi`), publicado na release `v1.0.0`, com o login já configurado e os ícones do Figma no lugar dos do template. Testado pelo autor no aparelho. (`9bb90cf`)
+
 ### Documentação
 
-- READMEs finais em português e inglês: demonstração, o que o app faz, como testar o login no Expo Go com a chave pública, como usar outro projeto Supabase, testes e verificação, decisões e limites conhecidos. Os espaços do GIF, das fotos e do vídeo ficam para o autor preencher.
-- Cobertura medida de novo: `domain` 99,0%, `data` 93,7% e 87,6% no projeto.
+- READMEs finais em português e inglês: demonstração, o que o app faz, como testar o login no Expo Go com a chave pública, como usar outro projeto Supabase, testes e verificação, decisões e limites conhecidos. GIFs e fotos gravados pelo autor em `img/`, e o vídeo demonstrativo no YouTube.
+- Cobertura medida de novo: `domain` 99,0%, `data` 93,7% e 87,7% no projeto.
 
 ---
 
