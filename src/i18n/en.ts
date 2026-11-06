@@ -159,6 +159,7 @@ export const en = {
       title: 'Your words, with you.',
       logOut: 'Log out',
     },
+    closePicker: 'Close',
     appearance: 'Appearance',
     themeName: { light: 'Light', dark: 'Dark', system: 'System' },
     appearanceHint: 'Chooses between light, dark or the phone theme',

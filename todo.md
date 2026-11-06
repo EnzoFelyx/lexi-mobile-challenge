@@ -194,7 +194,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] 📝 **Lembrete do autor:** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema). Feito em 2026-11-05, adiantado da etapa 6 (`CLAUDE.md`, seção 6.9); o idioma vem a seguir
 - [x] Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (feito em 2026-11-05, pedido do autor; `CLAUDE.md`, seção 6.9)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
-- [ ] Teste completo em Android e iOS
+- [x] Teste completo em Android e iOS (conferido pelo autor em 2026-11-06, num emulador Android atual e num Android 12 físico)
 - [ ] (Opcional) Script que valida as ~9 mil palavras comuns na API (devagar, dentro do limite) e tira das camadas as que dão 404 e os nomes próprios
 - [ ] (Opcional) Maestro E2E: abrir a lista, rolar, abrir uma palavra, favoritar e conferir em Favorites; login e logout
 
@@ -210,7 +210,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
-- [ ] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações (avaliar trocar por um menu com check, como no iOS)
+- [x] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações Conferido pelo autor em 2026-11-06.
 - [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
 - [ ] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
 - [ ] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco

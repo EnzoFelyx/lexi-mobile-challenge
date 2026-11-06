@@ -9,7 +9,7 @@ export const ptBR: Texts = {
   appName: 'Lexi',
   header: {
     accountLabel: 'Conta',
-    accountHint: 'Abre o seu perfil e as configurações',
+    accountHint: 'Abre o seu perfil e os ajustes',
     back: 'Voltar',
     tagline: 'Inglês todo dia',
   },
@@ -149,7 +149,7 @@ export const ptBR: Texts = {
     footer: 'Mantenha-se curioso. Uma palavra por vez.',
   },
   settings: {
-    title: 'Configurações',
+    title: 'Ajustes',
     profile: 'Perfil',
     preferences: 'Preferências',
     guest: {
@@ -162,6 +162,7 @@ export const ptBR: Texts = {
       title: 'Suas palavras, com você.',
       logOut: 'Sair',
     },
+    closePicker: 'Fechar',
     appearance: 'Aparência',
     themeName: { light: 'Claro', dark: 'Escuro', system: 'Sistema' },
     appearanceHint: 'Escolhe entre claro, escuro ou o tema do celular',

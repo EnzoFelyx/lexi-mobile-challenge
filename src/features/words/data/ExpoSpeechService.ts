@@ -1,4 +1,5 @@
 import * as Speech from 'expo-speech';
+import { Platform } from 'react-native';
 import { injectable } from 'tsyringe';
 
 import { logger } from '@/shared/utils/logger';
@@ -6,7 +7,11 @@ import { logger } from '@/shared/utils/logger';
 import type { SpeechService } from '../domain/PronunciationAudio';
 import { ensurePlaybackAudioMode } from './playbackAudioMode';
 
-const SPEECH_LANGUAGE = 'en-US';
+/**
+ * No Android, o expo-speech só aceita o idioma sem a região: com "en-US", ele considera o valor
+ * inválido e usa o idioma do aparelho, lendo a palavra inglesa com a voz em português.
+ */
+export const speechLanguageFor = (os: string): string => (os === 'android' ? 'en' : 'en-US');
 
 @injectable()
 export class ExpoSpeechService implements SpeechService {
@@ -17,7 +22,7 @@ export class ExpoSpeechService implements SpeechService {
 
   private speakNow(text: string, onFinish: () => void): void {
     Speech.speak(text, {
-      language: SPEECH_LANGUAGE,
+      language: speechLanguageFor(Platform.OS),
       onDone: onFinish,
       onStopped: onFinish,
       onError: (error) => {
