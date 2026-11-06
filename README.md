@@ -10,17 +10,17 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 
 ## Demonstração
 
-🎬 **Vídeo demonstrativo:** [assistir ao vídeo](COLE_AQUI_O_LINK_DO_VIDEO)
+🎬 **Vídeo demonstrativo:** clique na imagem para assistir.
 
 <p align="center">
-  <img src="img/demo.gif" alt="Fluxo completo do Lexi" width="280" />
-  <br />
-  <em>Fluxo completo: lista, detalhe, áudio, favoritar, histórico e login.</em>
+  <a href="https://www.youtube.com/watch?v=3GnNPClID0k">
+    <img src="https://img.youtube.com/vi/3GnNPClID0k/hqdefault.jpg" alt="Vídeo demonstrativo do Lexi" width="360" />
+  </a>
 </p>
 
 | | | | |
 | --- | --- | --- | --- |
-| <img src="img/login.png" alt="Login" width="180" /><br />**Login:** e-mail e senha, ou visitante | <img src="img/word-list.png" alt="Word list" width="180" /><br />**Word list:** grade com rolagem infinita | <img src="img/word-detail.png" alt="Detalhe da palavra" width="180" /><br />**Detalhe:** fonética, áudio e significados | <img src="img/word-not-found.png" alt="Palavra sem resultado" width="180" /><br />**Sem resultado:** Retry e Next |
+| <img src="img/login.gif" alt="Login e cadastro" width="180" /><br />**Login e cadastro:** validação dos campos, ou visitante | <img src="img/word-list.gif" alt="Word list" width="180" /><br />**Word list:** grade com rolagem infinita | <img src="img/word-detail.gif" alt="Detalhe da palavra" width="180" /><br />**Detalhe:** fonética, áudio e significados | <img src="img/word-not-found.png" alt="Palavra sem resultado" width="180" /><br />**Sem resultado:** Retry e Next |
 | <img src="img/history.png" alt="History" width="180" /><br />**History:** palavras já vistas | <img src="img/favorites.png" alt="Favorites" width="180" /><br />**Favorites:** palavras salvas | <img src="img/settings.png" alt="Ajustes" width="180" /><br />**Ajustes:** conta, tema e idioma | <img src="img/word-detail-dark.png" alt="Detalhe no tema escuro" width="180" /><br />**Tema escuro:** detalhe da palavra |
 
 ## O que o app faz
@@ -64,7 +64,9 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 
 ## Como rodar
 
-Requisitos: [Node.js](https://nodejs.org/) 22.13 ou mais novo e o app **Expo Go** (SDK 58) num aparelho Android ou iOS.
+**No Android, o caminho mais rápido é o APK:** baixe o [`lexi-v1.0.0.apk`](https://github.com/EnzoFelyx/lexi-mobile-challenge/releases/download/v1.0.0/lexi-v1.0.0.apk) da [release v1.0.0](https://github.com/EnzoFelyx/lexi-mobile-challenge/releases/tag/v1.0.0) e instale. O login já vem configurado; o Android pode pedir permissão para instalar um app fora da loja.
+
+**No iOS, ou para rodar o código, use o Expo Go.** Requisitos: [Node.js](https://nodejs.org/) 22.13 ou mais novo e o app **Expo Go** (SDK 58) num aparelho Android ou iOS.
 
 **1. Instale o projeto:**
 
@@ -115,8 +117,8 @@ O projeto acima usa o plano gratuito, que pode ser pausado por inatividade. Ness
 
 ## Testes e verificação
 
-- **Testes:** 423 testes em 89 suítes, rodando no CI a cada push, junto com lint e checagem de tipos. Os repositórios usam SQL real, num SQLite em memória.
-- **Cobertura de instruções:** `domain` 99,0%, `data` 93,7% e 87,6% no projeto. Os adaptadores finos de módulos nativos (áudio e voz) ficaram sem teste de propósito.
+- **Testes:** 425 testes em 89 suítes, rodando no CI a cada push, junto com lint e checagem de tipos. Os repositórios usam SQL real, num SQLite em memória.
+- **Cobertura de instruções:** `domain` 99,0%, `data` 93,7% e 87,7% no projeto. Os adaptadores finos de módulos nativos (áudio e voz) ficaram sem teste de propósito.
 - **RLS:** testado direto no servidor com dois usuários, em `favorites` e `history`: 28 de 28 verificações passaram.
 - **Aparelhos:** conferido num iPhone com iOS 26, num emulador Android atual e num Android 12 físico.
 - **Sem testes E2E:** o desafio pede testes unitários ou E2E, e o prazo foi para os unitários e de componentes.
@@ -167,7 +169,7 @@ As principais decisões:
 - **E-mail e senha no lugar de "usuário e senha".** O e-mail faz o papel de usuário, e é o que o Supabase Auth oferece. Não há login social, porque o desafio não pede e o retorno do login muda entre o Expo Go e o app compilado. Também não há confirmação de e-mail, para o avaliador criar a conta e entrar na hora.
 - **Local-first com sincronização.** Favoritos e histórico sempre passam pelo SQLite. Ao entrar, os dados do visitante são mesclados na conta: favoritos por união e, no histórico, vale a visita mais recente de cada palavra. Cada mudança entra numa fila local e é enviada quando houver conexão, então o app continua usável offline.
 - **Ao sair da conta,** a pessoa continua no app como visitante, e os dados da conta saem do aparelho depois de enviados. Eles voltam ao entrar de novo, e outra pessoa no mesmo celular não os vê.
-- **Roda no Expo Go.** Sem código nativo próprio, para o avaliador testar no iOS sem conta paga da Apple.
+- **Roda no Expo Go.** Sem código nativo próprio, para o avaliador testar no iOS sem conta paga da Apple. No Android, há também um APK.
 - **Interface em inglês por padrão, com opção de português.** O wireframe do desafio mistura idiomas (abas e "Meanings" em inglês, "Voltar/Próximo" em português). Como todas as definições, exemplos e classes gramaticais da Free Dictionary API vêm em inglês, o padrão é inglês, por consistência; "Previous/Next" mantêm a função do wireframe. Em Ajustes dá para trocar os textos do app para português; o conteúdo da API continua em inglês.
 - **Detalhe em tela cheia abaixo do Android 13.** A folha nativa não abriu num Android 12 real, então, abaixo do Android 13, o detalhe abre como modal.
 - **Acessibilidade.** O contraste AA da WCAG é conferido por um teste em cada par de cores, e o texto secundário do tema claro foi escurecido um pouco em relação ao Figma para passar no trilho das abas. A fonte do sistema escala até 200% (130% no header, nas abas e na barra do detalhe), e o app respeita "Reduzir movimento".
@@ -175,10 +177,8 @@ As principais decisões:
 ## Limites conhecidos
 
 - **Free Dictionary API:** tem limite de requisições por IP. Ao atingi-lo, o app mostra uma mensagem própria e não repete a chamada sozinho. O servidor de áudio também pode ficar fora do ar; nesse caso, a voz do aparelho assume.
-- **Android 12:** a causa de a folha nativa não abrir não foi identificada; a tela cheia contorna o problema.
 - **Sair da conta sem conexão:** o app tenta enviar os dados por até 3 segundos. Se não conseguir, eles ficam guardados no aparelho, sem aparecer para ninguém, e são enviados no próximo login dessa conta.
 - **Barra de rolagem rápida:** cobre só as palavras já carregadas; arrastando até o fim, a próxima página entra como na rolagem normal.
-- **Android com navegação por gestos:** arrastar a partir da borda da tela é o "voltar" do sistema e fecha o detalhe; começando no meio do conteúdo, troca de palavra.
 - **iOS 26:** a folha do detalhe cresce um pouco ao ser tocada. É um comportamento do sistema, sem opção para desligar.
 - **Splash:** o Expo Go mostra a tela de carregamento dele; a splash do Lexi só aparece no app compilado.
 - **Área de toque:** o mínimo é de 44pt, como no Figma, abaixo dos 48dp recomendados no Android.

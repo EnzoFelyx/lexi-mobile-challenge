@@ -205,30 +205,22 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Tirar do README o aviso "Em desenvolvimento" e atualizar o texto de status
 - [x] Registrar no README as decisões recentes: login como primeira tela, e-mail e senha no lugar de "usuário e senha", sem login social e sem confirmação de e-mail, mesclagem dos dados do visitante, fila offline, tela cheia abaixo do Android 13 e os limites conhecidos
 - [x] Citar no README a cobertura de testes, o resultado do teste de RLS e o que foi conferido em cada aparelho
-- [ ] **Mídia do README (autor):** os espaços e as legendas já estão nos dois READMEs, em "Demonstração". Salvar em `img/`, com estes nomes:
-  - `demo.gif`: fluxo completo (lista, detalhe, áudio, favoritar, histórico, login)
-  - `login.png`: tela de login
-  - `word-list.png`: aba Word list
-  - `word-detail.png`: detalhe de uma palavra, com o áudio e os significados
-  - `word-not-found.png`: palavra sem resultado, com Retry e Next
-  - `history.png`: aba History com palavras
-  - `favorites.png`: aba Favorites com palavras
-  - `settings.png`: tela de Ajustes
-  - `word-detail-dark.png`: detalhe de uma palavra no tema escuro
-- [ ] **Link do vídeo demonstrativo (autor):** trocar `COLE_AQUI_O_LINK_DO_VIDEO` nos dois READMEs
+- [x] **Mídia do README (autor):** GIFs de login, Word list e detalhe (convertidos dos vídeos do autor) e fotos em `img/`. O fluxo completo fica no vídeo do YouTube. A quebra por letra nas palavras longas do iOS aparece na mídia e fica como está (decisão do autor, 2026-11-06)
+- [x] **Foto de Ajustes (autor):** em `img/settings.png`, na tabela dos dois READMEs
+- [x] **Link do vídeo demonstrativo (autor):** thumbnail e link do YouTube nos dois READMEs
 - [x] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações Conferido pelo autor em 2026-11-06.
 - [x] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco
 - [x] Apagar em **Authentication → Users** as duas contas do teste de RLS (feito pelo autor em 2026-11-06)
 - [x] Conferir em **Authentication → Rate Limits** os limites contra cadastros em massa: 30 cadastros e logins por IP a cada 5 minutos, mantido (conferido pelo autor em 2026-11-06)
 - [ ] Depois da avaliação: apagar ou pausar o projeto Supabase, ou trocar a chave
 - [x] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
-- [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
-- [ ] Testar o fluxo do avaliador num clone limpo, seguindo só o README: instalar, preencher o `.env`, rodar, cadastrar e entrar. Em 2026-11-06, o clone limpo instalou e empacotou para Android e iOS, e o `expo-doctor` passou 20 de 20; falta rodar no aparelho, cadastrar e entrar (autor)
+- [x] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
+- [x] Testar o fluxo do avaliador num clone limpo, seguindo só o README: instalar, preencher o `.env`, rodar, cadastrar e entrar. Em 2026-11-06, o clone limpo instalou e empacotou para Android e iOS, e o `expo-doctor` passou 20 de 20; o autor rodou no aparelho, cadastrou e entrou
 - [ ] Commit final, link do repositório na plataforma da Coodesh e envio (feito pelo autor, manualmente; decisão de 2026-11-06)
 - [ ] Gravar o vídeo de apresentação na plataforma, se o teste pedir
 - [ ] Entrar no painel do Supabase perto da data da avaliação para o projeto não pausar
 
-**Pronto quando:** o avaliador consegue abrir no Expo Go e testar todos os casos de uso seguindo só o README.
+**Pronto quando:** o avaliador consegue instalar o APK ou abrir no Expo Go e testar todos os casos de uso seguindo só o README.
 
 ---
 
@@ -236,7 +228,7 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** dar ao avaliador um APK para instalar sem configurar nada (adiado para depois da etapa 7, decisão do autor, 2026-11-06).
 
-- [ ] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
-- [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`
-- [ ] Citar o APK no README, em "Como rodar" (a menção antiga saiu para o README não prometer um arquivo que ainda não existe)
+- [x] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
+- [x] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`
+- [x] Citar o APK no README, em "Como rodar" 
 - [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "A brief pause." com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)

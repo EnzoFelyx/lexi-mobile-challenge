@@ -36,6 +36,15 @@ const lookUp = (word: string, refresh: boolean) =>
     { refresh },
   );
 
+/** O limite da API é esperado e tem tela própria: fica só no terminal, sem aviso no celular. */
+const logLookupFailure = (message: string, error: unknown) => {
+  if (error instanceof DictionaryRateLimitError) {
+    logger.debug('words', message, error);
+    return;
+  }
+  logger.warn('words', message, error);
+};
+
 /**
  * Detalhe da palavra: React Query (memória) → SQLite → API (CLAUDE.md 6.6). No "Word not found",
  * o `retry` ignora o 404 guardado e consulta a API de novo; num erro de rede, só tenta outra vez.
@@ -52,7 +61,7 @@ export function useWordDetail(word: string): WordDetailResult {
 
   useEffect(() => {
     if (query.error) {
-      logger.warn('words', `Could not look up "${word}".`, query.error);
+      logLookupFailure(`Could not look up "${word}".`, query.error);
     }
   }, [query.error, word]);
 
@@ -69,7 +78,7 @@ export function useWordDetail(word: string): WordDetailResult {
       void queryClient
         .fetchQuery({ queryKey, queryFn: () => lookUp(word, true), staleTime: 0 })
         .catch((error: unknown) => {
-          logger.warn('words', `Retrying "${word}" failed.`, error);
+          logLookupFailure(`Retrying "${word}" failed.`, error);
         });
       return;
     }
