@@ -7,6 +7,15 @@ Formato baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). 
 
 ---
 
+## 2026-11-06 — Etapa 7 (entrega)
+
+### Documentação
+
+- READMEs finais em português e inglês: demonstração, o que o app faz, como testar o login no Expo Go com a chave pública, como usar outro projeto Supabase, testes e verificação, decisões e limites conhecidos. Os espaços do GIF, das fotos e do vídeo ficam para o autor preencher.
+- Cobertura medida de novo: `domain` 99,0%, `data` 93,7% e 87,6% no projeto.
+
+---
+
 ## 2026-11-05 — Etapa 5 (Supabase e login)
 
 Reorganizada pelo autor em três partes: visual do Figma, Supabase e integração.
