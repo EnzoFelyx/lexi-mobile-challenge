@@ -53,6 +53,8 @@ Escaneie o QR code com a câmera (iOS) ou pelo Expo Go (Android). O celular e o 
 
 As telas seguem este [arquivo do Figma](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (versões clara e escura, estados de carregamento e erro e uma vitrine de componentes). A interface segue o wireframe do desafio. Onde o app difere do Figma de propósito (por contraste ou desempenho), o motivo está registrado no [`CLAUDE.md`](CLAUDE.md).
 
+O layout do Figma foi adaptado durante o desenvolvimento das telas no aplicativo, para uma melhor experiência do usuário. Quando há diferença, a referência é o app.
+
 ## Navegação e interação
 
 Pequenas mudanças para deixar a navegação entre palavras e o uso do app mais rápidos e previsíveis. Quem estuda vocabulário passa por muitas palavras seguidas, então os botões do Figma continuam sendo o caminho principal (e acessível), com alguns atalhos por cima:

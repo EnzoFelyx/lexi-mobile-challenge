@@ -150,7 +150,7 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 ### 6.1 Lista de palavras
 
 - O JSON do dwyl (~370 mil palavras, formato `{ "a": 1, … }`) é **baixado na primeira execução** e gravado no **SQLite** em lotes de 1.000 a 5.000 dentro de transação, com tela de "preparando o dicionário" com progresso e erro com "tentar de novo".
-  - ⏳ **Layout da tela de "preparando o dicionário" (decisão do autor, 2026-11-03):** o autor vai desenhar no Figma depois (não há frame). Até lá, tela genérica com os componentes existentes (título, texto, progresso, "Try again"). Trocar quando o frame existir.
+  - **Layout da tela de "preparando o dicionário" (decisão do autor, 2026-11-06):** fica a tela feita com os componentes existentes (título, texto, progresso, "Try again"), sem frame no Figma.
 - **Palavra longa no card (decisão do autor, 2026-11-04):** quebra em até 2 linhas no tamanho do Figma, em vez de encolher numa linha. O texto do card tem ~82pt (~8 letras por linha em Fraunces 19); medido: não cabem em 1 linha 6% do Basic English, 26% das frequentes e 60% do dwyl, mas em 2 linhas cabem todas as comuns e 98,4% do dwyl. No Android quebra com hífen (`android_hyphenationFrequency="full"`); no iOS por letra, sem hífen (o React Native não expõe a hifenização do iOS). Só o que passa de ~16 letras ainda encolhe (até 60%).
 - **Card sem fonética (decisão do autor, 2026-11-03):** o WordCard mostra só a palavra, diferente do Figma (que tem a fonética abaixo). A lista do dwyl não traz fonética, e buscar na API para cada card seria pesado. A fonética aparece só no detalhe, quando o usuário abre a palavra.
 - **Ordem aleatória e estável (decisão do autor, 2026-11-03):** o seed grava um `sort_key` aleatório por palavra, e a lista é ordenada por (`sort_key`, `word`). Em ordem alfabética a lista começaria por "a", "aa", "aaa"…, muitas sem resultado na API. A ordem não muda entre sessões. Registrar a decisão no README.
@@ -158,7 +158,7 @@ O Figma usa ícones **Lucide** (`x`, `heart`, `user-round`, `history`, `book-sea
 - **Palavras "Word not found" continuam na lista (decisão do autor, 2026-11-04):** a lista continua sendo a do dwyl inteira. Chegou a ser feito um filtro que escondia as palavras com 404 guardado, mas foi desfeito antes do commit: o autor abriu "every" (palavra comum) e recebeu 404, e a resposta vinha do CDN da API (`cf-cache-status: HIT`, `age` de ~27 h; a mensagem diz "try the search again at later time"). Ou seja, o 404 dessa API nem sempre é definitivo, e esconder puniria palavras boas; além disso, cada 404 só seria visto uma vez, um card sumindo da grade parece defeito e a lista mudando de tamanho complica o Previous/Next. O estado "Word not found" do Figma (Retry e Next) é a resposta prevista. Ficaram:
   - o **404 no cache com validade de 7 dias** (`NOT_FOUND_CACHE_TTL_MS`, `notFoundExpiry.ts`): reabrir responde na hora sem gastar consulta; vencido, o cache trata como ausente e a API é consultada de novo. Palavras encontradas não vencem;
   - o **filtro de hífen e símbolos no seed** (`isListableWord`, `/^[a-z]+$/`): só 2 das 370.100 palavras ("jean-pierre", "jean-christophe"); sem migration para refazer o seed, quem já baixou fica com essas 2;
-  - ideia opcional para a etapa 6: card levemente apagado para palavra com 404 conhecido, sem escondê-la.
+  - **card apagado para palavra com 404 ainda válido (decisão do autor, 2026-11-06):** na Word list, o card usa `surfaceMuted` e texto secundário, continua abrindo, e o leitor de tela avisa na dica. Atualiza quando o detalhe responde (`useNotFoundWords`). Se a leitura falhar, os cards aparecem normais.
 - **Limite da Free Dictionary API:** por IP (cada celular tem o seu), ~450 requisições por janela de uns 5 minutos (cabeçalho `x-ratelimit-limit`; o autor já citou "300 per 5 minutes"). O cabeçalho de reinício não é confiável (aponta para uma data passada); há relatos de bloqueios de 1 a 30 minutos. O app responde com 429, tratado como erro sem cache; mensagem própria na parte 5 da etapa 3.
 - Paginação por **keyset** (`WHERE (sort_key, word) > (?, ?) ORDER BY sort_key, word LIMIT 60`), nunca `OFFSET`. 60 = 20 linhas × 3 colunas.
 - Grade com **FlashList** (`numColumns={3}`).
@@ -322,6 +322,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 
 > A linha sobre React Native foi a sugerida para acrescentar ao prompt original. Se o prompt enviado ao Figma foi diferente, atualize este bloco.
 
+- **O trabalho no Figma terminou (decisão do autor, 2026-11-06):** ele não recebe mais mudanças. O layout foi adaptado durante o desenvolvimento, e, quando há diferença, a referência é o app.
 - Em caso de conflito entre o Figma e este arquivo, **pergunte ao autor**.
 - O Figma MCP está no plano **Starter** (cota mensal baixa): leia só os frames necessários, um por vez.
 

@@ -53,6 +53,8 @@ Scan the QR code with the camera (iOS) or with Expo Go (Android). The phone and 
 
 The screens follow this [Figma file](https://www.figma.com/design/2SH7Dc3Qpr9ZjIw0iv8GGv/Untitled?node-id=0-1) (light and dark versions, loading and error states, and a component showcase). The interface follows the challenge wireframe. Where the app differs from the Figma on purpose (for contrast or performance), the reason is recorded in [`CLAUDE.md`](CLAUDE.md).
 
+The Figma layout was adapted while the app screens were being built, for a better user experience. Where they differ, the app is the reference.
+
 ## Navigation and interaction
 
 Small changes to make moving through words and using the app faster and more predictable. People who study vocabulary go through many words in a row, so the Figma buttons stay as the main (and accessible) path, and a few shortcuts sit on top of them:
