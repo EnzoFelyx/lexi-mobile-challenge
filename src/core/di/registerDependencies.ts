@@ -1,8 +1,10 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { database, type Database, sqliteConnection } from '@/core/database/client';
+import { type LexiSupabaseClient, supabase } from '@/core/supabase/client';
 import { KvAuthEntryStorage } from '@/features/auth/data/KvAuthEntryStorage';
-import { PreviewAuthService } from '@/features/auth/data/PreviewAuthService';
+import { SupabaseAuthService } from '@/features/auth/data/SupabaseAuthService';
+import { UnavailableAuthService } from '@/features/auth/data/UnavailableAuthService';
 import type { AuthEntryStorage } from '@/features/auth/domain/AuthEntryStorage';
 import type { AuthService } from '@/features/auth/domain/AuthService';
 import { KvPreferenceStorage } from '@/features/settings/data/KvPreferenceStorage';
@@ -21,6 +23,14 @@ import type {
 import type { WordCacheRepository } from '@/features/words/domain/WordCacheRepository';
 import type { WordListSource } from '@/features/words/domain/WordListSource';
 import type { WordRepository } from '@/features/words/domain/WordRepository';
+import { AccountSyncService } from '@/features/sync/data/AccountSyncService';
+import { SqliteLocalAccountData } from '@/features/sync/data/SqliteLocalAccountData';
+import { SupabaseRemoteAccountData } from '@/features/sync/data/SupabaseRemoteAccountData';
+import type {
+  AccountSync,
+  LocalAccountData,
+  RemoteAccountData,
+} from '@/features/sync/domain/AccountSync';
 import { DwylWordListSource } from '@/features/words/data/DwylWordListSource';
 import { ExpoPronunciationAudioFactory } from '@/features/words/data/ExpoPronunciationAudioFactory';
 import { ExpoSpeechService } from '@/features/words/data/ExpoSpeechService';
@@ -51,8 +61,19 @@ export function registerDependencies(): void {
     SqliteWordCacheRepository,
   );
   container.registerSingleton<HistoryRepository>(TOKENS.HistoryRepository, SqliteHistoryRepository);
-  // Parte 1 da etapa 5: autenticação de mentira, até o Supabase entrar (parte 3).
-  container.registerSingleton<AuthService>(TOKENS.AuthService, PreviewAuthService);
+  // Sem o .env não há client: o app continua como visitante, e só entrar mostra erro.
+  if (supabase) {
+    container.registerInstance<LexiSupabaseClient>(TOKENS.SupabaseClient, supabase);
+    container.registerSingleton<AuthService>(TOKENS.AuthService, SupabaseAuthService);
+    container.registerSingleton<RemoteAccountData>(
+      TOKENS.RemoteAccountData,
+      SupabaseRemoteAccountData,
+    );
+  } else {
+    container.registerSingleton<AuthService>(TOKENS.AuthService, UnavailableAuthService);
+  }
+  container.registerSingleton<LocalAccountData>(TOKENS.LocalAccountData, SqliteLocalAccountData);
+  container.registerSingleton<AccountSync>(TOKENS.AccountSync, AccountSyncService);
   container.registerSingleton<AuthEntryStorage>(TOKENS.AuthEntryStorage, KvAuthEntryStorage);
   container.registerSingleton<PreferenceStorage>(TOKENS.PreferenceStorage, KvPreferenceStorage);
   container.registerSingleton<FavoritesRepository>(

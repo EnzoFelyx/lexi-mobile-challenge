@@ -7,7 +7,7 @@ import { TOKENS } from '@/core/di/tokens';
 import { en } from '@/i18n/en';
 import { createQueryClientWrapper } from '@/shared/testing/queryClientWrapper';
 
-import { PreviewAuthService } from '../../data/PreviewAuthService';
+import { FakeAuthService } from '@/features/auth/testing/FakeAuthService';
 import type { AuthService } from '../../domain/AuthService';
 import { useSessionStore } from '../../hooks/sessionStore';
 import { useEntryNavigation } from '../../hooks/useEntryNavigation';
@@ -43,7 +43,7 @@ const backArrow = () => screen.queryByRole('button', { name: en.header.back });
 
 describe('back arrow on the login and the sign up', () => {
   beforeEach(() => {
-    container.registerInstance<AuthService>(TOKENS.AuthService, new PreviewAuthService());
+    container.registerInstance<AuthService>(TOKENS.AuthService, new FakeAuthService());
     useSessionStore.setState({ status: 'guest', user: null, hasChosenGuest: false });
   });
 

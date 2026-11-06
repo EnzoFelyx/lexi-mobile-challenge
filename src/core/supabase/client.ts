@@ -1,8 +1,10 @@
 import 'expo-sqlite/localStorage/install';
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 import type { Database } from './database.types';
+
+export type LexiSupabaseClient = SupabaseClient<Database>;
 
 const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const publishableKey = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY;

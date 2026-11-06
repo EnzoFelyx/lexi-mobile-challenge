@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Alert } from 'react-native';
 
-import { GUEST_USER_ID } from '@/constants/auth';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { useOwnerId } from '@/features/auth/hooks/useOwnerId';
+import { useRequestAccountSync } from '@/features/sync/hooks/useRequestAccountSync';
 import { useTexts } from '@/i18n/useTexts';
 import { logger } from '@/shared/utils/logger';
 
@@ -24,11 +25,6 @@ interface FavoriteChange {
   favorite: boolean;
 }
 
-const saveFavorite = ({ word, favorite }: FavoriteChange) => {
-  const repository = container.resolve<FavoritesRepository>(TOKENS.FavoritesRepository);
-  return favorite ? repository.add(word, GUEST_USER_ID) : repository.remove(word, GUEST_USER_ID);
-};
-
 /**
  * Coração do detalhe com atualização otimista pelo React Query (decisão do autor, 2026-11-05):
  * o coração e a aba Favorites mudam na hora; se a gravação falhar, os dois voltam e um alerta
@@ -37,27 +33,36 @@ const saveFavorite = ({ word, favorite }: FavoriteChange) => {
 export function useFavoriteToggle(word: string): FavoriteToggle {
   const t = useTexts();
   const queryClient = useQueryClient();
+  const ownerId = useOwnerId();
+  const requestSync = useRequestAccountSync();
   const favorites = useFavorites();
+  const listKey = favoriteQueryKeys.list(ownerId);
   const isFavorite = favorites.words.includes(word);
 
   const mutation = useMutation({
-    mutationFn: saveFavorite,
+    mutationFn: ({ word: changedWord, favorite }: FavoriteChange) => {
+      const repository = container.resolve<FavoritesRepository>(TOKENS.FavoritesRepository);
+      return favorite
+        ? repository.add(changedWord, ownerId)
+        : repository.remove(changedWord, ownerId);
+    },
     onMutate: async (change: FavoriteChange) => {
       // Uma leitura em andamento não pode sobrescrever a mudança otimista ao chegar.
-      await queryClient.cancelQueries({ queryKey: favoriteQueryKeys.list });
-      const previous = queryClient.getQueryData<string[]>(favoriteQueryKeys.list);
-      queryClient.setQueryData<string[]>(favoriteQueryKeys.list, (words = []) =>
+      await queryClient.cancelQueries({ queryKey: listKey });
+      const previous = queryClient.getQueryData<string[]>(listKey);
+      queryClient.setQueryData<string[]>(listKey, (words = []) =>
         withFavorite(words, change.word, change.favorite),
       );
       return { previous };
     },
     onError: (error, change, context) => {
-      queryClient.setQueryData(favoriteQueryKeys.list, context?.previous);
+      queryClient.setQueryData(listKey, context?.previous);
       logger.warn('favorites', `Could not save "${change.word}" as a favorite.`, error);
       Alert.alert(t.favorites.saveErrorTitle, t.favorites.saveErrorMessage);
     },
     // Confere com o banco no fim, certo ou errado (ex.: dois toques rápidos).
-    onSettled: () => queryClient.invalidateQueries({ queryKey: favoriteQueryKeys.list }),
+    onSuccess: requestSync,
+    onSettled: () => queryClient.invalidateQueries({ queryKey: listKey }),
   });
 
   return {

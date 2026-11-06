@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import type { Database } from '@/core/database/client';
 import { ownedBy } from '@/core/database/ownership';
+import { recordPendingChange } from '@/core/database/pendingSync';
 import { history } from '@/core/database/schema';
 import { historyRowSchema, parseRows } from '@/core/database/validation';
 import { TOKENS } from '@/core/di/tokens';
@@ -23,15 +24,18 @@ export class SqliteHistoryRepository implements HistoryRepository {
   async recordView(word: string, userId: string | null): Promise<void> {
     const viewedAt = new Date();
 
-    const updated = await this.database
-      .update(history)
-      .set({ viewedAt })
-      .where(and(ownedBy(history.userId, userId), eq(history.word, word)))
-      .returning({ id: history.id });
-    if (updated.length > 0) {
-      return;
-    }
-    await this.database.insert(history).values({ userId, word, viewedAt }).onConflictDoNothing();
+    this.database.transaction((transaction) => {
+      const updated = transaction
+        .update(history)
+        .set({ viewedAt })
+        .where(and(ownedBy(history.userId, userId), eq(history.word, word)))
+        .returning({ id: history.id })
+        .all();
+      if (updated.length === 0) {
+        transaction.insert(history).values({ userId, word, viewedAt }).onConflictDoNothing().run();
+      }
+      recordPendingChange(transaction, userId, 'history', word, 'upsert');
+    });
   }
 
   /** Lista inteira, sem paginação: é o próprio usuário que a monta (CLAUDE.md 6.3). */
@@ -47,6 +51,16 @@ export class SqliteHistoryRepository implements HistoryRepository {
   }
 
   async clear(userId: string | null): Promise<void> {
-    await this.database.delete(history).where(ownedBy(history.userId, userId));
+    this.database.transaction((transaction) => {
+      const viewed = transaction
+        .select({ word: history.word })
+        .from(history)
+        .where(ownedBy(history.userId, userId))
+        .all();
+      viewed.forEach(({ word }) =>
+        recordPendingChange(transaction, userId, 'history', word, 'delete'),
+      );
+      transaction.delete(history).where(ownedBy(history.userId, userId)).run();
+    });
   }
 }

@@ -1,6 +1,6 @@
-import { GUEST_USER_ID } from '@/constants/auth';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { useOwnerId } from '@/features/auth/hooks/useOwnerId';
 import {
   type SavedWords,
   useSavedWords,
@@ -10,10 +10,11 @@ import {
 import type { HistoryRepository } from '../domain/HistoryRepository';
 import { historyQueryKeys } from './queryKeys';
 
-const loadHistory = () =>
-  container.resolve<HistoryRepository>(TOKENS.HistoryRepository).list(GUEST_USER_ID);
-
 /** Palavras já vistas, da mais recente para a mais antiga (CLAUDE.md 6.3). */
 export function useHistory(options?: UseSavedWordsOptions): SavedWords {
-  return useSavedWords(historyQueryKeys.list, loadHistory, options);
+  const ownerId = useOwnerId();
+  const loadHistory = () =>
+    container.resolve<HistoryRepository>(TOKENS.HistoryRepository).list(ownerId);
+
+  return useSavedWords(historyQueryKeys.list(ownerId), loadHistory, options);
 }

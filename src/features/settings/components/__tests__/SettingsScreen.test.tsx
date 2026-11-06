@@ -3,7 +3,7 @@ import { Appearance } from 'react-native';
 
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
-import { PreviewAuthService } from '@/features/auth/data/PreviewAuthService';
+import { FakeAuthService } from '@/features/auth/testing/FakeAuthService';
 import type { AuthService } from '@/features/auth/domain/AuthService';
 import { useSessionStore } from '@/features/auth/hooks/sessionStore';
 import { useSessionSync } from '@/features/auth/hooks/useSessionSync';
@@ -35,7 +35,7 @@ const registerStorage = () => {
   return storage;
 };
 
-const renderSettings = async (auth: AuthService = new PreviewAuthService()) => {
+const renderSettings = async (auth: AuthService = new FakeAuthService()) => {
   container.registerInstance<AuthService>(TOKENS.AuthService, auth);
   await render(<SettingsWithSession />);
   await screen.findByRole('header', { name: en.settings.profile });
@@ -73,7 +73,7 @@ describe('SettingsScreen', () => {
   });
 
   it('shows the account after logging in and goes back to the guest after logging out', async () => {
-    const auth = new PreviewAuthService();
+    const auth = new FakeAuthService();
     await renderSettings(auth);
 
     await act(() => auth.signIn({ email: 'alex@example.com', password: '' }));

@@ -10,11 +10,7 @@ import { useLanguageStore } from '@/i18n/languageStore';
 // Reanimated 4.7 não importa no Jest (ver src/shared/testing/reanimatedMock.ts).
 jest.mock('react-native-reanimated', () => jest.requireActual('@/shared/testing/reanimatedMock'));
 
-// Sem a espera da autenticação de mentira e com a navegação normal, fora do modo temporário.
-jest.mock('@/constants/auth', () => ({
-  ...jest.requireActual('@/constants/auth'),
-  PREVIEW_AUTH_DELAY_MS: 0,
-}));
+// Navegação normal, fora do modo temporário de ajuste de design.
 jest.mock('@/constants/navigation', () => ({
   ...jest.requireActual('@/constants/navigation'),
   AUTH_DESIGN_PREVIEW: false,

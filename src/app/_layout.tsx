@@ -19,6 +19,7 @@ import { createNavigationTheme } from '@/core/theme/navigationTheme';
 import { ThemeProvider } from '@/core/theme/ThemeProvider';
 import { useTheme } from '@/core/theme/useTheme';
 import { useThemeFonts } from '@/core/theme/useThemeFonts';
+import { AccountSyncRunner } from '@/features/sync/components/AccountSyncRunner';
 import { useTexts } from '@/i18n/useTexts';
 import { MessageScreen } from '@/shared/components/MessageScreen';
 
@@ -62,6 +63,7 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AccountSyncRunner />
       <NavigationThemeProvider value={createNavigationTheme(theme)}>
         <ThemeProvider>
           {/* A barra de status segue o tema do app, não o do celular: com o tema escolhido nas

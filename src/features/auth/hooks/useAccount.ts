@@ -1,6 +1,7 @@
 import { AUTH_DESIGN_PREVIEW } from '@/constants/navigation';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
+import { leaveAccount } from '@/features/sync/hooks/leaveAccount';
 import { logger } from '@/shared/utils/logger';
 import { openWordList } from '@/shared/utils/navigation';
 
@@ -48,9 +49,11 @@ export function useAccount(): Account {
     signOut: () => {
       // Sair mantém no app, como visitante, em vez de voltar ao login.
       chooseGuestEntry();
-      auth()
-        .signOut()
-        .catch((error: unknown) => logger.warn('auth', 'Could not log out.', error));
+      if (user) {
+        leaveAccount(user.id).catch((error: unknown) =>
+          logger.warn('auth', 'Could not log out.', error),
+        );
+      }
     },
   };
 }

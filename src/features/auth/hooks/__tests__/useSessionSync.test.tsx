@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from '@testing-library/react-native';
 import { container } from '@/core/di/container';
 import { TOKENS } from '@/core/di/tokens';
 
-import { PreviewAuthService } from '../../data/PreviewAuthService';
+import { FakeAuthService } from '@/features/auth/testing/FakeAuthService';
 import type { AuthService } from '../../domain/AuthService';
 import { useSessionStore } from '../sessionStore';
 import { useAccount } from '../useAccount';
@@ -25,7 +25,7 @@ describe('useSessionSync and useAccount', () => {
   });
 
   it('becomes a guest once the saved session is read', async () => {
-    container.registerInstance<AuthService>(TOKENS.AuthService, new PreviewAuthService());
+    container.registerInstance<AuthService>(TOKENS.AuthService, new FakeAuthService());
 
     const { result } = await renderSession();
 
@@ -33,7 +33,7 @@ describe('useSessionSync and useAccount', () => {
   });
 
   it('follows signing in and out', async () => {
-    container.registerInstance<AuthService>(TOKENS.AuthService, new PreviewAuthService());
+    container.registerInstance<AuthService>(TOKENS.AuthService, new FakeAuthService());
     const { result } = await renderSession();
     await waitFor(() => expect(result.current.status).toBe('guest'));
 
@@ -49,7 +49,7 @@ describe('useSessionSync and useAccount', () => {
 
   it('stays a guest when the saved session cannot be read', async () => {
     jest.spyOn(console, 'warn').mockImplementation(() => undefined);
-    const broken = new PreviewAuthService();
+    const broken = new FakeAuthService();
     jest.spyOn(broken, 'getUser').mockRejectedValue(new Error('storage unavailable'));
     container.registerInstance<AuthService>(TOKENS.AuthService, broken);
 
