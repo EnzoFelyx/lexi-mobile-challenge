@@ -92,6 +92,39 @@ describe('useWordDetail', () => {
     );
   });
 
+  it('keeps the rate limit off the device warnings, logging it only for the terminal', async () => {
+    const warn = jest.spyOn(console, 'warn');
+    const debug = jest.spyOn(console, 'debug').mockImplementation(() => undefined);
+    register(null, async () => {
+      throw new DictionaryRateLimitError('hello');
+    });
+
+    const { result } = await renderHook(() => useWordDetail('hello'), {
+      wrapper: createQueryClientWrapper(),
+    });
+    await waitFor(() => expect(result.current.state.status).toBe('error'));
+
+    expect(warn).not.toHaveBeenCalled();
+    expect(debug).toHaveBeenCalledWith(
+      '[words] Could not look up "hello".',
+      expect.any(DictionaryRateLimitError),
+    );
+  });
+
+  it('still warns on the device about other lookup failures', async () => {
+    const warn = jest.spyOn(console, 'warn');
+    register(null, async () => {
+      throw new Error('Network request failed');
+    });
+
+    const { result } = await renderHook(() => useWordDetail('hello'), {
+      wrapper: createQueryClientWrapper(),
+    });
+    await waitFor(() => expect(result.current.state.status).toBe('error'));
+
+    expect(warn).toHaveBeenCalledWith('[words] Could not look up "hello".', expect.any(Error));
+  });
+
   it('shows an error on a network failure and recovers on retry', async () => {
     let online = false;
     register(null, async () => {
