@@ -231,4 +231,4 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
 - [x] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`
 - [x] Citar o APK no README, em "Como rodar" 
-- [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "A brief pause." com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
+- [x] Testar o APK em modo avião na primeira abertura: deve aparecer "A brief pause." com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
