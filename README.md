@@ -10,18 +10,46 @@ Um dicionário de inglês para Android e iOS: navegue pelas palavras com rolagem
 
 ## Demonstração
 
-🎬 **Vídeo demonstrativo:** clique na imagem para assistir.
+Clique aqui para [assistir](https://www.youtube.com/watch?v=3GnNPClID0k)
 
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=3GnNPClID0k">
-    <img src="https://img.youtube.com/vi/3GnNPClID0k/hqdefault.jpg" alt="Vídeo demonstrativo do Lexi" width="360" />
-  </a>
-</p>
-
-| | | | |
-| --- | --- | --- | --- |
-| <img src="img/login.gif" alt="Login e cadastro" width="180" /><br />**Login e cadastro:** validação dos campos, ou visitante | <img src="img/word-list.gif" alt="Word list" width="180" /><br />**Word list:** grade com rolagem infinita | <img src="img/word-detail.gif" alt="Detalhe da palavra" width="180" /><br />**Detalhe:** fonética, áudio e significados | <img src="img/word-not-found.png" alt="Palavra sem resultado" width="180" /><br />**Sem resultado:** Retry e Next |
-| <img src="img/history.png" alt="History" width="180" /><br />**History:** palavras já vistas | <img src="img/favorites.png" alt="Favorites" width="180" /><br />**Favorites:** palavras salvas | <img src="img/settings.png" alt="Ajustes" width="180" /><br />**Ajustes:** conta, tema e idioma | <img src="img/word-detail-dark.png" alt="Detalhe no tema escuro" width="180" /><br />**Tema escuro:** detalhe da palavra |
+<table>
+  <tr>
+    <td width="25%" valign="top">
+      <img src="img/login.gif" alt="Login e cadastro" width="100%" /><br />
+      <strong>Login e cadastro:</strong> validação dos campos, ou visitante
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-list.gif" alt="Word list" width="100%" /><br />
+      <strong>Word list:</strong> grade com rolagem infinita
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-detail.gif" alt="Detalhe da palavra" width="100%" /><br />
+      <strong>Detalhe:</strong> fonética, áudio e significados
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-not-found.png" alt="Palavra sem resultado" width="100%" /><br />
+      <strong>Sem resultado:</strong> Retry e Next
+    </td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">
+      <img src="img/history.png" alt="History" width="100%" /><br />
+      <strong>History:</strong> palavras já vistas
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/favorites.png" alt="Favorites" width="100%" /><br />
+      <strong>Favorites:</strong> palavras salvas
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/settings.png" alt="Ajustes" width="100%" /><br />
+      <strong>Ajustes:</strong> conta, tema e idioma
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-detail-dark.png" alt="Detalhe no tema escuro" width="100%" /><br />
+      <strong>Tema escuro:</strong> detalhe da palavra
+    </td>
+  </tr>
+</table>
 
 ## O que o app faz
 

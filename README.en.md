@@ -10,18 +10,46 @@ An English dictionary for Android and iOS: browse words with infinite scroll, se
 
 ## Demo
 
-🎬 **Demo video:** click the image to watch.
+Click here to [watch](https://www.youtube.com/watch?v=3GnNPClID0k)
 
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=3GnNPClID0k">
-    <img src="https://img.youtube.com/vi/3GnNPClID0k/hqdefault.jpg" alt="Lexi demo video" width="360" />
-  </a>
-</p>
-
-| | | | |
-| --- | --- | --- | --- |
-| <img src="img/login.gif" alt="Login and sign up" width="180" /><br />**Login and sign up:** field validation, or guest | <img src="img/word-list.gif" alt="Word list" width="180" /><br />**Word list:** infinite scroll grid | <img src="img/word-detail.gif" alt="Word detail" width="180" /><br />**Detail:** phonetics, audio and meanings | <img src="img/word-not-found.png" alt="Word without a result" width="180" /><br />**No result:** Retry and Next |
-| <img src="img/history.png" alt="History" width="180" /><br />**History:** viewed words | <img src="img/favorites.png" alt="Favorites" width="180" /><br />**Favorites:** saved words | <img src="img/settings.png" alt="Settings" width="180" /><br />**Settings:** account, theme and language | <img src="img/word-detail-dark.png" alt="Detail in the dark theme" width="180" /><br />**Dark theme:** word detail |
+<table>
+  <tr>
+    <td width="25%" valign="top">
+      <img src="img/login.gif" alt="Login and sign up" width="100%" /><br />
+      <strong>Login and sign up:</strong> field validation, or guest
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-list.gif" alt="Word list" width="100%" /><br />
+      <strong>Word list:</strong> infinite scroll grid
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-detail.gif" alt="Word detail" width="100%" /><br />
+      <strong>Detail:</strong> phonetics, audio and meanings
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-not-found.png" alt="Word without a result" width="100%" /><br />
+      <strong>No result:</strong> Retry and Next
+    </td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">
+      <img src="img/history.png" alt="History" width="100%" /><br />
+      <strong>History:</strong> viewed words
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/favorites.png" alt="Favorites" width="100%" /><br />
+      <strong>Favorites:</strong> saved words
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/settings.png" alt="Settings" width="100%" /><br />
+      <strong>Settings:</strong> account, theme and language
+    </td>
+    <td width="25%" valign="top">
+      <img src="img/word-detail-dark.png" alt="Detail in the dark theme" width="100%" /><br />
+      <strong>Dark theme:</strong> word detail
+    </td>
+  </tr>
+</table>
 
 ## What the app does
 
