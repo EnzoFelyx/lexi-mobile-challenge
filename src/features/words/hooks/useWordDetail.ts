@@ -56,6 +56,14 @@ export function useWordDetail(word: string): WordDetailResult {
     }
   }, [query.error, word]);
 
+  // O card da palavra apaga ou volta ao normal conforme a última resposta da API.
+  const lookupStatus = query.data?.status;
+  useEffect(() => {
+    if (lookupStatus) {
+      void queryClient.invalidateQueries({ queryKey: wordQueryKeys.notFound });
+    }
+  }, [lookupStatus, queryClient]);
+
   const retry = () => {
     if (query.data?.status === 'not_found') {
       void queryClient

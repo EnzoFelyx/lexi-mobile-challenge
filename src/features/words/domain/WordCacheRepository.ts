@@ -4,4 +4,6 @@ import type { WordLookup } from './WordDetail';
 export interface WordCacheRepository {
   get(word: string): Promise<WordLookup | null>;
   save(lookup: WordLookup): Promise<void>;
+  /** As palavras com um 404 guardado que ainda vale. */
+  listNotFound(): Promise<string[]>;
 }

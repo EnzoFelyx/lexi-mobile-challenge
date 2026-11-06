@@ -13,6 +13,18 @@ describe('WordCard', () => {
     expect(text.props.android_hyphenationFrequency).toBe('full');
   });
 
+  it('still opens a word without a result, telling it in the hint', async () => {
+    const onPress = jest.fn();
+    await render(<WordCard word="maucherite" index={2} onPress={onPress} isDimmed />);
+
+    const card = screen.getByRole('button', { name: 'maucherite' });
+    expect(card.props.accessibilityHint).toBe(en.words.notFoundWordHint);
+
+    await fireEvent.press(card);
+
+    expect(onPress).toHaveBeenCalledWith('maucherite', 2);
+  });
+
   it('shows the word as a button that opens it', async () => {
     const onPress = jest.fn();
     await render(<WordCard word="hello" index={4} onPress={onPress} />);

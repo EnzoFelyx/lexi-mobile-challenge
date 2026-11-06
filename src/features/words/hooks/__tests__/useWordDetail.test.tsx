@@ -16,6 +16,7 @@ const register = (cached: WordLookup | null, lookup: DictionaryService['lookup']
   const cache: WordCacheRepository = {
     get: jest.fn().mockResolvedValue(cached),
     save: jest.fn().mockResolvedValue(undefined),
+    listNotFound: jest.fn().mockResolvedValue([]),
   };
   const service: DictionaryService = { lookup: jest.fn(lookup) };
   container.registerInstance<WordCacheRepository>(TOKENS.WordCacheRepository, cache);

@@ -14,6 +14,8 @@ interface WordCardProps {
   /** Posição na lista, para o Previous/Next do detalhe. */
   index: number;
   onPress: (word: string, index: number) => void;
+  /** A API não encontrou a palavra na última busca: o card fica apagado, mas continua abrindo. */
+  isDimmed?: boolean;
 }
 
 /**
@@ -23,7 +25,12 @@ interface WordCardProps {
  * a hifenização do iOS). Recebe `onPress(word, index)` para a lista não
  * criar uma função por item.
  */
-export const WordCard = memo(function WordCard({ word, index, onPress }: WordCardProps) {
+export const WordCard = memo(function WordCard({
+  word,
+  index,
+  onPress,
+  isDimmed = false,
+}: WordCardProps) {
   const t = useTexts();
   const handlePress = () => onPress(word, index);
 
@@ -31,12 +38,13 @@ export const WordCard = memo(function WordCard({ word, index, onPress }: WordCar
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={word}
-      accessibilityHint={t.words.openWordHint}
+      accessibilityHint={isDimmed ? t.words.notFoundWordHint : t.words.openWordHint}
       onPress={handlePress}
-      className="h-word-card justify-center rounded-md border border-border bg-surface p-md active:opacity-80"
+      className={`h-word-card justify-center rounded-md border border-border p-md active:opacity-80 ${isDimmed ? 'bg-surface-muted' : 'bg-surface'}`}
     >
       <AppText
         variant="headwordCard"
+        tone={isDimmed ? 'secondary' : 'primary'}
         numberOfLines={MAX_LINES}
         adjustsFontSizeToFit
         minimumFontScale={MIN_FONT_SCALE}

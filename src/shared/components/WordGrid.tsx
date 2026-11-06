@@ -15,6 +15,8 @@ interface WordGridProps {
   onEndReached?: () => void;
   header: ReactElement;
   footer?: ReactElement | null;
+  /** Palavras com o card apagado. */
+  dimmedWords?: ReadonlySet<string>;
 }
 
 const HALF_GAP = sizes.gridGap / 2;
@@ -39,7 +41,14 @@ const keyExtractor = (word: string) => word;
  * Grade de 3 colunas do wireframe, com título que rola junto, rodapé de carregamento e a
  * barrinha de rolagem rápida no canto direito.
  */
-export function WordGrid({ words, onWordPress, onEndReached, header, footer }: WordGridProps) {
+export function WordGrid({
+  words,
+  onWordPress,
+  onEndReached,
+  header,
+  footer,
+  dimmedWords,
+}: WordGridProps) {
   const listRef = useRef<FlashListRef<string>>(null);
   const { listProps, thumb } = useFastScroll((offset) =>
     listRef.current?.scrollToOffset({ offset, animated: false }),
@@ -47,7 +56,7 @@ export function WordGrid({ words, onWordPress, onEndReached, header, footer }: W
 
   const renderItem = ({ item, index }: { item: string; index: number }) => (
     <View style={styles.cell}>
-      <WordCard word={item} index={index} onPress={onWordPress} />
+      <WordCard word={item} index={index} onPress={onWordPress} isDimmed={dimmedWords?.has(item)} />
     </View>
   );
 
@@ -56,6 +65,7 @@ export function WordGrid({ words, onWordPress, onEndReached, header, footer }: W
       <FlashList
         ref={listRef}
         data={words}
+        extraData={dimmedWords}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         numColumns={WORD_GRID_COLUMNS}

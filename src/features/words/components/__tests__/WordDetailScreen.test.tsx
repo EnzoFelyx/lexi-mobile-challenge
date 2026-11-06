@@ -49,6 +49,7 @@ const register = (lookup: WordLookup) => {
   container.registerInstance<WordCacheRepository>(TOKENS.WordCacheRepository, {
     get: async () => null,
     save: async () => undefined,
+    listNotFound: async () => [],
   });
   container.registerInstance<DictionaryService>(TOKENS.DictionaryService, {
     lookup: async () => lookup,

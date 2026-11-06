@@ -5,6 +5,7 @@ import { SectionHeading } from '@/shared/components/SectionHeading';
 import { WordGrid } from '@/shared/components/WordGrid';
 import { openWordDetail } from '@/shared/utils/navigation';
 
+import { useNotFoundWords } from '../hooks/useNotFoundWords';
 import { useWordList } from '../hooks/useWordList';
 import { type LoadMoreStatus, LoadMoreFooter } from './LoadMoreFooter';
 
@@ -15,6 +16,7 @@ const openFromWordList = (word: string, index: number) =>
 export function WordListScreen() {
   const t = useTexts();
   const list = useWordList();
+  const notFoundWords = useNotFoundWords();
 
   if (list.isLoading) {
     return <LoadingScreen label={t.words.loading} />;
@@ -38,6 +40,7 @@ export function WordListScreen() {
   return (
     <WordGrid
       words={list.words}
+      dimmedWords={notFoundWords}
       onWordPress={openFromWordList}
       onEndReached={list.loadNextPage}
       header={<SectionHeading title={t.words.title} subtitle={t.words.subtitle} />}
