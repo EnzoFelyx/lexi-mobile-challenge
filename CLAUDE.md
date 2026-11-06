@@ -479,7 +479,7 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 
 - **Unitários na camada de dados e nas regras:** paginação keyset, fluxo de cache (SQLite → API → grava; 404 cacheado não chama a API), histórico sem duplicados, fallback do áudio, favorito otimista revertendo.
 - **Componentes e telas:** grade renderiza, detalhe com loading/erro/sucesso, coração alterna, Previous/Next desabilitados nas pontas.
-- Meta: ~70% de cobertura em `domain` e `data`, citada no README. **Medido em 2026-11-06 (`npx jest --coverage`):** `domain` 99,0%, `data` 91,9% e 87,0% no projeto, em instruções. Os adaptadores finos de módulos nativos (áudio e voz) ficaram sem teste de propósito. (O 80% e o TDD obrigatório do ECC são só recomendação aqui.)
+- Meta: ~70% de cobertura em `domain` e `data`, citada no README. **Medido em 2026-11-06 (`npx jest --coverage`):** `domain` 99,0%, `data` 93,7% e 87,6% no projeto, em instruções. Os adaptadores finos de módulos nativos (áudio e voz) ficaram sem teste de propósito. (O 80% e o TDD obrigatório do ECC são só recomendação aqui.)
 - GitHub Actions rodando lint, `tsc` e testes a cada push.
 - **Acessibilidade (revisão de 2026-11-06):** a fonte do sistema escala até 200% (`MAX_FONT_SCALE`, no `AppText` e nos campos), e botões, campos, linhas e chips usam altura mínima em vez de fixa. Header, abas e o título da barra do detalhe têm altura fixa do Figma e limite de 130% (`MAX_COMPACT_FONT_SCALE`). As palavras do dicionário são marcadas como inglês para o leitor de tela (`accessibilityLanguage`, só iOS). A área de toque mínima segue em 44pt, abaixo dos 48dp recomendados no Android (decisão registrada na seção 5).
 
@@ -490,6 +490,7 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 - **README bilíngue** (`README.md` em português e `README.en.md` em inglês), com os itens da seção 2, as decisões técnicas, a arquitetura, instruções do **Expo Go** (`npm install`, `npx expo start`, escanear o QR) e um **GIF ou vídeo curto** do fluxo (lista, detalhe, áudio, favoritar, histórico, login).
 - **APK** gerado com EAS Build (`eas build -p android --profile preview`) anexado a uma release **`v1.0.0`** no GitHub. Fica para depois da etapa 7 (decisão do autor, 2026-11-06).
 - **Login no APK (decisão do autor, 2026-11-06):** a URL e a chave publishable vão no build, para o avaliador entrar sem configurar nada. **No Expo Go:** os mesmos valores vão no README, para copiar para o `.env`, com a nota de que a chave é pública e protegida pelo RLS. O risco é abuso do cadastro, não acesso aos dados: conferir os limites do painel e, depois da avaliação, apagar ou pausar o projeto ou trocar a chave.
+- **Mídia e envio (decisões do autor, 2026-11-06):** o autor grava o GIF, as fotos e o vídeo, e envia o repositório à Coodesh manualmente. Os READMEs já têm os espaços e as legendas; os nomes dos arquivos estão no `todo.md`.
 - Como reativar o projeto Supabase ou usar o próprio (`.env.example`). Entrar no painel perto da avaliação para o projeto não pausar.
 
 ---

@@ -20,7 +20,7 @@
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ✅ |
 | 5 | Supabase e login | ✅ |
 | 6 | Qualidade | ✅ |
-| 7 | Entrega | ⬜ |
+| 7 | Entrega | 🟨 |
 
 ---
 
@@ -200,21 +200,31 @@ Decididas em 2026-11-03 (decisões do autor):
 
 **Objetivo:** tudo pronto para o avaliador testar com o mínimo de esforço.
 
-- [ ] README bilíngue completo (a versão inicial já existe desde a etapa 1) (`README.md` em português e `README.en.md` em inglês, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas, créditos das fontes (Fraunces e Inter, SIL OFL 1.1) e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
-- [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
-- [ ] Tirar do README o aviso "Em desenvolvimento" e atualizar o texto de status
-- [ ] Registrar no README as decisões recentes: login como primeira tela, e-mail e senha no lugar de "usuário e senha", sem login social e sem confirmação de e-mail, mesclagem dos dados do visitante, fila offline, tela cheia abaixo do Android 13 e os limites conhecidos
-- [ ] Citar no README a cobertura de testes, o resultado do teste de RLS e o que foi conferido em cada aparelho
-- [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
+- [x] README bilíngue completo (a versão inicial já existe desde a etapa 1) (`README.md` em português e `README.en.md` em inglês, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas, créditos das fontes (Fraunces e Inter, SIL OFL 1.1) e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
+- [x] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
+- [x] Tirar do README o aviso "Em desenvolvimento" e atualizar o texto de status
+- [x] Registrar no README as decisões recentes: login como primeira tela, e-mail e senha no lugar de "usuário e senha", sem login social e sem confirmação de e-mail, mesclagem dos dados do visitante, fila offline, tela cheia abaixo do Android 13 e os limites conhecidos
+- [x] Citar no README a cobertura de testes, o resultado do teste de RLS e o que foi conferido em cada aparelho
+- [ ] **Mídia do README (autor):** os espaços e as legendas já estão nos dois READMEs, em "Demonstração". Salvar em `img/`, com estes nomes:
+  - `demo.gif`: fluxo completo (lista, detalhe, áudio, favoritar, histórico, login)
+  - `login.png`: tela de login
+  - `word-list.png`: aba Word list
+  - `word-detail.png`: detalhe de uma palavra, com o áudio e os significados
+  - `word-not-found.png`: palavra sem resultado, com Retry e Next
+  - `history.png`: aba History com palavras
+  - `favorites.png`: aba Favorites com palavras
+  - `settings.png`: tela de Ajustes
+  - `word-detail-dark.png`: detalhe de uma palavra no tema escuro
+- [ ] **Link do vídeo demonstrativo (autor):** trocar `COLE_AQUI_O_LINK_DO_VIDEO` nos dois READMEs
 - [x] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações Conferido pelo autor em 2026-11-06.
-- [ ] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco
+- [x] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco
 - [x] Apagar em **Authentication → Users** as duas contas do teste de RLS (feito pelo autor em 2026-11-06)
-- [ ] Conferir em **Authentication → Rate Limits** os limites contra cadastros em massa
+- [x] Conferir em **Authentication → Rate Limits** os limites contra cadastros em massa: 30 cadastros e logins por IP a cada 5 minutos, mantido (conferido pelo autor em 2026-11-06)
 - [ ] Depois da avaliação: apagar ou pausar o projeto Supabase, ou trocar a chave
-- [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
+- [x] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
 - [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
-- [ ] Testar o fluxo do avaliador num clone limpo, seguindo só o README: instalar, preencher o `.env`, rodar, cadastrar e entrar
-- [ ] Commit final, link do repositório na plataforma da Coodesh e envio
+- [ ] Testar o fluxo do avaliador num clone limpo, seguindo só o README: instalar, preencher o `.env`, rodar, cadastrar e entrar. Em 2026-11-06, o clone limpo instalou e empacotou para Android e iOS, e o `expo-doctor` passou 20 de 20; falta rodar no aparelho, cadastrar e entrar (autor)
+- [ ] Commit final, link do repositório na plataforma da Coodesh e envio (feito pelo autor, manualmente; decisão de 2026-11-06)
 - [ ] Gravar o vídeo de apresentação na plataforma, se o teste pedir
 - [ ] Entrar no painel do Supabase perto da data da avaliação para o projeto não pausar
 
@@ -228,4 +238,5 @@ Decididas em 2026-11-03 (decisões do autor):
 
 - [ ] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`
+- [ ] Citar o APK no README, em "Como rodar" (a menção antiga saiu para o README não prometer um arquivo que ainda não existe)
 - [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "A brief pause." com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
