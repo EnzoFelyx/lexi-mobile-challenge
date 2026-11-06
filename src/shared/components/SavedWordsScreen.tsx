@@ -102,8 +102,9 @@ export function SavedWordsScreen({
           {summary}
         </View>
       }
-      // A célula já deixa 12pt abaixo da última linha; o Figma tem 24pt até a nota.
-      footer={<View className="pt-md">{note}</View>}
+      // Do último card até a nota: 36pt (12 da célula e 24 aqui), metade do respiro de 72pt abaixo
+      // dela (pedido do autor; o Figma tem 24pt).
+      footer={<View className="mb-xl pb-xl pt-xl">{note}</View>}
     />
   );
 }

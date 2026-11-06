@@ -21,6 +21,7 @@ export const palette = {
     error: '#AD302B', // texto e borda de erro dos formulários
     errorSoft: '#FBECEA', // fundo da mensagem de erro do formulário
     surfaceDisabled: '#E4E7E0', // fundo do campo desabilitado
+    scrim: '#000000', // fundo escurecido atrás dos diálogos
     textDisabled: '#56615A', // rótulo e valor do campo desabilitado
   },
   dark: {
@@ -37,6 +38,7 @@ export const palette = {
     error: '#FFAAA3',
     errorSoft: '#382421',
     surfaceDisabled: '#26322C',
+    scrim: '#000000',
     textDisabled: '#ACB8AF',
   },
 } as const;
@@ -133,6 +135,7 @@ export const radius = {
   sm: 8, // chip, abas internas
   md: 12, // cards, botões, inputs, trilho das abas
   lg: 16, // card da palavra no detalhe
+  sheet: 28, // cantos da folha do detalhe no Android (Material 3)
   illustration: 36, // quadrado da ilustração dos estados de erro
   emptyIllustration: 40, // quadrado da ilustração dos estados vazios
   wordMark: 2, // traços decorativos da ilustração dos estados vazios
@@ -169,6 +172,10 @@ export const sizes = {
   chip: 26,
   progressTrack: 4,
   divider: 1, // linha divisória
+  sheetHandleWidth: 32, // puxador da folha no Android (Material 3)
+  sheetHandleThickness: 4,
+  radio: 20, // botão de rádio das preferências no Android (Material 3)
+  radioDot: 10,
   orDivider: 1.5, // traços do "ou" no login (fora do Figma, pedido do autor)
   wordCard: { width: 106, height: 104 },
   gridGap: 12,

@@ -1,8 +1,9 @@
 import { UserRound } from 'lucide-react-native';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
 import { useTexts } from '@/i18n/useTexts';
+import { isAndroid13OrNewer } from '@/shared/utils/nativeSheet';
 
 import { AppText } from './AppText';
 import { BackButton } from './BackButton';
@@ -17,6 +18,9 @@ interface AppHeaderProps {
   showTagline?: boolean;
 }
 
+// A partir do Android 13, 8pt a mais separam o header da barra de status (pedido do autor).
+const STATUS_BAR_GAP_CLASS = isAndroid13OrNewer(Platform.OS, Platform.Version) ? 'mt-sm' : '';
+
 // O botão de conta na própria tela da conta: só o retorno visual do toque.
 const stayOnAccount = () => undefined;
 
@@ -27,7 +31,9 @@ export function AppHeader({ onAccountPress, onBack, showTagline = false }: AppHe
   const icon = { color: colors.textPrimary, strokeWidth: sizes.iconStrokeWidth };
 
   return (
-    <View className="h-header flex-row items-center justify-between px-xl">
+    <View
+      className={`h-header flex-row items-center justify-between px-xl ${STATUS_BAR_GAP_CLASS}`}
+    >
       <View className="flex-row items-center gap-md">
         {onBack ? <BackButton onPress={onBack} /> : null}
         <View className="flex-row items-baseline gap-sm">

@@ -5,6 +5,7 @@ import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 import { Skeleton } from '@/shared/components/Skeleton';
 
+import { DETAIL_FOOTER_CLASS } from './DetailNavigation';
 import { AudioPlayer } from './AudioPlayer';
 
 // Medidas dos placeholders no frame "Word detail loading" do Figma (3:15914).
@@ -69,7 +70,7 @@ export function WordDetailSkeleton({ withNavigation }: WordDetailSkeletonProps) 
         {t.wordDetail.lookingUp}
       </AppText>
       {withNavigation ? (
-        <View className="mt-auto flex-row gap-md pb-xl pt-sm">
+        <View className={`mt-auto ${DETAIL_FOOTER_CLASS}`}>
           <View className="flex-1">
             <Skeleton width="100%" height={sizes.button} />
           </View>
