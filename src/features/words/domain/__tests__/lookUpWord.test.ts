@@ -19,6 +19,7 @@ const memoryCache = (initial: WordLookup[] = []): WordCacheRepository & { saved:
     save: async (lookup) => {
       saved.push(lookup);
     },
+    listNotFound: async () => [],
   };
 };
 

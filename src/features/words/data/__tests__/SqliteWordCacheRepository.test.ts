@@ -28,6 +28,17 @@ describe('SqliteWordCacheRepository', () => {
 
   afterEach(() => testDatabase.close());
 
+  it('lists only the words with a valid not found result', async () => {
+    await repository.save(FOUND);
+    await repository.save({ status: 'not_found', word: 'recent' });
+    await repository.save({ status: 'not_found', word: 'expired' });
+    testDatabase.sqlite
+      .prepare('UPDATE word_cache SET fetched_at = ? WHERE word = ?')
+      .run(Date.now() - NOT_FOUND_CACHE_TTL_MS - 1000, 'expired');
+
+    await expect(repository.listNotFound()).resolves.toEqual(['recent']);
+  });
+
   it('has nothing for a word never looked up', async () => {
     await expect(repository.get('hello')).resolves.toBeNull();
   });

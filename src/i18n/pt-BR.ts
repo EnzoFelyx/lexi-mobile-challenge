@@ -31,6 +31,7 @@ export const ptBR: Texts = {
     loadingMore: 'Buscando mais palavras…',
     loading: 'Carregando as palavras',
     openWordHint: 'Abre os significados e a pronúncia',
+    notFoundWordHint: 'Sem resultado na última busca. Abre a palavra para tentar de novo',
     loadMoreError: 'Não foi possível carregar mais palavras.',
     errorMessage: 'Algo deu errado ao ler o dicionário neste aparelho.',
     emptyTitle: 'Nenhuma palavra ainda',

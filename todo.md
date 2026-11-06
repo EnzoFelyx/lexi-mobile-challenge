@@ -83,7 +83,6 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Banco SQLite com Drizzle: schema, migrations geradas (`db:generate`, `.sql` embutido via `inline-import`) e validação Zod na leitura (tabelas `words`, `word_cache`, `favorites`, `history`)
 - [x] Seed: baixar o `words_dictionary.json` do dwyl na primeira execução e gravar em lotes dentro de transação, com `sort_key` aleatório por palavra
 - [x] Tela de "preparando o dicionário" com progresso, erro de rede e "tentar de novo" (genérica por enquanto)
-- [ ] 📝 **Lembrete do autor:** desenhar no Figma a tela de "preparando o dicionário" e depois trocar a tela genérica pelo frame
 - [x] `WordRepository` (interface no domain, implementação SQLite) com paginação keyset por (`sort_key`, `word`), 60 itens por página
 - [x] Registro no container e hook `useWordList` com `onEndReached` e trava contra páginas duplicadas
 - [x] Componentes do Figma: SegmentedTabs (✅ antecipado na etapa 1, como `tabBar` das abas) e WordCard (só a palavra, sem fonética: decisão do autor)
@@ -187,18 +186,16 @@ Decididas em 2026-11-03 (decisões do autor):
 
 - [x] Completar os testes unitários e de componente (meta ~70% em `domain` e `data`): 99,0% e 91,9% em 2026-11-06
 - [x] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
-- [ ] Polimento visual fiel ao Figma, em light e dark
 - [x] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Feito em 2026-11-05 (frames 46:14617 e 46:14622), conferido no app compilado pelo `npx expo run:ios`; no Expo Go a splash do projeto não aparece
 - [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
-- [ ] (Opcional) Card levemente apagado para palavra com "Word not found" conhecido, sem tirá-la da lista
+- [x] Card apagado na Word list para palavra com "Word not found" conhecido, sem tirá-la da lista (decisão do autor, 2026-11-06)
 - [x] 📝 **Lembrete do autor:** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema). Feito em 2026-11-05, adiantado da etapa 6 (`CLAUDE.md`, seção 6.9); o idioma vem a seguir
 - [x] Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (feito em 2026-11-05, pedido do autor; `CLAUDE.md`, seção 6.9)
 - [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
 - [x] Teste completo em Android e iOS (conferido pelo autor em 2026-11-06, num emulador Android atual e num Android 12 físico)
-- [ ] (Opcional) Script que valida as ~9 mil palavras comuns na API (devagar, dentro do limite) e tira das camadas as que dão 404 e os nomes próprios
 - [ ] (Opcional) Maestro E2E: abrir a lista, rolar, abrir uma palavra, favoritar e conferir em Favorites; login e logout
 
-**Pronto quando:** CI verde, testes passando e o app fiel ao Figma nos dois sistemas e nos dois temas.
+**Pronto quando:** CI verde e testes passando, com o app conferido nos dois sistemas e nos dois temas.
 
 ---
 
@@ -208,6 +205,9 @@ Decididas em 2026-11-03 (decisões do autor):
 
 - [ ] README bilíngue completo (a versão inicial já existe desde a etapa 1) (`README.md` em português e `README.en.md` em inglês, com link entre eles), completo: título, descrição em uma frase, tecnologias, como instalar e usar, arquitetura, decisões técnicas, créditos das fontes (Fraunces e Inter, SIL OFL 1.1) e a frase "This is a challenge by [Coodesh](https://coodesh.com/)"
 - [ ] Instruções para rodar no **Expo Go** no README: `npm install`, `npx expo start` e escanear o QR (cobre quem usa iPhone, já que build instalável de iOS exige conta paga da Apple)
+- [ ] Tirar do README o aviso "Em desenvolvimento" e atualizar o texto de status
+- [ ] Registrar no README as decisões recentes: login como primeira tela, e-mail e senha no lugar de "usuário e senha", sem login social e sem confirmação de e-mail, mesclagem dos dados do visitante, fila offline, tela cheia abaixo do Android 13 e os limites conhecidos
+- [ ] Citar no README a cobertura de testes, o resultado do teste de RLS e o que foi conferido em cada aparelho
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
 - [x] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações Conferido pelo autor em 2026-11-06.
@@ -219,7 +219,9 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] Depois da avaliação: apagar ou pausar o projeto Supabase, ou trocar a chave
 - [ ] Instruções do Supabase no README (`.env.example`, como reativar o projeto ou usar o próprio)
 - [ ] Revisão final do `CHANGELOG.md`, do `todo.md` e do `CLAUDE.md`
+- [ ] Testar o fluxo do avaliador num clone limpo, seguindo só o README: instalar, preencher o `.env`, rodar, cadastrar e entrar
 - [ ] Commit final, link do repositório na plataforma da Coodesh e envio
+- [ ] Gravar o vídeo de apresentação na plataforma, se o teste pedir
 - [ ] Entrar no painel do Supabase perto da data da avaliação para o projeto não pausar
 
 **Pronto quando:** o avaliador consegue instalar o APK ou abrir no Expo Go e testar todos os casos de uso seguindo só o README.

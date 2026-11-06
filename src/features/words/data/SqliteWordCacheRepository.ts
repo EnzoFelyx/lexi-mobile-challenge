@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, gt } from 'drizzle-orm';
 import { inject, injectable } from 'tsyringe';
 
 import type { Database } from '@/core/database/client';
@@ -7,7 +7,7 @@ import { parseRows, wordCacheRowSchema } from '@/core/database/validation';
 import { TOKENS } from '@/core/di/tokens';
 import { logger } from '@/shared/utils/logger';
 
-import { isNotFoundStillValid } from '../domain/notFoundExpiry';
+import { isNotFoundStillValid, notFoundCutoff } from '../domain/notFoundExpiry';
 import type { WordCacheRepository } from '../domain/WordCacheRepository';
 import type { WordLookup } from '../domain/WordDetail';
 import { wordDetailSchema } from './dictionarySchemas';
@@ -39,6 +39,18 @@ export class SqliteWordCacheRepository implements WordCacheRepository {
       return null;
     }
     return { status: 'found', detail: detail.data };
+  }
+
+  async listNotFound(): Promise<string[]> {
+    const rows = await this.database
+      .select({ word: wordCache.word })
+      .from(wordCache)
+      .where(
+        and(eq(wordCache.status, 'not_found'), gt(wordCache.fetchedAt, notFoundCutoff(new Date()))),
+      );
+    return parseRows('word_cache', wordCacheRowSchema.pick({ word: true }), rows).map(
+      (row) => row.word,
+    );
   }
 
   async save(lookup: WordLookup): Promise<void> {

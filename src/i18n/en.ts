@@ -28,6 +28,7 @@ export const en = {
     loadingMore: 'Finding more words…',
     loading: 'Loading words',
     openWordHint: 'Opens the meanings and pronunciation',
+    notFoundWordHint: 'No result the last time. Opens the word to try again',
     loadMoreError: "Couldn't load more words.",
     errorMessage: 'Something went wrong while reading the dictionary on this device.',
     emptyTitle: 'No words yet',

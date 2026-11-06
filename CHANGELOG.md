@@ -57,12 +57,17 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 
 ### Adicionado
 
+- Card apagado na Word list para palavra sem resultado na última busca: continua na lista e abrindo, e o leitor de tela avisa. Volta ao normal se o Retry encontrar a palavra ou quando o 404 guardado vence. (`cb2ee80`)
 - No Android 13 ou mais novo, folha do detalhe com cantos e puxador do Material 3. No Android, Aparência e Idioma em diálogo com rádios, mais espaço no Previous/Next, fundo da janela na cor do tema e, a partir do Android 13, 8pt acima do header. Mais respiro no fim de Histórico e Favoritos. Em português, a tela de perfil passa a se chamar "Ajustes". (`9c19b32`)
 - Testes dos serviços de autenticação, inclusive o modo sem `.env`. Cobertura medida: `domain` 99,0%, `data` 91,9% e 87,0% no projeto. (`2569f82`)
 
 ### Infraestrutura
 
 - GitHub Actions com lint, typecheck e testes a cada push, e badge nos READMEs. (`11b81ac`)
+
+### Documentação
+
+- O trabalho no Figma terminou (decisão do autor): o README avisa que o layout foi adaptado durante o desenvolvimento, e saem da lista as tarefas que dependiam dele.
 
 ---
 
