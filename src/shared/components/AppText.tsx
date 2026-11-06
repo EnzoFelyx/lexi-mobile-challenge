@@ -1,5 +1,6 @@
 import { Text, type TextProps } from 'react-native';
 
+import { MAX_FONT_SCALE } from '@/constants/accessibility';
 import type { typography } from '@/core/theme/theme';
 
 export type TextVariant = keyof typeof typography;
@@ -56,6 +57,7 @@ interface AppTextProps extends TextProps {
 export function AppText({ variant = 'body', tone = 'primary', className, ...props }: AppTextProps) {
   return (
     <Text
+      maxFontSizeMultiplier={MAX_FONT_SCALE}
       className={`${textVariantClass[variant]} ${toneClass[tone]} ${className ?? ''}`}
       {...props}
     />

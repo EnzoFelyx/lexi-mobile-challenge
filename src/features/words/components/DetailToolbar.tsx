@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/core/theme/useTheme';
+import { MAX_COMPACT_FONT_SCALE } from '@/constants/accessibility';
 import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 
@@ -18,7 +19,7 @@ export function DetailToolbar({ onClose, action }: DetailToolbarProps) {
   const { colors, sizes } = useTheme();
 
   return (
-    <View className="h-touch-target flex-row items-center justify-between">
+    <View className="h-touch-target flex-row items-center justify-between gap-sm">
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={t.wordDetail.close}
@@ -27,7 +28,13 @@ export function DetailToolbar({ onClose, action }: DetailToolbarProps) {
       >
         <X size={sizes.closeIcon} color={colors.textPrimary} strokeWidth={sizes.iconStrokeWidth} />
       </Pressable>
-      <AppText variant="eyebrow" tone="secondary">
+      <AppText
+        variant="eyebrow"
+        tone="secondary"
+        numberOfLines={1}
+        maxFontSizeMultiplier={MAX_COMPACT_FONT_SCALE}
+        className="flex-shrink text-center"
+      >
         {t.wordDetail.title}
       </AppText>
       {action ?? <View className="w-touch-target" />}

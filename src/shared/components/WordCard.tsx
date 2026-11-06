@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Pressable } from 'react-native';
 
+import { DICTIONARY_LANGUAGE } from '@/constants/accessibility';
 import { useTexts } from '@/i18n/useTexts';
 import { AppText } from '@/shared/components/AppText';
 
@@ -38,6 +39,7 @@ export const WordCard = memo(function WordCard({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={word}
+      accessibilityLanguage={DICTIONARY_LANGUAGE}
       accessibilityHint={isDimmed ? t.words.notFoundWordHint : t.words.openWordHint}
       onPress={handlePress}
       className={`h-word-card justify-center rounded-md border border-border p-md active:opacity-80 ${isDimmed ? 'bg-surface-muted' : 'bg-surface'}`}

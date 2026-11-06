@@ -42,7 +42,7 @@ export function AudioPlayer({
   const Icon = status === 'playing' ? Pause : Play;
 
   return (
-    <View className="h-touch-target flex-row items-center gap-md">
+    <View className="min-h-touch-target flex-row items-center gap-md">
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={buttonLabel}

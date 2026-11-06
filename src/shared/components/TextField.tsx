@@ -3,6 +3,7 @@ import { type ReactNode, useState } from 'react';
 import { TextInput, type TextInputProps, View } from 'react-native';
 
 import type { ColorToken } from '@/core/theme/colorVariables';
+import { MAX_FONT_SCALE } from '@/constants/accessibility';
 import { useTheme } from '@/core/theme/useTheme';
 
 import { AppText } from './AppText';
@@ -76,7 +77,7 @@ export function TextField({
         {label}
       </AppText>
       <View
-        className={`h-input flex-row items-center gap-md rounded-md px-lg ${controlClass[state]}`}
+        className={`min-h-input flex-row items-center gap-md rounded-md px-lg ${controlClass[state]}`}
       >
         {Icon ? (
           <Icon
@@ -90,9 +91,10 @@ export function TextField({
           accessibilityHint={disabled ? undefined : error}
           accessibilityState={{ disabled }}
           editable={!disabled}
+          maxFontSizeMultiplier={MAX_FONT_SCALE}
           placeholderTextColor={colors.textSecondary}
           selectionColor={colors.accent}
-          className={`h-full flex-1 font-sans-regular text-body ${disabled ? 'text-text-disabled' : 'text-text-primary'}`}
+          className={`min-h-input flex-1 font-sans-regular text-body ${disabled ? 'text-text-disabled' : 'text-text-primary'}`}
           onFocus={(event) => {
             setIsFocused(true);
             onFocus?.(event);

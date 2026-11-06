@@ -35,7 +35,7 @@ function OptionList<T extends string>({ title, choice, onChoose }: OptionListPro
               accessibilityLabel={option.label}
               accessibilityState={{ checked: isSelected }}
               onPress={() => onChoose(option.value)}
-              className="h-row flex-row items-center gap-lg px-xl active:bg-surface-muted"
+              className="min-h-row flex-row items-center gap-lg px-xl py-sm active:bg-surface-muted"
             >
               <View
                 className={`h-radio w-radio items-center justify-center rounded-pill border-field-active ${isSelected ? 'border-accent' : 'border-text-secondary'}`}
@@ -44,7 +44,9 @@ function OptionList<T extends string>({ title, choice, onChoose }: OptionListPro
                   <View className="h-radio-dot w-radio-dot rounded-pill bg-accent" />
                 ) : null}
               </View>
-              <AppText variant="body">{option.label}</AppText>
+              <AppText variant="body" className="flex-shrink">
+                {option.label}
+              </AppText>
             </Pressable>
           );
         })}
