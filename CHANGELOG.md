@@ -49,8 +49,15 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 
 ## 2026-11-06 — Etapa 6 (qualidade)
 
+### Corrigido
+
+- No Android, a voz do aparelho lia em inglês só se o aparelho estivesse em inglês: com `en-US`, o `expo-speech` caía no idioma do sistema; agora pede `en`. (`ef64ce7`)
+- No Android, o destaque e a cor da aba acompanham a posição das páginas, em vez de esperar a troca terminar. (`23eb2b6`)
+- Abaixo do Android 13, o detalhe abre em tela cheia: a folha nativa não abriu num Android 12 real, e a causa não foi identificada. (`9c19b32`)
+
 ### Adicionado
 
+- No Android 13 ou mais novo, folha do detalhe com cantos e puxador do Material 3. No Android, Aparência e Idioma em diálogo com rádios, mais espaço no Previous/Next, fundo da janela na cor do tema e, a partir do Android 13, 8pt acima do header. Mais respiro no fim de Histórico e Favoritos. Em português, a tela de perfil passa a se chamar "Ajustes". (`9c19b32`)
 - Testes dos serviços de autenticação, inclusive o modo sem `.env`. Cobertura medida: `domain` 99,0%, `data` 91,9% e 87,0% no projeto. (`2569f82`)
 
 ### Infraestrutura
