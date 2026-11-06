@@ -348,7 +348,7 @@ Components: segmented tabs, word card, favorite icon (filled/outline), audio pla
 - **Back-end e login:** **Supabase** (`@supabase/supabase-js`), Auth com e-mail e senha, tabelas com **RLS** (`user_id = auth.uid()`), tipos gerados pela CLI.
 - **Injeção de dependência:** **tsyringe** (`reflect-metadata` + plugins de decorators no Babel).
 - **Áudio:** `expo-audio` para o mp3 da API e `expo-speech` como fallback.
-- **Testes:** Jest (`jest-expo`) + React Native Testing Library, mocks registrados no container da tsyringe. **Maestro** para E2E é opcional (primeiro a cortar).
+- **Testes:** Jest (`jest-expo`) + React Native Testing Library, mocks registrados no container da tsyringe. Sem E2E com Maestro (decisão do autor, 2026-11-06, por causa do prazo): o diferencial 3 pede testes unitários ou E2E.
 - **CI:** GitHub Actions (`.github/workflows/ci.yml`, Node 22) com lint, `tsc` e testes a cada push, badge no README. Conferido num clone limpo, sem `.env` e sem os tipos gerados de `.expo/`.
 - **Lint e formatação:** ESLint + Prettier no padrão do autor (ver `REGRAS.md`).
 - **Bibliotecas:** instale cada uma **na etapa em que for usada** (`npx expo install`).
@@ -481,6 +481,7 @@ Nos testes, `container.registerInstance(TOKENS.DictionaryService, mockService)` 
 - **Componentes e telas:** grade renderiza, detalhe com loading/erro/sucesso, coração alterna, Previous/Next desabilitados nas pontas.
 - Meta: ~70% de cobertura em `domain` e `data`, citada no README. **Medido em 2026-11-06 (`npx jest --coverage`):** `domain` 99,0%, `data` 91,9% e 87,0% no projeto, em instruções. Os adaptadores finos de módulos nativos (áudio e voz) ficaram sem teste de propósito. (O 80% e o TDD obrigatório do ECC são só recomendação aqui.)
 - GitHub Actions rodando lint, `tsc` e testes a cada push.
+- **Acessibilidade (revisão de 2026-11-06):** a fonte do sistema escala até 200% (`MAX_FONT_SCALE`, no `AppText` e nos campos), e botões, campos, linhas e chips usam altura mínima em vez de fixa. Header, abas e o título da barra do detalhe têm altura fixa do Figma e limite de 130% (`MAX_COMPACT_FONT_SCALE`). As palavras do dicionário são marcadas como inglês para o leitor de tela (`accessibilityLanguage`, só iOS). A área de toque mínima segue em 44pt, abaixo dos 48dp recomendados no Android (decisão registrada na seção 5).
 
 ---
 

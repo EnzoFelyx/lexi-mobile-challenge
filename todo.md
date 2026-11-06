@@ -9,7 +9,7 @@
 
 > 🔁 **Lembrete fixo:** em toda tela nova que carrega dados, confira no Figma o estado de carregamento (o detalhe tem skeleton; a lista tem "carregando mais" no fim). Se o Figma não definir, pergunte ao autor.
 
-> ✂️ **Se o tempo apertar, corte nesta ordem:** Maestro E2E → microinterações → GitHub Actions. Login e testes unitários não saem (diferenciais visíveis).
+> ✂️ **Se o tempo apertar, corte nesta ordem:** microinterações. Login e testes unitários não saem (diferenciais visíveis).
 
 **Legenda de status:** ⬜ não iniciada · 🟨 em andamento · ✅ concluída
 
@@ -21,7 +21,7 @@
 | 3 | Detalhe da palavra | ✅ |
 | 4 | Favoritos e histórico (✅ marco: obrigatórios prontos) | ✅ |
 | 5 | Supabase e login | ✅ |
-| 6 | Qualidade | ⬜ |
+| 6 | Qualidade | 🟨 |
 | 7 | Entrega | ⬜ |
 
 ---
@@ -187,13 +187,12 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Completar os testes unitários e de componente (meta ~70% em `domain` e `data`): 99,0% e 91,9% em 2026-11-06
 - [x] GitHub Actions com lint, typecheck e testes a cada push, com badge no README
 - [x] 📝 **Lembrete do autor:** desenhar no Figma a splash (tela de abertura do app, antes do carregamento) e depois aplicar no `expo-splash-screen` do `app.json` (imagem clara e escura). Feito em 2026-11-05 (frames 46:14617 e 46:14622), conferido no app compilado pelo `npx expo run:ios`; no Expo Go a splash do projeto não aparece
-- [ ] Microinterações (coração ao favoritar, transição para o detalhe), respeitando "Reduzir movimento"
+- [ ] Microinterações, respeitando "Reduzir movimento": o coração ao favoritar está feito; falta decidir a transição para o detalhe
 - [x] Card apagado na Word list para palavra com "Word not found" conhecido, sem tirá-la da lista (decisão do autor, 2026-11-06)
 - [x] 📝 **Lembrete do autor:** na tela de perfil/configurações, escolha manual de tema (claro, escuro ou sistema). Feito em 2026-11-05, adiantado da etapa 6 (`CLAUDE.md`, seção 6.9); o idioma vem a seguir
 - [x] Chave de idioma PT/EN dentro do app, independente do idioma do aparelho: `src/i18n/pt-BR.ts` com o mesmo formato do `en.ts`, escolha persistida e o conteúdo do dicionário mantido em inglês (feito em 2026-11-05, pedido do autor; `CLAUDE.md`, seção 6.9)
-- [ ] Revisão de acessibilidade (labels, roles, área de toque, fonte grande)
+- [x] Revisão de acessibilidade (labels, roles, área de toque, fonte grande), conferida pelo autor no aparelho em 2026-11-06
 - [x] Teste completo em Android e iOS (conferido pelo autor em 2026-11-06, num emulador Android atual e num Android 12 físico)
-- [ ] (Opcional) Maestro E2E: abrir a lista, rolar, abrir uma palavra, favoritar e conferir em Favorites; login e logout
 
 **Pronto quando:** CI verde e testes passando, com o app conferido nos dois sistemas e nos dois temas.
 
@@ -211,7 +210,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [ ] **GIF ou vídeo curto** no README mostrando o fluxo (lista, detalhe, áudio, favoritar, histórico, login)
 - [ ] **APK no GitHub Releases**: gerar com EAS Build (`eas build -p android --profile preview`) e anexar numa release `v1.0.0`, para o avaliador instalar sem configurar nada
 - [x] Conferir no Android as funções da etapa 4 em diante (adiado da etapa 4, decisão do autor em 2026-11-05): abas History e Favorites, coração, toque duplo, "Clear", Previous/Next e o arrasto lateral, inclusive começando na borda da tela (com a navegação por gestos do Android, a borda é o "voltar" do sistema e fecha a folha), e o diálogo de Aparência e Idioma em Configurações Conferido pelo autor em 2026-11-06.
-- [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "Couldn't prepare the dictionary" com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
+- [ ] Testar o APK em modo avião na primeira abertura: deve aparecer "A brief pause." com "Try again" (no Expo Go não dá, porque sem rede ele nem alcança o computador e mostra o erro dele)
 - [ ] Colocar a URL e a chave publishable do Supabase no build do APK (variáveis `EXPO_PUBLIC_*` no EAS, porque o `.env` não vai para o git), para o login funcionar sem configurar nada (decisão do autor, 2026-11-06)
 - [ ] Colocar a URL e a chave publishable no README, para o avaliador copiar para o `.env` e testar o login no Expo Go, com a nota de que a chave é pública e protegida pelo RLS (decisão do autor, 2026-11-06). Nunca a `secret`, a `service_role` ou a senha do banco
 - [x] Apagar em **Authentication → Users** as duas contas do teste de RLS (feito pelo autor em 2026-11-06)
