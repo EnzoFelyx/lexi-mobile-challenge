@@ -19,6 +19,11 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 - Telas de login e cadastro, com e-mail e senha, erros nos campos e no formulário, carregamento, ícones e contorno verde em foco. Em relação ao Figma: textos mais curtos, sem o card "rediscover" e sem os termos; o login ganha "Continue as guest". A autenticação ainda é de mentira (`wrong@example.com` e `taken@example.com` simulam os erros). (`8f38c24`)
 
 - Supabase: tabelas `favorites` e `history` com RLS (SQL em `supabase/migrations/`), client com a sessão salva no aparelho e tipos gerados. O client fica nulo sem o `.env` e ainda não é usado pelo app; acesso anônimo conferido como negado. Confirmação de e-mail desligada no painel. (`8a9b9b3`)
+- Login real com o Supabase e favoritos e histórico por conta: entrar, cadastrar e sair com os erros reais nas telas. Ao entrar, os dados do visitante passam para a conta, nova ou existente; cada mudança entra numa fila local e é enviada quando houver conexão; ao sair, os dados da conta são apagados do aparelho e voltam ao entrar de novo. Sem o `.env`, o app segue como visitante. Conferido pelo autor no aparelho. (`fd3eaad`)
+
+### Removido
+
+- A autenticação de mentira da parte 1. (`fd3eaad`)
 
 ### Alterado
 

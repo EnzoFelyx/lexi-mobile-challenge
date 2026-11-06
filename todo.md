@@ -165,11 +165,12 @@ Decididas em 2026-11-03 (decisões do autor):
 
 ### Parte 3 — Integração
 
-- [ ] Telas ligadas ao Supabase: entrar, cadastrar e sair, com os erros reais nos estados do Figma; o login é a primeira tela, sem exigir conta (visitante a um toque)
-- [ ] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
-- [ ] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
-- [ ] Testes: fluxo de auth com o serviço mockado pelo container, mescla visitante → conta, sincronização e falha do back-end
-- [ ] Conferir no Expo Go no iOS (o Android fica para a etapa 7)
+- [x] Telas ligadas ao Supabase: entrar, cadastrar e sair, com os erros reais nos estados do Figma; o login é a primeira tela, sem exigir conta (visitante a um toque)
+- [x] Ao entrar: mesclar os dados do visitante na conta (favoritos por união; histórico com o `viewed_at` mais recente) e sincronizar
+- [x] Sincronização local-first de favoritos e histórico por `user_id`, com o app usável se o Supabase estiver fora
+- [x] Testes: fluxo de auth com o serviço mockado pelo container, mescla visitante → conta, sincronização e falha do back-end
+- [x] Conferir no iOS (conferido pelo autor em 2026-11-06; o Android fica para a etapa 7)
+- [ ] (Opcional) Testar o RLS direto no servidor com dois usuários; no aparelho, cada conta só viu os próprios dados
 
 ### Depois do login (lembrete do autor, 2026-11-05)
 
