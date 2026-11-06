@@ -147,8 +147,7 @@ Decididas em 2026-11-03 (decisões do autor):
 - [x] Componentes reutilizáveis do Figma (`46:14665` / `46:14791`): campos com erro e desabilitados, botão carregando, erro do formulário, header de login/cadastro e erro recuperável
 - [x] Modo temporário do design desligado (`AUTH_DESIGN_PREVIEW = false`, pedido do autor em 2026-11-05)
 - [x] Conferir no aparelho o voltar, o visitante, a abertura seguinte e a entrada na lista (conferido pelo autor em 2026-11-05)
-- [ ] 🐞 **Bug aberto (2026-11-05):** no primeiro arrasto de Word list para History, a página para cerca de 85pt além do limite e fica assim; nos arrastos seguintes fica normal. Parece uma medida errada no paginador. Falta testar na `main`, para saber se é anterior ao login
-- [ ] 🐞 **A conferir:** barra de status com ícones brancos sobre o fundo claro, vista num print de 2026-11-05
+- [x] Primeiro arrasto de Word list para History parando fora do lugar no iOS: corrigido ao tirar `screenOptions={{ lazy: true }}` do `TopTabs`, conferido pelo autor no aparelho em 2026-11-05 (`CLAUDE.md`, seção 10)
 - [x] Login como primeira tela (decisão do autor, 2026-11-05): lembrar o visitante e a sessão, abrir direto na lista nas próximas vezes e manter login e cadastro em Settings
 - [x] Telas de login (`3:16034`) e cadastro (`3:16074`) com mostrar/ocultar senha
 - [x] Estados de erro no campo, erro do formulário e carregamento do login (`46:13895`, `46:13947`, `46:13999` e escuros) e do cadastro (`46:14205`, `46:14260`, `46:14316` e escuros)
