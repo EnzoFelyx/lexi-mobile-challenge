@@ -27,6 +27,7 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 
 - No iOS, o primeiro arrasto para uma aba ainda não exibida parava cerca de 85pt fora do lugar. Sem `screenOptions={{ lazy: true }}` no `TopTabs`, o erro some, conferido pelo autor no aparelho; a causa exata não foi identificada. (`68c7caa`)
 - Some o aviso `onAnimatedValueUpdate` a cada arrasto entre abas (pedido do autor): vai para a lista de avisos de bibliotecas, só em desenvolvimento. (`763eb3f`)
+- O aviso `onAnimatedValueUpdate` também some do terminal, com um filtro no envio dos logs, em desenvolvimento (pedido do autor). (`5399d1f`)
 - A linha ao lado dos chips em Meanings nunca aparecia: a classe `h-px` não existe com o tema do Lexi; agora usa o token `divider`. (`8f38c24`)
 - Erro no Expo Go ao mudar a barra de status pelas telas da Stack: agora só o `StatusBar` controla a barra, e o `app.json` desliga `UIViewControllerBasedStatusBarAppearance` também no build. (`0331b46`)
 
