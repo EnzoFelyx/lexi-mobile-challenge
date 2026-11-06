@@ -155,13 +155,13 @@ Decididas em 2026-11-03 (decisões do autor):
 
 ### Parte 2 — Funcional (Supabase)
 
-- [ ] Projeto no Supabase: tabelas `favorites` e `history`, chave única em (`user_id`, `word`) e RLS (`user_id = auth.uid()`)
-- [ ] Guardar o SQL das tabelas e políticas no repositório (ex.: `supabase/migrations/`)
-- [ ] Client do Supabase em `src/core/supabase/` com sessão persistida
-- [ ] Tipos gerados pela CLI do Supabase
+- [x] Projeto no Supabase: tabelas `favorites` e `history`, chave primária em (`user_id`, `word`) e RLS (`user_id = auth.uid()`). Acesso anônimo conferido: negado (HTTP 401); falta testar dois usuários na parte 3
+- [x] Guardar o SQL das tabelas e políticas no repositório (`supabase/migrations/`)
+- [x] Client do Supabase em `src/core/supabase/` com sessão persistida (ainda sem uso; entra no container na parte 3)
+- [x] Tipos gerados pela CLI do Supabase (`src/core/supabase/database.types.ts`)
 - [x] Decidir com o autor se a confirmação de e-mail do Supabase fica desligada: desligada, sem login social (decisão do autor em 2026-11-05)
-- [ ] Desligar a confirmação de e-mail no painel do Supabase
-- [ ] Definir com o autor o que acontece ao sair (ex.: limpar os dados da conta do aparelho e voltar ao visitante)
+- [x] Desligar a confirmação de e-mail no painel do Supabase
+- [x] Definir com o autor o que acontece com os dados da conta no aparelho ao sair: são apagados do aparelho, e a pessoa continua como visitante (decisão do autor, 2026-11-06; implementação na parte 3)
 
 ### Parte 3 — Integração
 

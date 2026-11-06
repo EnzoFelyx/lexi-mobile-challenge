@@ -18,8 +18,11 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 - Estados reutilizáveis do Figma: campos de texto, e-mail e senha (erro, desabilitado, mostrar/ocultar senha), botão carregando, erro do formulário e header de login e cadastro, com os tokens de cor de erro e de desabilitado no claro e no escuro (contraste AA testado). As telas de login e cadastro, que usarão esses componentes, vêm a seguir. (`1c5b2b4`)
 - Telas de login e cadastro, com e-mail e senha, erros nos campos e no formulário, carregamento, ícones e contorno verde em foco. Em relação ao Figma: textos mais curtos, sem o card "rediscover" e sem os termos; o login ganha "Continue as guest". A autenticação ainda é de mentira (`wrong@example.com` e `taken@example.com` simulam os erros). (`8f38c24`)
 
+- Supabase: tabelas `favorites` e `history` com RLS (SQL em `supabase/migrations/`), client com a sessão salva no aparelho e tipos gerados. O client fica nulo sem o `.env` e ainda não é usado pelo app; acesso anônimo conferido como negado. Confirmação de e-mail desligada no painel. (`8a9b9b3`)
+
 ### Alterado
 
+- Senha mínima de 6 caracteres, igual ao padrão do painel do Supabase, no lugar dos 8 do Figma (decisão do autor). (`7ad75f0`)
 - O login passa a ser a primeira tela do app, com a conta opcional (decisão do autor, substitui a abertura na lista). A escolha do visitante fica salva, e quem tem sessão ou já escolheu abre direto na lista. Em Settings, Log in e Create account abrem as novas telas. Ao sair da conta, a pessoa continua no app como visitante. (`8f38c24`)
 - As telas de falha (lista, banco, histórico, favoritos e preparação do dicionário) passam ao layout "Recoverable error" do Figma, igual ao do estado vazio, sempre com o título "A brief pause." / "Uma breve pausa." e a explicação de cada caso (decisão do autor). (`1c5b2b4`)
 
