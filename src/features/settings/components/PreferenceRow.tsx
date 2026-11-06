@@ -12,16 +12,18 @@ interface PreferenceRowProps {
   accessibilityHint?: string;
 }
 
-const ROW = 'h-row flex-row items-center justify-between px-lg';
+const ROW = 'min-h-row flex-row items-center justify-between gap-md px-lg py-sm';
 
 /** Linha de preferência do Figma (56pt): rótulo à esquerda, valor atual e seta à direita. */
 export function PreferenceRow({ label, value, onPress, accessibilityHint }: PreferenceRowProps) {
   const { colors, sizes } = useTheme();
   const content = (
     <>
-      <AppText variant="body">{label}</AppText>
-      <View className="flex-row items-center gap-sm">
-        <AppText variant="subtitle" tone="secondary">
+      <AppText variant="body" className="flex-shrink">
+        {label}
+      </AppText>
+      <View className="flex-shrink flex-row items-center gap-sm">
+        <AppText variant="subtitle" tone="secondary" className="flex-shrink">
           {value}
         </AppText>
         <ChevronRight

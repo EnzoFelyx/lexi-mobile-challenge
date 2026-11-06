@@ -1,6 +1,7 @@
 import { UserRound } from 'lucide-react-native';
 import { Platform, Pressable, View } from 'react-native';
 
+import { MAX_COMPACT_FONT_SCALE } from '@/constants/accessibility';
 import { useTheme } from '@/core/theme/useTheme';
 import { useTexts } from '@/i18n/useTexts';
 import { isAndroid13OrNewer } from '@/shared/utils/nativeSheet';
@@ -32,19 +33,29 @@ export function AppHeader({ onAccountPress, onBack, showTagline = false }: AppHe
 
   return (
     <View
-      className={`h-header flex-row items-center justify-between px-xl ${STATUS_BAR_GAP_CLASS}`}
+      className={`h-header flex-row items-center justify-between gap-md px-xl ${STATUS_BAR_GAP_CLASS}`}
     >
       <View className="flex-row items-center gap-md">
         {onBack ? <BackButton onPress={onBack} /> : null}
         <View className="flex-row items-baseline gap-sm">
-          <AppText variant="logo" accessibilityRole="header">
+          <AppText
+            variant="logo"
+            accessibilityRole="header"
+            maxFontSizeMultiplier={MAX_COMPACT_FONT_SCALE}
+          >
             {t.appName}
           </AppText>
           <View className="h-brand-point w-brand-point rounded-pill bg-accent" />
         </View>
       </View>
       {showTagline ? (
-        <AppText variant="tagline" tone="secondary">
+        <AppText
+          variant="tagline"
+          tone="secondary"
+          numberOfLines={1}
+          maxFontSizeMultiplier={MAX_COMPACT_FONT_SCALE}
+          className="flex-shrink"
+        >
           {t.header.tagline}
         </AppText>
       ) : onAccountPress ? (

@@ -17,7 +17,7 @@ export function LoadMoreFooter({ status, onRetry }: LoadMoreFooterProps) {
   const t = useTexts();
   if (status === 'loading') {
     return (
-      <View className="h-xxl flex-row items-center justify-center gap-sm">
+      <View className="flex-row items-center justify-center gap-sm py-sm">
         <Spinner accessibilityLabel={t.words.loadingMore} />
         <AppText variant="note" tone="secondary">
           {t.words.loadingMore}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Animated, type LayoutChangeEvent, Pressable, StyleSheet, View } from 'react-native';
 
+import { MAX_COMPACT_FONT_SCALE } from '@/constants/accessibility';
 import { sizes, spacing } from '@/core/theme/theme';
 
 import { AppText, type TextTone, type TextVariant } from './AppText';
@@ -67,12 +68,22 @@ function MovingTabLabel({ label, index, position }: MovingTabLabelProps) {
     <View className="items-center justify-center">
       {/* O ativo é mais largo (semibold) e define o tamanho; sobre o outro, cortaria as letras. */}
       <Animated.View style={{ opacity: activeOpacity }}>
-        <AppText variant={labelVariant.active} tone={labelTone.active}>
+        <AppText
+          variant={labelVariant.active}
+          tone={labelTone.active}
+          numberOfLines={1}
+          maxFontSizeMultiplier={MAX_COMPACT_FONT_SCALE}
+        >
           {label}
         </AppText>
       </Animated.View>
       <Animated.View style={[styles.labelOverlay, { opacity: inactiveOpacity }]}>
-        <AppText variant={labelVariant.inactive} tone={labelTone.inactive}>
+        <AppText
+          variant={labelVariant.inactive}
+          tone={labelTone.inactive}
+          numberOfLines={1}
+          maxFontSizeMultiplier={MAX_COMPACT_FONT_SCALE}
+        >
           {label}
         </AppText>
       </Animated.View>
@@ -130,7 +141,12 @@ export function SegmentedTabs({ tabs, activeKey, onTabPress, position }: Segment
             {position ? (
               <MovingTabLabel label={tab.label} index={index} position={position} />
             ) : (
-              <AppText variant={labelVariant[tabState]} tone={labelTone[tabState]}>
+              <AppText
+                variant={labelVariant[tabState]}
+                tone={labelTone[tabState]}
+                numberOfLines={1}
+                maxFontSizeMultiplier={MAX_COMPACT_FONT_SCALE}
+              >
                 {tab.label}
               </AppText>
             )}

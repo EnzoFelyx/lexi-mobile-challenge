@@ -54,6 +54,7 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 - No Android, a voz do aparelho lia em inglês só se o aparelho estivesse em inglês: com `en-US`, o `expo-speech` caía no idioma do sistema; agora pede `en`. (`ef64ce7`)
 - No Android, o destaque e a cor da aba acompanham a posição das páginas, em vez de esperar a troca terminar. (`23eb2b6`)
 - Abaixo do Android 13, o detalhe abre em tela cheia: a folha nativa não abriu num Android 12 real, e a causa não foi identificada. (`9c19b32`)
+- Acessibilidade: a fonte do sistema escala até 200%, com limite de 130% no header, nas abas e na barra do detalhe; botões, campos, linhas e chips crescem com o texto em vez de cortá-lo; o leitor de tela do iOS lê as palavras do dicionário em inglês. (`3758aad`)
 
 ### Adicionado
 
@@ -68,6 +69,7 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 ### Documentação
 
 - O trabalho no Figma terminou (decisão do autor): o README avisa que o layout foi adaptado durante o desenvolvimento, e saem da lista as tarefas que dependiam dele.
+- Sem testes E2E com Maestro, por causa do prazo (decisão do autor): o diferencial 3 pede testes unitários ou E2E.
 
 ---
 

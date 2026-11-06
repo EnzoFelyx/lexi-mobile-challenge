@@ -9,7 +9,7 @@ interface PartOfSpeechChipProps {
 /** Chip de classe gramatical do Figma (noun, verb…): informativo, não é botão. */
 export function PartOfSpeechChip({ label }: PartOfSpeechChipProps) {
   return (
-    <View className="h-chip justify-center rounded-sm bg-accent-soft px-md">
+    <View className="min-h-chip justify-center rounded-sm bg-accent-soft px-md py-xxs">
       <AppText variant="chip" tone="accent">
         {label}
       </AppText>

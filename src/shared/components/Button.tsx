@@ -65,7 +65,7 @@ export function Button({
       accessibilityState={{ disabled: disabled || loading, busy: loading }}
       disabled={disabled || loading}
       onPress={onPress}
-      className={`h-button flex-row items-center justify-center gap-sm rounded-md border px-lg ${feedbackClass} ${containerClass[variant]} ${className ?? ''}`}
+      className={`min-h-button flex-row items-center justify-center gap-sm rounded-md border px-lg py-sm ${feedbackClass} ${containerClass[variant]} ${className ?? ''}`}
     >
       {loading ? (
         <Spinner color={iconColor[variant]} size={sizes.icon} />
@@ -76,7 +76,7 @@ export function Button({
           strokeWidth={sizes.iconStrokeWidth}
         />
       ) : null}
-      <AppText variant="button" tone={labelTone[variant]}>
+      <AppText variant="button" tone={labelTone[variant]} className="flex-shrink text-center">
         {label}
       </AppText>
     </Pressable>

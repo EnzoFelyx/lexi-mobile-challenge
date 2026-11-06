@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { View } from 'react-native';
 
+import { DICTIONARY_LANGUAGE } from '@/constants/accessibility';
 import { AppText } from '@/shared/components/AppText';
 
 interface HeadwordCardProps {
@@ -14,7 +15,11 @@ interface HeadwordCardProps {
 export function HeadwordCard({ word, phonetic, children }: HeadwordCardProps) {
   return (
     <View className="gap-sm rounded-lg bg-accent-soft p-lg-plus">
-      <AppText variant="headwordLarge" accessibilityRole="header">
+      <AppText
+        variant="headwordLarge"
+        accessibilityRole="header"
+        accessibilityLanguage={DICTIONARY_LANGUAGE}
+      >
         {word}
       </AppText>
       {phonetic ? (
