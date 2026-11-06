@@ -20,6 +20,11 @@ Reorganizada pelo autor em três partes: visual do Figma, Supabase e integraçã
 
 - Supabase: tabelas `favorites` e `history` com RLS (SQL em `supabase/migrations/`), client com a sessão salva no aparelho e tipos gerados. O client fica nulo sem o `.env` e ainda não é usado pelo app; acesso anônimo conferido como negado. Confirmação de e-mail desligada no painel. (`8a9b9b3`)
 - Login real com o Supabase e favoritos e histórico por conta: entrar, cadastrar e sair com os erros reais nas telas. Ao entrar, os dados do visitante passam para a conta, nova ou existente; cada mudança entra numa fila local e é enviada quando houver conexão; ao sair, os dados da conta são apagados do aparelho e voltam ao entrar de novo. Sem o `.env`, o app segue como visitante. Conferido pelo autor no aparelho. (`fd3eaad`)
+- Seta de voltar do header com o Liquid Glass no iOS 26 (pedido do autor), com `expo-glass-effect`; em iOS antigo e no Android, o botão comum. (`781431c`)
+
+### Documentação
+
+- Teste do RLS direto no servidor com dois usuários: 28 de 28 verificações passaram, em `favorites` e `history`.
 
 ### Removido
 
