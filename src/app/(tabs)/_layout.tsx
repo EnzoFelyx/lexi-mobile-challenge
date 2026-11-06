@@ -13,7 +13,9 @@ export default function TabsLayout() {
     <SafeAreaView edges={['top']} className="flex-1 bg-background">
       <AppHeader onAccountPress={openSettings} />
       <DictionaryGate>
-        <TopTabs tabBar={SegmentedTabBar} screenOptions={{ lazy: true }}>
+        {/* Sem `screenOptions={{ lazy: true }}`: com ele, o primeiro arrasto no iOS parava fora do
+            lugar (CLAUDE.md, seção 10). A causa exata não foi identificada. */}
+        <TopTabs tabBar={SegmentedTabBar}>
           <TopTabs.Screen name="index" options={{ title: t.tabs.words }} />
           <TopTabs.Screen name="history" options={{ title: t.tabs.history }} />
           <TopTabs.Screen name="favorites" options={{ title: t.tabs.favorites }} />
